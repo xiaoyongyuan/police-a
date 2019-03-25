@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import BreadcrumbCustom from "../BreadcrumbCustom";
-import {Select,Form,Table, DatePicker,Input, Row, Col, Button,LocaleProvider,Spin} from 'antd';
+import {Select,Form, DatePicker, Row, Col, Button,LocaleProvider,Spin, Modal,Icon} from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import '../../style/sjg/police.css';
+import nodata from "../../style/imgs/nodata.png";
+import AlarmDetail from "./AlarmDetail";
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
 class AlarmList extends Component {
-
+    constructor(props){
+        super(props);
+        this.state={
+            alarmImgType:false,
+        };
+    }
+    componentDidMount() {
+       
+    }
     selectopt = (e) => { //检索
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -22,6 +33,18 @@ class AlarmList extends Component {
             }
         })
     }
+
+    //查看报警详情
+    alarmImg =()=>{
+        this.setState({
+            alarmImgType:true,
+        })
+    }
+    handleCancelAlarmImg =()=>{
+        this.setState({
+            alarmImgType:false
+        })
+    };
     render() {
         const { getFieldDecorator } = this.props.form;
         return (          
@@ -61,10 +84,54 @@ class AlarmList extends Component {
                         </LocaleProvider>
                     </Col>
                 </Row>
-              
                 </div>
-                
+                 <div className="policeboy" onClick={()=>this.alarmImg()}>
+                    <div className="policeyuan">
+                        <div>1</div>
+                    </div>
+                    <div className="policelist"> 
+                        <div className="policeline"></div>
+                        <div className="policecon">
+                            <div className="policeinf">
+                                <div className="poltop">
+                                    <Row className="pol polone">
+                                        <Col span={4}>20190907</Col> 
+                                        <Col span={7}>长安区xx路yy店</Col>
+                                        <Col span={6}><span><Icon type="user-add" style={{color:"#2980F3"}} /> 报警人：</span><span>张三</span></Col>
+                                        <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} /> 联系电话：</span><span>13093939203</span></Col>
+                                    </Row>
+                                    <Row className="pol poltwo">
+                                       <Col span={24}><span className="powercolor">警情描述：</span><span>可疑人员在门口转悠，连续三天，疑似踩点。</span> </Col>
+                                    </Row>
+                                </div>
+                                <div className="dashed">
+                                    <Row className="pol polone">
+                                        <Col span={24}><span className="powercolor">接警人：</span><span>张警官</span></Col>
+                                    </Row>
+                                    <Row className="pol poltwo">
+                                       <Col span={24}><span className="powercolor">最新进展：</span><span>已出警抓获嫌疑人，突审中。</span> </Col>
+                                    </Row>
+                                </div>
+                                  
+                            </div>
+                            <div className="policeimg">
+                               <img src={nodata} alt=""/>
+                            </div>
+                        </div>
+                        
+                    </div>
+                 </div>
+                 <Modal
+                    width={1000}
+                    title="警情详情"
+                    visible={this.state.alarmImgType}
+                    onCancel={this.handleCancelAlarmImg}
+                    footer={null}
+                 >
+                    <AlarmDetail visible={this.state.alarmImgType} toson={this.state.toson} />
+                 </Modal>
             </div>
+           
             </LocaleProvider>
            
         )
