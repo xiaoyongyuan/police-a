@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import IntelligenceStatistics from "./IntelligenceStatistics";
 import UserStatistics from "./UserStatistics";
 import "../../style/ztt/css/homeIndex.css";
-import {Row,Col} from "antd";
+import {Row,Col,Progress} from "antd";
 import Map from "./Map";
 
 class HoneIndex extends Component {
@@ -40,7 +39,7 @@ class HoneIndex extends Component {
                   <div className="rightPolice">
                       <p><div>警情统计</div><div>共<span>230</span>个</div></p>
                       <div className="garden">
-                          <div className="statistics"><IntelligenceStatistics /></div>
+                          <div className="details"><Progress type="circle" percent={75}  /></div>
                       </div>
                   </div>
                   <div className="rightUser">

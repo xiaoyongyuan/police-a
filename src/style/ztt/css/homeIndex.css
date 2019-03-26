@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: row;
 }
+.details{
+    padding: 30px;
+}
 .homeIndex .homeIndex-left{
     width: 78%;
 }
@@ -22,9 +25,6 @@
 }
 .homeIndex .newestName{
     text-align: center;
-}
-.homeIndex .statistics{
-    width: 50%;
 }
 .homeIndex .rightPolice{
     border:1px solid #D8D8D8;
