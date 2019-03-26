@@ -99,7 +99,7 @@ class AlarmList extends Component {
                                         <Col span={4}>20190907</Col> 
                                         <Col span={7}>长安区xx路yy店</Col>
                                         <Col span={6}><span><Icon type="user-add" style={{color:"#2980F3"}} /> 报警人：</span><span>张三</span></Col>
-                                        <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} /> 联系电话：</span><span>13093939203</span></Col>
+                                        <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} className="iphone" /> 联系电话：</span><span>13093939203</span></Col>
                                     </Row>
                                     <Row className="pol poltwo">
                                        <Col span={24}><span className="powercolor">警情描述：</span><span>可疑人员在门口转悠，连续三天，疑似踩点。</span> </Col>
@@ -137,7 +137,7 @@ class AlarmList extends Component {
                                         <Col span={4}>20190907</Col> 
                                         <Col span={7}>长安区xx路yy店</Col>
                                         <Col span={6}><span><Icon type="user-add" style={{color:"#2980F3"}} /> 报警人：</span><span>张三</span></Col>
-                                        <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} /> 联系电话：</span><span>13093939203</span></Col>
+                                        <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} className="iphone" /> 联系电话：</span><span>13093939203</span></Col>
                                     </Row>
                                     <Row className="pol poltwo">
                                        <Col span={24}><span className="powercolor">警情描述：</span><span>可疑人员在门口转悠，连续三天，疑似踩点。</span> </Col>
