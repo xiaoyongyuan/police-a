@@ -50,9 +50,8 @@ class AlarmList extends Component {
         return (          
          <LocaleProvider locale={zh_CN}>
             <div className="AlarmList">
-                <BreadcrumbCustom first="报警管理" second="报警列表" />
                 <div className="shange">
-                <Row style={{marginBottom:'20px'}}>
+                <Row style={{margin:'1%'}}>
                     <Col span={18}>
                     <LocaleProvider locale={zh_CN}>
                         <Form layout="inline"onSubmit={this.selectopt}>
@@ -85,6 +84,7 @@ class AlarmList extends Component {
                     </Col>
                 </Row>
                 </div>
+                
                  <div className="policeboy" >
                  <a href={"#/app/alarm/AlarmDetail?id="+1+"&code="+2} className="underline">
                     <div className="policeyuan">
@@ -116,7 +116,7 @@ class AlarmList extends Component {
                                   
                             </div>
                             <div className="policeimg">
-                               <img src={nodata} alt=""/>
+                               <img src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg" alt=""/>
                             </div>
                         </div>
                         
@@ -154,7 +154,7 @@ class AlarmList extends Component {
                                   
                             </div>
                             <div className="policeimg">
-                               <img src={nodata} alt=""/>
+                               <img src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg" alt=""/>
                             </div>
                         </div>
                         
