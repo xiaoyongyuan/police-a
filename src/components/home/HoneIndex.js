@@ -15,7 +15,7 @@ class HoneIndex extends Component {
               <div className="homeIndex-left">
                   <div className="leftMap"><Map /></div>
                   <div className="leftNewest">
-                      <p className="titleHome">最新警情</p>
+                      <p className="titleHomeIndex">最新警情</p>
                       <Row>
                           <Col span={6} className="newestAlarm">
                               <div><img src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg" alt=""/></div>
@@ -45,7 +45,7 @@ class HoneIndex extends Component {
                       </div>
                   </div>
                   <div className="rightUser">
-                      <p className="titleHome">用户统计</p>
+                      <p className="titleHomeIndex">用户统计</p>
                       <div><UserStatistics /></div>
                   </div>
               </div>
