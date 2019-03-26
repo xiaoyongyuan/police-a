@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BreadcrumbCustom from "../BreadcrumbCustom";
 import {Timeline } from 'antd';
 import nodata from "../../style/imgs/nodata.png";
 class AlarmDetail extends Component {
@@ -8,13 +9,19 @@ class AlarmDetail extends Component {
             
         };
     }
-    componentDidMount() {
-       
+    componentWillMount=()=>{
+        this.setState({
+            id:this.props.query.id,
+            code:this.props.query.code
+        },()=>{
+            console.log('code--->id',this.state.id,this.state.code,this.props.query);
+        });
     }
     render() {
         return (
             <div className="AlarmDetail">
-               <div className="reportinf">
+             <BreadcrumbCustom first="报警管理" second="报警列表" />
+               <div className="reportinf" style={{marginTop:'30px'}}>
                   <div className="reportleft"> 
                    <div className="reportleft_img">
                       <img src={nodata} alt=""/>
@@ -55,7 +62,7 @@ class AlarmDetail extends Component {
                     处理进展
                    </div>
                   </div>
-                  <div className="reportright polTimeline"> 
+                  <div className="reportright polTimeline" style={{paddingLeft:'6%'}}> 
                         <Timeline>
                             <Timeline.Item>
                                <div className="linetime"> 2015-09-01 09:09:23 </div>

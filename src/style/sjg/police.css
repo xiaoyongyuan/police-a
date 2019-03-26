@@ -9,6 +9,7 @@
     box-sizing: border-box;
     border-radius: 6px;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 .policeyuan{
     display: flex;
@@ -17,6 +18,7 @@
     flex-wrap: nowrap;
     justify-content:center;
     text-align: center;
+    color: #fff;
 }
 .policeyuan>div{
     margin: 0 auto;
@@ -54,7 +56,7 @@
    color: #444
 }
 .policeinf{
-     width: 70%; 
+     width: 72%; 
     padding:10px;
 }
 .pol{
@@ -64,10 +66,12 @@
 }
 .policeimg{
     height:inherit;
-    width: auto;
+    width: 28%;
+    padding: 10px;
 }
 .policeimg>img{
     height:100%;
+    float: right;
 }
 .poltop{
     margin-bottom: 20px;
@@ -80,7 +84,7 @@
     color:#000;
 }
 
-.reportinf{
+.AlarmDetail .reportinf{
     display: flex;
     width: 96%;
     flex-direction:row;
@@ -90,6 +94,7 @@
     overflow: hidden;
     border: 1px solid #666;
     color: #444;
+   
 }
 .AlarmDetail .reportleft{
    width: 24%;
@@ -166,4 +171,13 @@
 }
 .linetext{
     color:#555;
+}
+
+.policeboy>.underline{
+    width: 100%;
+    display: flex;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+    box-sizing: border-box;
 }
