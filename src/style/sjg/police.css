@@ -1,0 +1,169 @@
+
+
+.policeboy{
+    display: flex;
+    width: 96%;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+    box-sizing: border-box;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.policeyuan{
+    display: flex;
+    width: 7%;
+    flex-direction:column;
+    flex-wrap: nowrap;
+    justify-content:center;
+    text-align: center;
+}
+.policeyuan>div{
+    margin: 0 auto;
+    width: 60px;
+    height:60px;
+    line-height: 60px;
+    background: #2980F3;
+    border-radius: 50%;
+
+}
+.policelist{
+    display: flex;
+    width: 92%;
+    flex-direction:column;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+    box-sizing: border-box;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px #999 solid;
+}
+
+.policeline{
+    width: 100%;
+    height:8px;
+    background: #2980F3;
+}
+.policecon{
+    display: flex;
+    width: 100%;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+    box-sizing: border-box;
+   color: #444
+}
+.policeinf{
+     width: 70%; 
+    padding:10px;
+}
+.pol{
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+}
+.policeimg{
+    height:inherit;
+    width: auto;
+}
+.policeimg>img{
+    height:100%;
+}
+.poltop{
+    margin-bottom: 20px;
+}
+.dashed{
+    border-top: 1px dashed #888;
+    padding-top: 10px;
+}
+.powercolor{
+    color:#000;
+}
+
+.reportinf{
+    display: flex;
+    width: 96%;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid #666;
+    color: #444;
+}
+.AlarmDetail .reportleft{
+   width: 24%;
+   height: auto;
+   background: #90CDFD;
+   color: #fff;
+}
+.AlarmDetail .reportright{
+    width: 76%;
+    height: auto;
+    padding-left: 10px;
+}
+.reportright>div{
+    line-height:38px;
+}
+.reportleft_img{
+    padding:10px 0;
+    width:50%;
+    height:auto;
+    margin: 0 auto;
+}
+.reportleft_text{
+    width:100%;
+    text-align: center;
+}
+.reportleft_img>img{
+    width:100%;
+    height:auto;
+}
+
+.handle{
+    margin-top: 10px;
+}
+.w{
+    display:block;
+    width:auto;
+}
+.describe{
+    width:84%;
+    height:300px;
+    float: left;
+    border: 1px solid #444;
+    margin: 6px 0 20px 0;
+}
+.floatleft{
+    float: left;
+}
+.polinp{
+    height: 30px;
+    line-height: 30px;
+    padding-left: 5px;
+}
+.rig{
+    display: block;
+    width:12%;
+    float: left;
+    text-align: right;
+   font-weight: 600;
+}
+.rigvalue{
+    display: block;
+    width:84%;
+    float: left;
+}
+.march{
+    margin-top: 10px;
+}
+.polTimeline{
+    margin-top: 20px;
+}
+.linetime{
+    font-weight: 600;
+    color:#000;
+}
+.linetext{
+    color:#555;
+}
