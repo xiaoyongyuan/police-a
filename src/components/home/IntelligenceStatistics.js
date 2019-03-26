@@ -14,16 +14,22 @@ class IntelligenceStatistics extends Component{
                 }
             },
             color: ['rgba(176, 212, 251, 1)'],
-            legend: {
+            legend: [{
                 show: true,
                 itemGap: 12,
-                data: ['雁塔区'],
-            },
-            series: [{
+                data: ['雁塔区','长安区'],
+            },{
+                show: true,
+                itemGap: 12,
+                data: ['雁塔区','长安区'],
+            }],
+            series: [
+                {
                 name: 'Line 1',
                 type: 'pie',
-                clockWise: true,
+                clockWise: false,
                 radius: ['50%', '63%'],
+                x:'0%',
                 itemStyle: {
                     normal: {
                         label: {
@@ -35,7 +41,8 @@ class IntelligenceStatistics extends Component{
                     }
                 },
                 hoverAnimation: false,
-                data: [{
+                data: [
+                    {
                     value: 40,
                     name: '雁塔区',
                     itemStyle: {
@@ -57,11 +64,101 @@ class IntelligenceStatistics extends Component{
                             }
                         }
                     }
-                }, {
+                },
+                    {
                     name: '02',
-                    value: 20
+                    value: 20}
+                    ]
+            },{
+                    name: 'Line 1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['50%', '63%'],
+                    x:'0%',
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
+                        }
+                    },
+                    hoverAnimation: false,
+                    data: [
+                        {
+                            value: 40,
+                            name: '雁塔区',
+                            itemStyle: {
+                                normal: {
+                                    color: { // 完成的圆环的颜色
+                                        colorStops: [{
+                                            offset: 0,
+                                            color: '#00cefc' // 0% 处的颜色
+                                        }, {
+                                            offset: 1,
+                                            color: '#367bec' // 100% 处的颜色
+                                        }]
+                                    },
+                                    label: {
+                                        show: false
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            name: '02',
+                            value: 20}
+                    ]
+                },{
+                    name: 'Line 1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['50%', '63%'],
+                    x:'0%',
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
+                        }
+                    },
+                    hoverAnimation: false,
+                    data: [
+                        {
+                            value: 40,
+                            name: '雁塔区',
+                            itemStyle: {
+                                normal: {
+                                    color: { // 完成的圆环的颜色
+                                        colorStops: [{
+                                            offset: 0,
+                                            color: '#00cefc' // 0% 处的颜色
+                                        }, {
+                                            offset: 1,
+                                            color: '#367bec' // 100% 处的颜色
+                                        }]
+                                    },
+                                    label: {
+                                        show: false
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            name: '02',
+                            value: 20}]
                 }]
-            }]
         };
         return(
             <ReactEcharts

@@ -41,7 +41,6 @@ class HoneIndex extends Component {
                       <p><div>警情统计</div><div>共<span>230</span>个</div></p>
                       <div className="garden">
                           <div className="statistics"><IntelligenceStatistics /></div>
-                          <div className="statistics"><IntelligenceStatistics /></div>
                       </div>
                   </div>
                   <div className="rightUser">

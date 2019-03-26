@@ -26,24 +26,29 @@
 .homeIndex .statistics{
     width: 50%;
 }
-.rightPolice{
+.homeIndex .rightPolice{
     border:1px solid #D8D8D8;
 }
-.rightPolice p{
+.homeIndex .rightPolice p{
     display: inline-block;
     width: 100%;
 }
-.rightPolice p div:nth-child(1){
+.homeIndex .rightPolice p div:nth-child(1){
     float: left;
     margin-left: 20px;
+    font-weight: bolder;
 }
-.rightPolice p div:nth-child(2){
+.homeIndex .rightPolice p div:nth-child(2){
     float: right;
     margin-right: 30px;
 }
-.rightPolice span{
+.homeIndex .rightPolice span{
     color: red;
 }
-.titleHomeIndex{
+.homeIndex .titleHomeIndex{
     margin-left: 20px!important;
+    font-weight: bolder;
+}
+.homeIndex .leftNewest{
+    border: 1px solid #D8D8D8;
 }
