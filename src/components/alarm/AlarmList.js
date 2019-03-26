@@ -85,7 +85,8 @@ class AlarmList extends Component {
                     </Col>
                 </Row>
                 </div>
-                 <div className="policeboy" onClick={()=>this.alarmImg()}>
+                 <div className="policeboy" >
+                 <a href={"#/app/alarm/AlarmDetail?id="+1+"&code="+2} className="underline">
                     <div className="policeyuan">
                         <div>1</div>
                     </div>
@@ -120,7 +121,47 @@ class AlarmList extends Component {
                         </div>
                         
                     </div>
+                    </a>
                  </div>
+                 <div className="policeboy" >
+                 <a href={"#/app/alarm/AlarmDetail?id="+3+"&code="+4} className="underline">
+                    <div className="policeyuan">
+                        <div>2</div>
+                    </div>
+                    <div className="policelist"> 
+                        <div className="policeline"></div>
+                        <div className="policecon">
+                            <div className="policeinf">
+                                <div className="poltop">
+                                    <Row className="pol polone">
+                                        <Col span={4}>20190907</Col> 
+                                        <Col span={7}>长安区xx路yy店</Col>
+                                        <Col span={6}><span><Icon type="user-add" style={{color:"#2980F3"}} /> 报警人：</span><span>张三</span></Col>
+                                        <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} /> 联系电话：</span><span>13093939203</span></Col>
+                                    </Row>
+                                    <Row className="pol poltwo">
+                                       <Col span={24}><span className="powercolor">警情描述：</span><span>可疑人员在门口转悠，连续三天，疑似踩点。</span> </Col>
+                                    </Row>
+                                </div>
+                                <div className="dashed">
+                                    <Row className="pol polone">
+                                        <Col span={24}><span className="powercolor">接警人：</span><span>张警官</span></Col>
+                                    </Row>
+                                    <Row className="pol poltwo">
+                                       <Col span={24}><span className="powercolor">最新进展：</span><span>已出警抓获嫌疑人，突审中。</span> </Col>
+                                    </Row>
+                                </div>
+                                  
+                            </div>
+                            <div className="policeimg">
+                               <img src={nodata} alt=""/>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </a>
+                 </div>
+                
                  <Modal
                     width={1000}
                     title="警情详情"
@@ -130,6 +171,7 @@ class AlarmList extends Component {
                  >
                     <AlarmDetail visible={this.state.alarmImgType} toson={this.state.toson} />
                  </Modal>
+                 
             </div>
            
             </LocaleProvider>
