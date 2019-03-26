@@ -17,22 +17,22 @@ class UserStatistics extends Component{
             value: 25
         }, {
             name: '公司A5',
-            value: 30
+            value: 20
         }, {
             name: '公司A6',
-            value: 35
+            value: 25
         }, {
             name: '公司A7',
-            value: 40
+            value: 20
         }, {
             name: '公司A8',
-            value: 45
+            value: 35
         }, {
             name: '公司A9',
-            value: 50
+            value: 30
         }, {
             name: '公司A10',
-            value: 55
+            value: 25
         }];
 
         const seriesData = [];
