@@ -20,8 +20,7 @@ class AlarmDetail extends Component {
     render() {
         return (
             <div className="AlarmDetail">
-             <BreadcrumbCustom first="报警管理" second="报警列表" />
-               <div className="reportinf" style={{marginTop:'30px'}}>
+               <div className="reportinf">
                   <div className="reportleft"> 
                    <div className="reportleft_img">
                       <img src={nodata} alt=""/>
@@ -49,7 +48,10 @@ class AlarmDetail extends Component {
                   <div className="reportright"> 
                       <div><span className=" rig">接警人：</span><span className="rigvalue">张警官</span></div>
                       <div><span className=" rig">案件编号：</span><span className="rigvalue"><input placeholder="79078671" className="polinp" /></span></div>
-                      <div><span className=" floatleft w rig">案件描述：</span> <div className="describe floatleft"></div></div>
+                      <div>
+                          <span className=" floatleft w rig">案件描述：</span>
+                           <textarea id="describe" className="describe" placeholder="案件描述..."></textarea>
+                      </div>
                   </div>
                 </div>
           
@@ -62,7 +64,7 @@ class AlarmDetail extends Component {
                     处理进展
                    </div>
                   </div>
-                  <div className="reportright polTimeline" style={{paddingLeft:'6%'}}> 
+                  <div className="reportright polTimeline" style={{paddingLeft:'5%'}}> 
                         <Timeline>
                             <Timeline.Item>
                                <div className="linetime"> 2015-09-01 09:09:23 </div>
