@@ -5,6 +5,18 @@ import {Row,Col,Progress} from "antd";
 import Map from "./Map";
 
 class HoneIndex extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            list:[
+                {name:"雁塔区",number:"23"},
+                {name:"长安区",number:"34"},
+                {name:"莲湖区",number:"56"},
+                {name:"未央区",number:"25"},
+                {name:"灞桥区",number:"89"},
+            ]
+        };
+    }
     componentDidMount() {
 
     }
@@ -39,7 +51,11 @@ class HoneIndex extends Component {
                   <div className="rightPolice">
                       <p><div>警情统计</div><div>共<span>230</span>个</div></p>
                       <div className="garden">
-                          <div className="details"><Progress type="circle" percent={75}  /></div>
+                          {
+                              this.state.list.map((v,i)=>(
+                                  <div className="details" key={i}><Progress type="circle" percent={v.number} /><div className="detailsName">{v.name}</div></div>
+                              ))
+                          }
                       </div>
                   </div>
                   <div className="rightUser">

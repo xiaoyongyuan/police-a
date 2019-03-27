@@ -1,9 +1,15 @@
 .homeIndex,.garden{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
-.details{
-    padding: 30px;
+.homeIndex .details{
+    padding: 5px 20px;
+}
+.homeIndex .detailsName{
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
 }
 .homeIndex .homeIndex-left{
     width: 78%;
