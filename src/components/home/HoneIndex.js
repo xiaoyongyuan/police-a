@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import UserStatistics from "./UserStatistics";
 import "../../style/ztt/css/homeIndex.css";
 import {Row,Col,Progress} from "antd";
+import axios from "axios";
+
 import Map from "./Map";
 
 class HoneIndex extends Component {
