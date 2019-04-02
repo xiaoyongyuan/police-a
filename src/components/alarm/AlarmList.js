@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BreadcrumbCustom from "../BreadcrumbCustom";
 import {Select,Form, DatePicker, Row, Col, Button,LocaleProvider,Spin, Modal,Icon} from 'antd';
+import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/police.css';
 import nodata from "../../style/imgs/nodata.png";
