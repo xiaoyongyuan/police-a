@@ -11,11 +11,11 @@ class HoneIndex extends Component {
         super(props);
         this.state={
             list:[
-                {name:"雁塔区",number:"23"},
-                {name:"长安区",number:"34"},
-                {name:"莲湖区",number:"56"},
-                {name:"未央区",number:"25"},
-                {name:"灞桥区",number:"89"},
+                {name:"雁塔区",number:23},
+                {name:"长安区",number:34},
+                {name:"莲湖区",number:56},
+                {name:"未央区",number:25},
+                {name:"灞桥区",number:89},
             ]
         };
     }
@@ -51,7 +51,7 @@ class HoneIndex extends Component {
               </div>
               <div className="homeIndex-right">
                   <div className="rightPolice">
-                      <p><div>警情统计</div><div>共<span>230</span>个</div></p>
+                      <p><span className="policeStatistics">警情统计</span><span className="numberAlarm">共<span>230</span>个</span></p>
                       <div className="garden">
                           {
                               this.state.list.map((v,i)=>(

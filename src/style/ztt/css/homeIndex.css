@@ -39,17 +39,16 @@
     display: inline-block;
     width: 100%;
 }
-.homeIndex .rightPolice p div:nth-child(1){
+.homeIndex .policeStatistics{
     float: left;
     margin-left: 20px;
     font-weight: bolder;
 }
-.homeIndex .rightPolice p div:nth-child(2){
+.homeIndex .numberAlarm{
     float: right;
     margin-right: 30px;
-}
-.homeIndex .rightPolice span{
     color: red;
+    font-weight: bolder;
 }
 .homeIndex .titleHomeIndex{
     margin-left: 20px!important;
