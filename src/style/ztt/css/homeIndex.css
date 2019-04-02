@@ -47,6 +47,8 @@
 .homeIndex .numberAlarm{
     float: right;
     margin-right: 30px;
+}
+.homeIndex .number{
     color: red;
     font-weight: bolder;
 }

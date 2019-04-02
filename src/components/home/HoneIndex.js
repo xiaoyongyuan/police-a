@@ -51,7 +51,7 @@ class HoneIndex extends Component {
               </div>
               <div className="homeIndex-right">
                   <div className="rightPolice">
-                      <p><span className="policeStatistics">警情统计</span><span className="numberAlarm">共<span>230</span>个</span></p>
+                      <p><span className="policeStatistics">警情统计</span><span className="numberAlarm">共<span className="number">230</span>个</span></p>
                       <div className="garden">
                           {
                               this.state.list.map((v,i)=>(
