@@ -32,7 +32,7 @@ class Login extends React.Component {
             if (!err) {
                 //获取到的表单的值values
                 const { fetchData } = this.props;
-                fetchData({funcName: 'webapp', url:'/login/verifyforadmin', params:values, stateName:'auth'});
+                fetchData({funcName: 'webapp', url:'/login/verify_cop', params:values, stateName:'auth'});
             }
         });
     };
@@ -46,10 +46,17 @@ class Login extends React.Component {
                     </div>
                     <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px'}}>
                         <FormItem>
+                            {getFieldDecorator('comid', {
+                                rules: [{ required: true, message: '地区编码!' }],
+                            })(
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="610100000000" />
+                            )}
+                        </FormItem>
+                        <FormItem>
                             {getFieldDecorator('account', {
                                 rules: [{ required: true, message: '请输入用户名!' }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入用户名" />
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="police" />
                             )}
                         </FormItem>
                         <FormItem>
