@@ -1,0 +1,34 @@
+{
+  "success": true,
+  "data": [{
+      "code": 1203,
+      "lat": 34.335823,
+      "lng": 109.003382,
+      "name": "测试账号",
+      "location": "陕西省西安市",
+      "addrname": "张三",
+      "addrtel": 13560790543,
+      "type": 0
+    },
+    {
+      "code": 1203,
+      "lat": 34.33475,
+      "lng": 108.926199,
+      "name": "测试账号",
+      "location": "陕西省西安市",
+      "addrname": "张三",
+      "addrtel": 13560790543,
+      "type": 1
+    },
+    {
+      "code": 1203,
+      "lat": 34.353587,
+      "lng": 108.959401,
+      "name": "测试账号",
+      "location": "陕西省西安市",
+      "addrname": "张三",
+      "addrtel": 13560790543,
+      "type": 1
+    }
+  ]
+}
