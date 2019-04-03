@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import BreadcrumbCustom from "../BreadcrumbCustom";
 import {Timeline } from 'antd';
+import "../../style/sjg/police.css";
 import nodata from "../../style/imgs/nodata.png";
 class AlarmDetail extends Component {
     constructor(props){
@@ -30,10 +30,14 @@ class AlarmDetail extends Component {
                    </div>
                   </div>
                   <div className="reportright"> 
-                      <div><span className=" rig">报警时间：</span><span className="rigvalue">2019-12-12 09:09:30</span></div>
-                      <div><span className=" rig">案发地点：</span><span className="rigvalue">丈八六路西安理工大学科技园北门</span></div>
-                      <div><span className=" rig">报警人：</span><span className="rigvalue">张三-138929890</span></div>
-                      <div><span className=" rig">警情描述：</span><span className="rigvalue">楼下杨啊龙拿着一把杀猪刀。</span></div>
+                      <div className="report"><span className="rig">报警时间：</span><span className="rigvalue">2019-12-12 09:09:30</span></div>
+                      <div className="report"><span className="rig">案发地点：</span><span className="rigvalue">丈八六路西安理工大学科技园北门</span></div>
+                      <div className="report"><span className="rig">报警人：</span><span className="rigvalue">张三-138929890</span></div>
+                      <div className="report"><span className="rig">警情描述：</span><span className="rigvalue">楼下杨啊龙拿着一把杀猪刀。</span></div>
+                      <div className="reportImg">
+                          <div className="reportImgLeft"><img src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg" alt="" /></div>
+                          <div className="reportImgRight"><img src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg" alt="" /></div>
+                      </div>
                   </div>
                 </div>
                 <div className="handle reportinf">
@@ -46,8 +50,8 @@ class AlarmDetail extends Component {
                    </div>
                   </div>
                   <div className="reportright"> 
-                      <div><span className=" rig">接警人：</span><span className="rigvalue">张警官</span></div>
-                      <div><span className=" rig">案件编号：</span><span className="rigvalue"><input placeholder="79078671" className="polinp" /></span></div>
+                      <div className="report"><span className="rig">接警人：</span><span className="rigvalue">张警官</span></div>
+                      <div className="report"><span className="rig">日期：</span><span className="rigvalue">2019-4-3</span></div>
                       <div>
                           <span className=" floatleft w rig">案件描述：</span>
                            <textarea id="describe" className="describe" placeholder="案件描述..."></textarea>

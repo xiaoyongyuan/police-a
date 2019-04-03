@@ -87,7 +87,7 @@
 }
 
 .AlarmDetail {
-  max-width: 1400px;
+  max-width: 1300px;
   padding: 20px;
 }
 .AlarmDetail .reportinf{
@@ -113,7 +113,7 @@
     height: auto;
     padding-left: 10px;
 }
-.reportright>div{
+.reportright .report,.reportright .report{
     line-height:38px;
 }
 .reportleft_img{
@@ -139,10 +139,10 @@
     width:auto;
 }
 .describe{
-    width:70%;
-    height:200px;
+    width:60%;
+    height:100px;
     float: left;
-    border: 1px solid #444;
+    border: 1px solid #D3D3D3;
     margin: 6px 0 20px 0;
     padding:0 10px;
 }
@@ -159,7 +159,7 @@
     width:10%;
     float: left;
     text-align: right;
-   font-weight: 600;
+    font-weight: 600;
 }
 .rigvalue{
     display: block;
@@ -195,4 +195,18 @@
     -webkit-transform: rotate(180deg);	/* Safari and Chrome */
     -o-transform: rotate(180deg);		/* Opera */
     -moz-transform: rotate(180deg);		/* Firefox */
+}
+.reportImg{
+    width: 70%;
+    margin: 10px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+}
+.reportImgLeft,.reportImgRight{
+    padding:15px;
+}
+.reportImgLeft img,.reportImgRight img{
+    width: 100%;
+    height: 100%;
 }
