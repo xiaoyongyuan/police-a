@@ -11,21 +11,23 @@ import pointBlue from "../../style/jhy/imgs/point2.jpg";
 class Map extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      markerList: props.markerList
-    };
   }
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
-
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.homeMoudle.markerList != this.state.markerList) {
+      this.state.markerList = nextProps.markerList;
+      console.log("父组件传来的数据", nextProps.markerList);
+    }
+  }
   initializeMap = () => {
-    console.log("父组件传来的数据", this.state.markerList);
+    const { markerList } = this.props;
     const routerhistory = this.context.router.history;
     var map = new BMap.Map("mapContainer"); // 创建Map实例
     map.centerAndZoom("西安", 15);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-    this.state.markerList.map((v, i) => {
+    markerList.map((v, i) => {
       if (v.count === "") {
         console.log("---------=========------");
         var pt = new BMap.Point(v.lng, v.lat);
@@ -65,6 +67,7 @@ class Map extends Component {
 
 const mapState = state => {
   return {
+    markerList: state.homeMoudle.markerList,
     deviceInfo: state.homeMoudle.deviceInfo
   };
 };
