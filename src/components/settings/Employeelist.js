@@ -42,7 +42,13 @@ class Adminteam extends Component {
         };
         post({url:"/api/usercop/getlist",data:datas},(res)=>{
             if(res.success){
-                if(res.data.length>1){
+                console.log(res.data.length);
+                if(res.data.length>=1){
+                    this.setState({
+                        list:res.data,
+                        loading:false
+                    })
+                }else{
                     this.setState({
                         list:res.data,
                         loading:false
