@@ -9,9 +9,6 @@ import pointRed from "../../style/jhy/imgs/point.jpg";
 import pointBlue from "../../style/jhy/imgs/point2.jpg";
 
 class Map extends Component {
-  constructor(props) {
-    super(props);
-  }
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
