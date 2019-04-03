@@ -17,15 +17,14 @@ class Map extends Component {
     this.initializeMap(nextProps);
   }
   initializeMap = nextProps => {
-    const { markerList } = nextProps;
-    const { deviceInfo, getDeviceInfo } = this.props;
+    const { markerList, deviceInfo } = nextProps;
+    const { getDeviceInfo } = this.props;
     const routerhistory = this.context.router.history;
     var map = new BMap.Map("mapContainer"); // 创建Map实例
     map.centerAndZoom("西安", 15);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     markerList.map((v, i) => {
       if (v.count === "") {
-        console.log("---------=========------");
         var pt = new BMap.Point(v.lng, v.lat);
         var myIcon = new BMap.Icon(`${pointBlue}`, new BMap.Size(35, 40));
         var marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
