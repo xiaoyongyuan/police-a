@@ -6,6 +6,7 @@ import * as type from "./type";
 // import * as http from '../axios/tools';
 import axios from "axios";
 import { message } from "antd";
+import { post } from "../axios/tools.js";
 
 const requestData = category => ({
   type: type.REQUEST_DATA,
@@ -45,18 +46,60 @@ export const fetchData = ({ funcName, url, params, stateName }) => dispatch => {
       message.warn("接口异常");
     });
 };
-//获取地图标记
-export const getMarker = dispatch => {
-  axios
-    .get(
-      "https://www.easy-mock.com/mock/5ca1c7b3ca21ee4a2d8dba7c/api/marker/getMarker"
-    )
-    .then(res => {
-      if (res.data.success === true) {
-        dispatch({ type: type.GET_MARKER, payload: res.data.data });
+
+export const getMarker = () => {
+  //取标记
+  return dispatch => {
+    post({ url: "/api/camera_cop/getlist" }, res => {
+      if (res.success === 1) {
+        dispatch({ type: type.GET_MARKER, payload: res.data });
       }
-    })
-    .catch(err => {
-      console.log("标记出错", err);
     });
+  };
+};
+export const getDeviceInfo = params => {
+  //查看设备详情
+  return dispatch => {
+    post({ url: "/api/camera_cop/getone", data: { code: params } }, res => {
+      if (res.success === 1) {
+        dispatch({ type: type.GET_DEVICEINFO, payload: res.data });
+      }
+    });
+  };
+};
+export const getDeviceStatistics = () => {
+  //获取设备统计
+  return dispatch => {
+    post({ url: "/api/camera_cop/gets_by_zone" }, res => {
+      if (res.success === 1) {
+        dispatch({ type: type.GET_DEVICESTATISTICS, payload: res.data });
+      }
+    });
+  };
+};
+export const getAlarmStatistics = () => {
+  //获取警报统计
+  return dispatch => {
+    post({ url: "/api/alarmhandle_cop/gets_by_zone" }, res => {
+      if (res.success === 1) {
+        dispatch({
+          type: type.GET_ALARMSTATISTICS,
+          payload: res.data
+        });
+      }
+    });
+  };
+};
+export const getAlarmRecord = () => {
+  //获取警报最新十条记录
+  return dispatch => {
+    post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
+      if (res.success === 1) {
+        dispatch({
+          type: type.GET_ALARMRECORD,
+          payload: res.data
+        });
+      }
+    });
+  };
 };

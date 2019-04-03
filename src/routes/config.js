@@ -8,7 +8,12 @@ export default {
                 { key: '/app/alarm/AlarmList', title: '警报', component: 'AlarmList'},
                 { key: '/app/alarm/AlarmSta', title: '警报统计', component: 'AlarmSta'},       
             ],
-        },        
+        }, 
+        {
+            key: '/app/settings', title: '系统管理' , identi:['comp','comptop','user'], icon: 'bars', funct:'basic',
+            subs: [
+                { key: '/app/settings/employeelist', identi:['comp','comptop','user'], title: '用户管理', funct:'basic', component: 'Employeelist'},             ],
+        },       
     ],
     // 非菜单相关路由
     others: [

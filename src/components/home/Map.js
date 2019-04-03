@@ -1,61 +1,33 @@
 import React, { Component } from "react";
-import { getMarker } from "@/action";
 import { connect } from "react-redux";
+import * as homeActions from "../../action/index";
+
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
 import BMap from "BMap";
 import pointRed from "../../style/jhy/imgs/point.jpg";
 import pointBlue from "../../style/jhy/imgs/point2.jpg";
 
-class MapWrap extends Component {
+class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapJson: [
-        {
-          code: 1203,
-          lat: 34.335823,
-          lng: 109.003382,
-          name: "测试账号",
-          location: "陕西省西安市",
-          addrname: "张三",
-          addrtel: 13560790543,
-          type: 0
-        },
-        {
-          code: 1203,
-          lat: 34.33475,
-          lng: 108.926199,
-          name: "测试账号",
-          location: "陕西省西安市",
-          addrname: "张三",
-          addrtel: 13560790543,
-          type: 1
-        },
-        {
-          code: 1203,
-          lat: 34.353587,
-          lng: 108.959401,
-          name: "测试账号",
-          location: "陕西省西安市",
-          addrname: "张三",
-          addrtel: 13560790543,
-          type: 1
-        }
-      ]
+      markerList: props.markerList
     };
   }
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
+
   initializeMap = () => {
+    console.log("父组件传来的数据", this.state.markerList);
     const routerhistory = this.context.router.history;
     var map = new BMap.Map("mapContainer"); // 创建Map实例
     map.centerAndZoom("西安", 15);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-    this.state.mapJson.forEach((v, i) => {
-      if (v.type === 0) {
+    this.state.markerList.map((v, i) => {
+      if (v.count === "") {
+        console.log("---------=========------");
         var pt = new BMap.Point(v.lng, v.lat);
         var myIcon = new BMap.Icon(`${pointRed}`, new BMap.Size(35, 40));
         var marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
@@ -71,7 +43,7 @@ class MapWrap extends Component {
           map.openInfoWindow(infoWindow, pt); //开启信息窗口
         });
         map.addOverlay(marker); // 将标注添加到地图中
-      } else if (v.type === 1) {
+      } else if (v.count > 0) {
         var pt2 = new BMap.Point(v.lng, v.lat);
         var myIcon2 = new BMap.Icon(`${pointBlue}`, new BMap.Size(35, 40));
         var marker2 = new BMap.Marker(pt2, { icon: myIcon2 }); // 创建标注
@@ -84,8 +56,6 @@ class MapWrap extends Component {
   };
 
   componentDidMount() {
-    console.log(this.state.mapJson, "555");
-    console.log(this.context.router);
     this.initializeMap();
   }
   render() {
@@ -93,6 +63,19 @@ class MapWrap extends Component {
   }
 }
 
-const Map = connect()(MapWrap);
-
-export default Map;
+const mapState = state => {
+  return {
+    deviceInfo: state.homeMoudle.deviceInfo
+  };
+};
+const mapDispatch = dispatch => {
+  return {
+    getDeviceInfo() {
+      dispatch(homeActions.getDeviceInfo());
+    }
+  };
+};
+export default connect(
+  mapState,
+  mapDispatch
+)(Map);

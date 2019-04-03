@@ -9,6 +9,9 @@ import AlarmList from './alarm/AlarmList';
 import AlarmSta from './alarm/AlarmSta';
 import AlarmDetail from './alarm/AlarmDetail';
 
+//账号管理
+import Employeelist from './settings/Employeelist';
+
 
 
 
@@ -21,4 +24,5 @@ export default {
 
     HoneIndex
     ,AlarmList ,AlarmSta ,AlarmDetail
+    ,Employeelist
 }
