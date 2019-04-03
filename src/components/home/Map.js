@@ -16,13 +16,12 @@ class Map extends Component {
     router: PropTypes.object.isRequired
   };
   componentWillReceiveProps(nextProps) {
-    if (nextProps.homeMoudle.markerList != this.state.markerList) {
-      this.state.markerList = nextProps.markerList;
-      console.log("父组件传来的数据", nextProps.markerList);
-    }
+    // console.log("父组件传来的数据", markerList);
+    this.initializeMap(nextProps);
   }
-  initializeMap = () => {
-    const { markerList } = this.props;
+  initializeMap = nextProps => {
+    const { markerList } = nextProps;
+    const { deviceInfo, getDeviceInfo } = this.props;
     const routerhistory = this.context.router.history;
     var map = new BMap.Map("mapContainer"); // 创建Map实例
     map.centerAndZoom("西安", 15);
@@ -31,7 +30,7 @@ class Map extends Component {
       if (v.count === "") {
         console.log("---------=========------");
         var pt = new BMap.Point(v.lng, v.lat);
-        var myIcon = new BMap.Icon(`${pointRed}`, new BMap.Size(35, 40));
+        var myIcon = new BMap.Icon(`${pointBlue}`, new BMap.Size(35, 40));
         var marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
         var opts = {
           width: 200, // 信息窗口宽度
@@ -42,12 +41,14 @@ class Map extends Component {
         };
         var infoWindow = new BMap.InfoWindow(`地址：${v.location}`, opts); // 创建信息窗口对象
         marker.addEventListener("click", function() {
+          getDeviceInfo(v.code);
+          console.log("deviceInfo的数据", deviceInfo);
           map.openInfoWindow(infoWindow, pt); //开启信息窗口
         });
         map.addOverlay(marker); // 将标注添加到地图中
       } else if (v.count > 0) {
         var pt2 = new BMap.Point(v.lng, v.lat);
-        var myIcon2 = new BMap.Icon(`${pointBlue}`, new BMap.Size(35, 40));
+        var myIcon2 = new BMap.Icon(`${pointRed}`, new BMap.Size(35, 40));
         var marker2 = new BMap.Marker(pt2, { icon: myIcon2 }); // 创建标注
         marker2.addEventListener("click", function() {
           routerhistory.push("/app/alarm/AlarmDetail");
@@ -57,9 +58,7 @@ class Map extends Component {
     });
   };
 
-  componentDidMount() {
-    this.initializeMap();
-  }
+  componentDidMount() {}
   render() {
     return <div id="mapContainer" style={{ width: "100%", height: "600px" }} />;
   }
@@ -67,14 +66,13 @@ class Map extends Component {
 
 const mapState = state => {
   return {
-    markerList: state.homeMoudle.markerList,
     deviceInfo: state.homeMoudle.deviceInfo
   };
 };
 const mapDispatch = dispatch => {
   return {
-    getDeviceInfo() {
-      dispatch(homeActions.getDeviceInfo());
+    getDeviceInfo(params) {
+      dispatch(homeActions.getDeviceInfo(params));
     }
   };
 };
