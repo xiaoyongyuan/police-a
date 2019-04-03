@@ -12,7 +12,7 @@ import AlarmDetail from './alarm/AlarmDetail';
 //账号管理
 import Employeelist from './settings/Employeelist';
 
-
+import CascaderModule from './common/CascaderModule'; //省市区三级联动
 
 
 // const WysiwygBundle = Loadable({ // 按需加载富文本配置
@@ -25,4 +25,5 @@ export default {
     HoneIndex
     ,AlarmList ,AlarmSta ,AlarmDetail
     ,Employeelist
+    ,CascaderModule
 }
