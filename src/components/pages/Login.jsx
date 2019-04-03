@@ -2,22 +2,34 @@
  * Created by hao.cheng on 2017/4/16.
  */
 import React from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox,message } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchData, receiveData } from '@/action';  //action->index按需取
 import bg from '../../style/imgs/bg.jpg';
 import axios from 'axios';
+import CascaderModule from '../common/CascaderModule';
+
 
 const FormItem = Form.Item;
+const logincomcode = localStorage.getItem("loginzonecode");
+const loginaccount = localStorage.getItem("loginpoliceaccount");
 class Login extends React.Component {
     componentWillMount() {
         const { receiveData } = this.props;
         receiveData(null, 'auth');
     }
+    componentDidMount() {
+    this.props.form.setFieldsValue({
+      comid: logincomcode && logincomcode != "undefined" ? logincomcode : null,
+      account: loginaccount && loginaccount != "undefined" ? loginaccount : null
+    });
+  }
     componentDidUpdate(prevProps) { 
         const { auth: nextAuth = {}, history } = this.props;
         if (nextAuth.data && nextAuth.data.success) {
+            localStorage.setItem("loginzonecode", nextAuth.data.data.companycode);
+            localStorage.setItem("loginpoliceaccount", nextAuth.data.data.account);
             localStorage.setItem('policetoken', nextAuth.data.token);
             localStorage.setItem('policeuser', JSON.stringify(nextAuth.data.data));
             localStorage.setItem('policecomid', nextAuth.data.data.companycode);
@@ -36,6 +48,9 @@ class Login extends React.Component {
             }
         });
     };
+    onRef = (ref) => {
+      this.child = ref
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -47,16 +62,18 @@ class Login extends React.Component {
                     <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px'}}>
                         <FormItem>
                             {getFieldDecorator('comid', {
-                                rules: [{ required: true, message: '地区编码!' }],
+                                rules: [{ required: false, message: '地区编码!' }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="610100000000" />
+                            <Input prefix={<Icon type="bank" style={{ fontSize: 13 }} />} placeholder="请输入地区编码" />
+                            
                             )}
                         </FormItem>
                         <FormItem>
                             {getFieldDecorator('account', {
                                 rules: [{ required: true, message: '请输入用户名!' }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="police" />
+                                
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入用户名" />
                             )}
                         </FormItem>
                         <FormItem>
