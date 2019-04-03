@@ -18,10 +18,10 @@ class Login extends React.Component {
     componentDidUpdate(prevProps) { 
         const { auth: nextAuth = {}, history } = this.props;
         if (nextAuth.data && nextAuth.data.success) {
-            localStorage.setItem('admintoken', nextAuth.data.token);
-            localStorage.setItem('adminuser', JSON.stringify(nextAuth.data.data));
-            localStorage.setItem('admincomid', nextAuth.data.data.companycode);
-            localStorage.setItem('adminaccount', nextAuth.data.data.account);
+            localStorage.setItem('policetoken', nextAuth.data.token);
+            localStorage.setItem('policeuser', JSON.stringify(nextAuth.data.data));
+            localStorage.setItem('policecomid', nextAuth.data.data.companycode);
+            localStorage.setItem('policeaccount', nextAuth.data.data.account);
             history.push('/');
         }
     }

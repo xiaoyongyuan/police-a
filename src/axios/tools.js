@@ -20,9 +20,9 @@ const Httpurl=window.g.url;
  * @param headers   接口所需header配置
  */
 export const post = async({url, msg = '接口异常',data={}},callback) =>{
-  const token=localStorage.getItem('admintoken');
-  const comid=localStorage.getItem('admincomid');
-  const account=localStorage.getItem('adminaccount');
+  const token=localStorage.getItem('policetoken');
+  const comid=localStorage.getItem('policecomid');
+  const account=localStorage.getItem('policeaccount');
 
   if(!account||account=='undefined'||!token||!comid || token=='undefined' || comid=='undefined'){
     window.location.href="#/login"

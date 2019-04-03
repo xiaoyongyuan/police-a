@@ -22,7 +22,7 @@ class HeaderCustom extends Component {
         visible: false,
     };
     componentDidMount() {
-        const _user = JSON.parse(localStorage.getItem('adminuser'));
+        const _user = JSON.parse(localStorage.getItem('policeuser'));
         if(!_user){
             this.props.history.push('/login');
         }else{
@@ -43,7 +43,8 @@ class HeaderCustom extends Component {
         e.key === 'logout' && this.logout();
     };
     logout = () => { //退出
-        localStorage.removeItem('adminuser');
+        localStorage.removeItem('policeuser');
+        localStorage.removeItem('policetoken');
         this.props.history.push('/login')
     };
     popoverHide = () => {
