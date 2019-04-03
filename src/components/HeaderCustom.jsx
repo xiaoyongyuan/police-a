@@ -57,6 +57,7 @@ class HeaderCustom extends Component {
     };
     render() {
         const { responsive, path } = this.props;
+        console.log('this.props.user',this.props.user)
         return (
             <Header className="custom-theme header" >
                 {
@@ -85,9 +86,9 @@ class HeaderCustom extends Component {
                             <Icon type="notification" />
                         </Badge>
                     </Menu.Item>*/}
-                    <SubMenu title={<span className="avatar"><img src={this.props.user.utype?icon_user:icon_admin}  alt="头像" /><i className="on bottom b-white" /></span>}>
+                    <SubMenu title={<span className="avatar"><img src={!this.props.user.userstatus?icon_user:icon_admin}  alt="头像" /><i className="on bottom b-white" /></span>}>
                         <MenuItemGroup title="用户中心">
-                            <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
+                            <Menu.Item key="setting:1">你好 - {this.props.user.account}</Menu.Item>
                             {/*<Menu.Item key="setting:2">个人信息</Menu.Item>*/}
                             <Menu.Item key="logout"><span onClick={this.logout}>退出登录</span></Menu.Item>
                         </MenuItemGroup>
@@ -103,7 +104,6 @@ class HeaderCustom extends Component {
 }
 
 const mapStateToProps = state => {  
-// const  {responsive}=state.httpData;
     const { responsive = {data: {}} } = state.httpData;
     console.log("state",state)
     console.log("responsive",responsive)
