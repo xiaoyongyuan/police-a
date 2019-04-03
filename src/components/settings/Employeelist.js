@@ -26,8 +26,8 @@ class Adminteam extends Component {
     }
     componentWillMount() {
         this.setState({
-            zonecode:localStorage.getItem('admincomid'),
-            adminuser:JSON.parse(localStorage.getItem('adminuser'))
+            zonecode:localStorage.getItem('policecomid'),
+            adminuser:JSON.parse(localStorage.getItem('policeuser'))
         });
     }
 

@@ -19,7 +19,7 @@ class App extends Component {
     };
     componentWillMount() {
         const { receiveData } = this.props;
-        const user = localStorage.getItem('adminuser');
+        const user = localStorage.getItem('policeuser');
         if(user && user != 'undefined'){ //此处判断有没有登录
             user && receiveData(JSON.parse(user), 'auth');
         }else{
