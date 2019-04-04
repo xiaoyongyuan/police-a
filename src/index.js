@@ -1,20 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk'; //使用redux-thunk中间件，改造store.dispatch，使其可以接受函数作为参数。
-import { createStore, applyMiddleware } from 'redux';
-import reducer from './reducer';
-import { AppContainer } from 'react-hot-loader'; //热加载
-import Page from './Page';
-import './style/lib/animate.css';
-import './style/antd/index.less';
-import './style/index.less';
+import React from "react";
+import ReactDOM from "react-dom";
+import * as serviceWorker from "./serviceWorker";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk"; //使用redux-thunk中间件，改造store.dispatch，使其可以接受函数作为参数。
+import { createStore, applyMiddleware, compose } from "redux";
+import reducer from "./reducer";
+import { AppContainer } from "react-hot-loader"; //热加载
+import Page from "./Page";
+import "./style/lib/animate.css";
+import "./style/antd/index.less";
+import "./style/index.less";
 
-// redux 注入操作
-const middleware = [thunk];
-const store = createStore(reducer, applyMiddleware(...middleware));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+  : compose;
 
+const enhancer = composeEnhancers(applyMiddleware(thunk));
+
+const store = createStore(reducer, enhancer);
 
 // const render = Component => { // 增加react-hot-loader保持状态刷新操作，如果不需要可去掉并把下面注释的打开
 //     ReactDOM.render(
@@ -50,13 +53,12 @@ const store = createStore(reducer, applyMiddleware(...middleware));
 // }
 
 ReactDOM.render(
-    <AppContainer>
-        <Provider store={store}>
-            <Page store={store} />
-        </Provider>
-    </AppContainer>
- ,
-  document.getElementById('root')
+  <AppContainer>
+    <Provider store={store}>
+      <Page store={store} />
+    </Provider>
+  </AppContainer>,
+  document.getElementById("root")
 );
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

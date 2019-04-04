@@ -1,6 +1,12 @@
 /**
  * Created by 叶子 on 2017/7/30.
  */
-export const REQUEST_DATA = 'REQUEST_DATA';
+export const REQUEST_DATA = "REQUEST_DATA";
 
-export const RECEIVE_DATA = 'RECEIVE_DATA';
+export const RECEIVE_DATA = "RECEIVE_DATA";
+
+export const GET_MARKER = "GET_MARKER";
+export const GET_DEVICEINFO = "GET_DEVICEINFO";
+export const GET_DEVICESTATISTICS = "GET_DEVICESTATISTICS";
+export const GET_ALARMSTATISTICS = "GET_ALARMSTATISTICS";
+export const GET_ALARMRECORD = "GET_ALARMRECORD";
