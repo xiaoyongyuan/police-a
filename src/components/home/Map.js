@@ -20,11 +20,22 @@ class Map extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    // console.log("父组件传来的数据", markerList);
     this.initializeMap(nextProps);
   }
+  getDerivedStateFromProps(props, state) {
+    this.updateData(props);
+  }
+  updateData = params => {
+    // const { getDeviceInfo } = this.props;
+    console.log(
+      "弹窗点击之后获取的数据传给自定义的值",
+      this.myDevice.deviceInfo
+    );
+    this.myDevice.deviceInfo = params;
+  };
   initializeMap = nextProps => {
     const { markerList } = nextProps;
+    this.updateData(this.myDevice.deviceInfo);
     const { getDeviceInfo } = this.props;
     const routerhistory = this.context.router.history;
     var map = new BMap.Map("mapContainer"); // 创建Map实例
@@ -35,23 +46,25 @@ class Map extends Component {
         var pt = new BMap.Point(v.lng, v.lat);
         var myIcon = new BMap.Icon(`${pointBlue}`, new BMap.Size(35, 40));
         var marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
-        const deviceinfoCont = () => (
-          <div style={{ width: "200px" }}>
-            <p>账号：{this.myDevice.deviceInfo.adminaccount}</p>
-            <p>用户名：{this.myDevice.deviceInfo.adminname}</p>
-            <p>
-              地址：{this.myDevice.deviceInfo.city_name}
-              {this.myDevice.deviceInfo.county_name}
-              {this.myDevice.deviceInfo.town_name}
-              {this.myDevice.deviceInfo.village_name}
-            </p>
-          </div>
-        );
-        var infoWindow = new BMap.InfoWindow(deviceinfoCont); // 创建信息窗口对象
+        var opts = {
+          width: 200, // 信息窗口宽度
+          height: 100, // 信息窗口高度
+          title: `账号:${
+            this.myDevice.deviceInfo.adminaccount
+          }&nbsp;&nbsp;&nbsp;用户名:${this.myDevice.deviceInfo.adminname}` // 信息窗口标题
+          // enableMessage: true,//设置允许信息窗发送短息
+          // message: ""
+        };
+        var infoWindow = new BMap.InfoWindow(
+          `地址${this.myDevice.deviceInfo.city_name}${
+            this.myDevice.deviceInfo.town_name
+          }${this.myDevice.deviceInfo.village_name}`,
+          opts
+        ); // 创建信息窗口对象
         marker.addEventListener("click", function() {
           getDeviceInfo(v.code);
 
-          map.openInfoWindow(infoWindow); //开启信息窗口
+          map.openInfoWindow(infoWindow, new BMap.Point(v.lng, v.lat)); //开启信息窗口
         });
         map.addOverlay(marker); // 将标注添加到地图中
       } else if (v.count > 0) {

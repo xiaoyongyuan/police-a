@@ -42,6 +42,9 @@ class HoneIndex extends Component {
     const { alarmRecord } = this.props;
     const { alarmStatistics } = this.props;
     const { deviceStatistics } = this.props;
+    const total = alarmStatistics.reduce((inittotal, item) => {
+      return inittotal + item.count;
+    }, 0);
 
     return (
       <div className="homeIndex">
@@ -78,29 +81,42 @@ class HoneIndex extends Component {
           </div>
         </div>
 
-        <div className="homeIndex-right">
-          <div className="rightPolice">
-            <p>
-              <div>警情统计</div>
-              <div>
-                共<span>{alarmStatistics.length}</span>个
-              </div>
-            </p>
+        <div className="homeIndex-right" style={{ boxSing: "border-box" }}>
+          <div className="rightPoliceWrap">
+            <div className="rightPolice">
+              <p style={{ fontSize: "22px" }}>
+                警情统计
+                <span
+                  style={{
+                    fontSize: "18px",
+                    display: "inline-block",
+                    marginLeft: "180px"
+                  }}
+                >
+                  共{total}个
+                </span>
+              </p>
+            </div>
             <div className="garden">
               {alarmStatistics.map((v, i) => (
                 <div className="details" key={i}>
                   <Progress
                     type="circle"
-                    percent={v.count}
+                    percent={(v.count / total) * 100}
                     width={100}
                     strokeWidth={5}
+                    format={percent => `${percent}`}
                   />
                   <div className="detailsName">{v.name}</div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rightUser">
+
+          <div
+            className="rightUser"
+            style={{ height: "70%", marginBottom: "-1px" }}
+          >
             <p className="titleHomeIndex">设备统计</p>
             <div>
               <UserStatistics deviceStatistics={deviceStatistics} />
