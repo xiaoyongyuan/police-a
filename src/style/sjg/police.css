@@ -111,11 +111,8 @@
 .AlarmDetail .reportright{
     width: 84%;
     height: auto;
-    padding-left: 10px;
 }
-.reportright .report,.reportright .report{
-    line-height:38px;
-}
+
 .reportleft_img{
     padding:10px 0;
     width:50%;
@@ -155,11 +152,10 @@
     padding-left: 5px;
 }
 .rig{
-    display: block;
-    width:10%;
-    float: left;
+    display: inline-block;
+    width: 9%;
     text-align: right;
-    font-weight: 600;
+    font-weight: bolder;
 }
 .rigvalue{
     display: block;
@@ -197,16 +193,26 @@
     -moz-transform: rotate(180deg);		/* Firefox */
 }
 .reportImg{
-    width: 70%;
-    margin: 10px;
-    padding-left: 10px;
+    width: 78%;
+    height: 200px;
     display: flex;
     flex-direction: row;
+    margin-left: 10px;
 }
 .reportImgLeft,.reportImgRight{
-    padding:15px;
+    padding:12px;
 }
-.reportImgLeft img,.reportImgRight img{
+.reportImgLeft img,.reportImgRight video{
     width: 100%;
     height: 100%;
+}
+.AlarmDetail .fontStyle{
+    display: inline-block;
+    width: 9%;
+    text-align: right;
+    font-weight: bolder;
+}
+.pagination{
+    width: 100%;
+    text-align: center;
 }
