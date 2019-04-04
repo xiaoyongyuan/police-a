@@ -5,6 +5,7 @@ import { Row, Col, Progress, Carousel, message } from "antd";
 import { connect } from "react-redux";
 import * as homeActions from "../../action/index";
 import Map from "./Map";
+// import Swiper from "swiper";
 
 class HoneIndex extends Component {
   constructor(props) {
@@ -19,14 +20,28 @@ class HoneIndex extends Component {
       ]
     };
   }
+
   componentDidMount() {
-    const { getMarker } = this.props;
+    const {
+      getMarker,
+      getDeviceStatistics,
+      getAlarmStatistics,
+      getAlarmRecord
+    } = this.props;
     getMarker();
+    getDeviceStatistics();
+    getAlarmStatistics();
+    getAlarmRecord();
+    // const swiper = new Swiper(".swiperContainer", {
+    //   autoplay: true //可选选项，自动滑动
+    // });
   }
 
   render() {
     const { markerList } = this.props;
-    console.log("父组件的markerList", markerList);
+    const { alarmRecord } = this.props;
+    const { alarmStatistics } = this.props;
+    const { deviceStatistics } = this.props;
 
     return (
       <div className="homeIndex">
@@ -36,44 +51,30 @@ class HoneIndex extends Component {
           </div>
           <div className="leftNewest">
             <p className="titleHomeIndex">最新警情</p>
-            <Row>
-              <Col span={6} className="newestAlarm">
-                <div>
-                  <img
-                    src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg"
-                    alt=""
-                  />
+            <div>
+              {alarmRecord.map((item, index) => {
+                return (
+                  <div key={index} style={{ display: "inline-block" }}>
+                    <img src={item.pic_min} alt="" />
+                    <p>
+                      {item.city_name}
+                      {item.county_name}
+                      {item.town_name}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+            {/* <div>
+              2222222222222222222222222222222
+              <div className="swiperContainer">
+                <div className="swiperWrapper">
+                  <div className="swiperSlide">slider1</div>
+                  <div className="swiperSlide">slider2</div>
+                  <div className="swiperSlide">slider3</div>
                 </div>
-                <p className="newestName">西安理工大</p>
-              </Col>
-              <Col span={6} className="newestAlarm">
-                <div>
-                  <img
-                    src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg"
-                    alt=""
-                  />
-                </div>
-                <p className="newestName">西安理工大</p>
-              </Col>
-              <Col span={6} className="newestAlarm">
-                <div>
-                  <img
-                    src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg"
-                    alt=""
-                  />
-                </div>
-                <p className="newestName">西安理工大</p>
-              </Col>
-              <Col span={6} className="newestAlarm">
-                <div>
-                  <img
-                    src="http://pic01.aokecloud.cn/alarm/1000021/pic/20190325/EFGABC017_20190325170848_640X360.jpg"
-                    alt=""
-                  />
-                </div>
-                <p className="newestName">西安理工大</p>
-              </Col>
-            </Row>
+              </div>
+            </div> */}
           </div>
         </div>
 
@@ -82,22 +83,27 @@ class HoneIndex extends Component {
             <p>
               <div>警情统计</div>
               <div>
-                共<span>230</span>个
+                共<span>{alarmStatistics.length}</span>个
               </div>
             </p>
             <div className="garden">
-              {this.state.list.map((v, i) => (
+              {alarmStatistics.map((v, i) => (
                 <div className="details" key={i}>
-                  <Progress type="circle" percent={v.number} />
+                  <Progress
+                    type="circle"
+                    percent={v.count}
+                    width={100}
+                    strokeWidth={5}
+                  />
                   <div className="detailsName">{v.name}</div>
                 </div>
               ))}
             </div>
           </div>
           <div className="rightUser">
-            <p className="titleHomeIndex">用户统计</p>
+            <p className="titleHomeIndex">设备统计</p>
             <div>
-              <UserStatistics />
+              <UserStatistics deviceStatistics={deviceStatistics} />
             </div>
           </div>
         </div>

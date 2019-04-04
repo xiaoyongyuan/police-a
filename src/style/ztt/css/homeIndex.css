@@ -1,61 +1,81 @@
-.homeIndex,.garden{
+.homeIndex,
+.garden {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
-.homeIndex .details{
+
+.homeIndex .details {
     padding: 5px 20px;
 }
-.homeIndex .detailsName{
+
+.details .ant-progress-circle .ant-progress-inner {
+    background-color: #b4ffd7;
+}
+
+.homeIndex .detailsName {
     width: 100%;
     text-align: center;
     padding: 10px 0;
 }
-.homeIndex .homeIndex-left{
+
+.homeIndex .homeIndex-left {
     width: 78%;
 }
-.homeIndex .homeIndex-right{
+
+.homeIndex .homeIndex-right {
     width: 22%;
-    border:1px solid #D8D8D8;
+    border: 1px solid #D8D8D8;
 }
-.homeIndex .homeIndex-right{
+
+.homeIndex .homeIndex-right {
     display: flex;
     flex-direction: column;
 }
-.homeIndex .newestAlarm{
+
+.homeIndex .newestAlarm {
     padding: 20px;
 }
-.homeIndex .newestAlarm img{
+
+.homeIndex .newestAlarm img {
     width: 100%;
     height: 100%;
 }
-.homeIndex .newestName{
+
+.homeIndex .newestName {
     text-align: center;
 }
-.homeIndex .rightPolice{
-    border:1px solid #D8D8D8;
+
+.homeIndex .rightPolice {
+    border: 1px solid #D8D8D8;
 }
-.homeIndex .rightPolice p{
+
+.homeIndex .rightPolice p {
     display: inline-block;
     width: 100%;
 }
-.homeIndex .policeStatistics{
+
+.homeIndex .policeStatistics {
     float: left;
     margin-left: 20px;
     font-weight: bolder;
 }
-.homeIndex .numberAlarm{
+
+.homeIndex .numberAlarm {
     float: right;
     margin-right: 30px;
 }
-.homeIndex .number{
+
+.homeIndex .number {
     color: red;
     font-weight: bolder;
 }
-.homeIndex .titleHomeIndex{
-    margin-left: 20px!important;
+
+.homeIndex .titleHomeIndex {
+    margin-left: 20px !important;
     font-weight: bolder;
 }
-.homeIndex .leftNewest{
+
+.homeIndex .leftNewest {
     border: 1px solid #D8D8D8;
 }
