@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Select,Form, DatePicker, Row, Col, Button,LocaleProvider,Modal,Icon,Pagination} from 'antd';
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
 import '../../style/sjg/police.css';
 import nodata from "../../style/imgs/nodata.png";
 import CascaderModule from "../common/CascaderModule";
@@ -14,7 +15,8 @@ class AlarmList extends Component {
         super(props);
         this.state= {
             alarmImgType: false,
-            callPoliceList: []
+            callPoliceList: [],
+            page:1
         }
     }
     componentDidMount(){
@@ -22,10 +24,11 @@ class AlarmList extends Component {
        
     }
     callPolice=()=>{
-      post({url:"/api/alarmhandle_cop/getlist"},(res)=>{
+      post({url:"/api/alarmhandle_cop/getlist",data:{pagesize:3,pageindex:this.state.page}},(res)=>{
           if(res.success){
               this.setState({
-                  callPoliceList:res.data
+                  callPoliceList:res.data,
+                  totalcount:res.totalcount
               })
           }
       })
@@ -116,8 +119,7 @@ class AlarmList extends Component {
     };
     render() {
         const { getFieldDecorator } = this.props.form;
-        return (          
-         <LocaleProvider locale={zh_CN}>
+        return (
             <div className="AlarmList">
                 <div className="shange">
                 <Row style={{margin:'1%'}}>
@@ -182,7 +184,7 @@ class AlarmList extends Component {
                         </div>
                     ))
                 }
-                <div className="pagination"><Pagination pageSize={4} current={this.state.page} onChange={this.handlepage} /></div>
+                <div className="pagination"><Pagination defaultCurrent={1} current={this.state.page} total={13} onChange={this.handlepage} hideOnSinglePage={true}/></div>
                  <Modal
                     width={1000}
                     title="警情详情"
@@ -192,11 +194,8 @@ class AlarmList extends Component {
                  >
                     <AlarmDetail visible={this.state.alarmImgType} toson={this.state.toson} />
                  </Modal>
-                 
+
             </div>
-           
-            </LocaleProvider>
-           
         )
     }
 }
