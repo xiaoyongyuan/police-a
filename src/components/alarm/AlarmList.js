@@ -14,7 +14,8 @@ class AlarmList extends Component {
         super(props);
         this.state= {
             alarmImgType: false,
-            callPoliceList: []
+            callPoliceList: [],
+            page:1
         }
     }
     componentDidMount(){
@@ -22,10 +23,11 @@ class AlarmList extends Component {
        
     }
     callPolice=()=>{
-      post({url:"/api/alarmhandle_cop/getlist"},(res)=>{
+      post({url:"/api/alarmhandle_cop/getlist",data:{pagesize:3,pageindex:this.state.page}},(res)=>{
           if(res.success){
               this.setState({
-                  callPoliceList:res.data
+                  callPoliceList:res.data,
+                  totalcount:res.totalcount
               })
           }
       })
@@ -182,7 +184,7 @@ class AlarmList extends Component {
                         </div>
                     ))
                 }
-                <div className="pagination"><Pagination pageSize={4} current={this.state.page} onChange={this.handlepage} /></div>
+                <div className="pagination"><Pagination hideOnSinglePage={true} defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} onChange={this.handlepage} /></div>
                  <Modal
                     width={1000}
                     title="警情详情"

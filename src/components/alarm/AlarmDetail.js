@@ -1,31 +1,46 @@
 import React, { Component } from 'react';
-import {Timeline,Button } from 'antd';
+import {Timeline,Form,Checkbox,Button } from 'antd';
 import "../../style/sjg/police.css";
 import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
 class AlarmDetail extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            treatment:[]
+        };
+    }
     componentWillMount() {
         this.setState({
             id:this.props.query.id,
         });
     }
     componentDidMount() {
-        post({url:"/api/alarmhandle_cop/getone",data:{code:this.state.id}},(res)=>{
-            if(res.success){
-                console.log(res.data[0].atime,"000");
-              this.setState({
-                  atime:res.data[0].atime,
-                  address:res.data[0].province_name+res.data[0].city_name+res.data[0].county_name+res.data[0].town_name+res.data[0].village_name,
-                  adminname:res.data[0].adminname,
-                  lastmemo:res.data[0].lastmemo,
-                  pic_min:res.data[0].pic_min,
-                  videopath:res.data[0].videopath,
-              });
-            }
-        })
+       this.getone();
     }
-
+    getone=()=>{
+        if(this.state.id){
+            post({url:"/api/alarmhandle_cop/getone",data:{code:this.state.id}},(res)=>{
+                if(res.success){
+                    this.setState({
+                        atime:res.data[0].atime,
+                        address:res.data[0].province_name+res.data[0].city_name+res.data[0].county_name+res.data[0].town_name+res.data[0].village_name,
+                        adminname:res.data[0].adminname,
+                        lastmemo:res.data[0].lastmemo,
+                        pic_min:res.data[0].pic_min,
+                        videopath:res.data[0].videopath,
+                        treatment:res.data.detail,
+                        astatus:res.data[0].astatus,
+                    });
+                }
+            })
+        }
+    };
+    onChange=(e)=>{
+        console.log(`checked = ${e.target.checked}`);
+    };
     render() {
+        const { getFieldDecorator } = this.props.form;
         return (
             <div className="AlarmDetail">
                 <div className="reportinf">
@@ -57,12 +72,31 @@ class AlarmDetail extends Component {
                             处理信息
                         </div>
                     </div>
-                    <div className="reportright">
-                        <p><span className="fontStyle">警情处理：</span><Button type="primary">接警</Button><Button type="primary">结束</Button></p>
-                        <div>
-                            <span className=" floatleft w rig">案件描述：</span>
-                            <textarea id="describe" className="describe" placeholder="案件描述..."></textarea>
-                        </div>
+                    <div className="reportright" style={{display:this.state.astatus===3?"none":"inline-block"}}>
+                        <Form layout="vertical" onSubmit={this.handleSubmit}>
+                            <Form.Item label="警情处理:"
+                                labelCol={{span: 2}}
+                                wrapperCol={{ span: 12}}
+                                labelAlign="right"
+                            >
+                                {getFieldDecorator('userName')(
+                                    <span><Checkbox onChange={this.onChange} style={{display:this.state.astatus===1 || this.state.astatus===2?"none":"inline-block"}}>接警</Checkbox><Checkbox onChange={this.onChange}>结束</Checkbox></span>
+                                )}
+                            </Form.Item>
+                            <Form.Item label="案件描述:"
+                               labelCol={{span: 2}}
+                               wrapperCol={{ span: 12}}
+                            >
+                                {getFieldDecorator('userName')(
+                                    <span><textarea className="case" placeholder="案件描述..." /></span>
+                                )}
+                            </Form.Item>
+                            <Form.Item
+                                wrapperCol={{ span: 12, offset: 6 }}
+                            >
+                                <Button type="primary" htmlType="submit">处理</Button>
+                            </Form.Item>
+                        </Form>
                     </div>
                 </div>
                 <div className="march reportinf">
@@ -75,21 +109,16 @@ class AlarmDetail extends Component {
                         </div>
                     </div>
                     <div className="reportright polTimeline" style={{paddingLeft:'5%'}}>
-                        <Timeline>
-                            <Timeline.Item>
-                                <div className="linetime"> 2015-09-01 09:09:23 </div>
-                                <div className="linetext"> 犯罪嫌疑人归案，已结案。 </div>
-                            </Timeline.Item>
-                            <Timeline.Item>
-                                <div className="linetime"> 2015-08-30 09:09:23 </div>
-                                <div className="linetext"> 接警，张警官负责。 </div>
-                            </Timeline.Item>
-                            <Timeline.Item>
-                                <div className="linetime"> 2015-08-28 09:09:23 </div>
-                                <div className="linetext"> 张三报警，楼下有不法分子。 </div>
-                            </Timeline.Item>
-
-                        </Timeline>,
+                        {
+                            this.state.treatment.map((v,i)=>(
+                                <Timeline key={i}>
+                                    <Timeline.Item>
+                                        <div className="linetime">{v.handlemen}&nbsp;&nbsp;{v.createon}</div>
+                                        <div className="linetext">{v.memo}</div>
+                                    </Timeline.Item>
+                                </Timeline>
+                            ))
+                        }
                     </div>
                 </div>
             </div>
@@ -97,4 +126,4 @@ class AlarmDetail extends Component {
     }
 }
 
-export default AlarmDetail;
+export default AlarmDetail=Form.create()(AlarmDetail);
