@@ -46,11 +46,13 @@
     text-align: center;
 }
 
-.homeIndex .rightPolice {
-    border: 1px solid #D8D8D8;
+.homeIndex .rightPoliceWrap {
+    box-sizing: border-box;
+    padding: 5%;
 }
 
-.homeIndex .rightPolice p {
+.homeIndex .rightPolice {
+    margin: 10px;
     display: inline-block;
     width: 100%;
 }

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import UserStatistics from "./UserStatistics";
 import "../../style/ztt/css/homeIndex.css";
-import Swiper from 'swiper/dist/js/swiper.js'
-import 'swiper/dist/css/swiper.min.css'
+import Swiper from "swiper/dist/js/swiper.js";
+import "swiper/dist/css/swiper.min.css";
 import { Row, Col, Progress, Carousel, message } from "antd";
 import { connect } from "react-redux";
 import * as homeActions from "../../action/index";
@@ -24,12 +24,12 @@ class HoneIndex extends Component {
   }
 
   componentDidMount() {
-      new Swiper('.leftNewest', {
-          autoplay: true,//可选选项，自动滑动
-          slidesPerView : 3,
-          centeredSlides : true,
-      });
-      const {
+    new Swiper(".leftNewest", {
+      autoplay: true, //可选选项，自动滑动
+      slidesPerView: 3,
+      centeredSlides: true
+    });
+    const {
       getMarker,
       getDeviceStatistics,
       getAlarmStatistics,
@@ -39,7 +39,7 @@ class HoneIndex extends Component {
     getDeviceStatistics();
     getAlarmStatistics();
     getAlarmRecord();
-    // const swiper = new Swiper(".swiperContainer", {
+    // const swiper = new Swiper(".swiper-container", {
     //   autoplay: true //可选选项，自动滑动
     // });
   }
@@ -49,6 +49,9 @@ class HoneIndex extends Component {
     const { alarmRecord } = this.props;
     const { alarmStatistics } = this.props;
     const { deviceStatistics } = this.props;
+    const total = alarmStatistics.reduce((inittotal, item) => {
+      return inittotal + item.count;
+    }, 0);
 
     return (
       <div className="homeIndex">
@@ -57,18 +60,26 @@ class HoneIndex extends Component {
             <Map markerList={markerList} />
           </div>
           <div className="leftNewest" id="leftNewest">
-              <div className="swiper-container">
-                  <div className="swiper-wrapper">
-                    <div className="swiper-slide" style={{background:"red"}}>23232</div>
-                      <div className="swiper-slide">dfdfdf</div>
-                      <div className="swiper-slide">hkjhk</div>
-                      <div className="swiper-slide">34323</div>
-                      <div className="swiper-slide">fh4545</div>
-
-                  </div>
+            {/* <div className="swiper-container">
+              <div className="swiper-wrapper">
+                <div className="swiper-slide" style={{ background: "red" }}>
+                  23232
+                </div>
+                <div className="swiper-slide">dfdfdf</div>
+                <div className="swiper-slide">hkjhk</div>
+                <div className="swiper-slide">34323</div>
+                <div className="swiper-slide">fh4545</div>
               </div>
+            </div> */}
             <p className="titleHomeIndex">最新警情</p>
-            <div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "nowrap",
+                overflowX: "scroll"
+              }}
+            >
               {alarmRecord.map((item, index) => {
                 return (
                   <div key={index} style={{ display: "inline-block" }}>
@@ -95,29 +106,42 @@ class HoneIndex extends Component {
           </div>
         </div>
 
-        <div className="homeIndex-right">
-          <div className="rightPolice">
-            <p>
-              <div>警情统计</div>
-              <div>
-                共<span>{alarmStatistics.length}</span>个
-              </div>
-            </p>
+        <div className="homeIndex-right" style={{ boxSing: "border-box" }}>
+          <div className="rightPoliceWrap">
+            <div className="rightPolice">
+              <p style={{ fontSize: "22px" }}>
+                警情统计
+                <span
+                  style={{
+                    fontSize: "18px",
+                    display: "inline-block",
+                    marginLeft: "180px"
+                  }}
+                >
+                  共{total}个
+                </span>
+              </p>
+            </div>
             <div className="garden">
               {alarmStatistics.map((v, i) => (
                 <div className="details" key={i}>
                   <Progress
                     type="circle"
-                    percent={v.count}
+                    percent={(v.count / total) * 100}
                     width={100}
                     strokeWidth={5}
+                    format={percent => `${percent}`}
                   />
                   <div className="detailsName">{v.name}</div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rightUser">
+
+          <div
+            className="rightUser"
+            style={{ height: "70%", marginBottom: "-1px" }}
+          >
             <p className="titleHomeIndex">设备统计</p>
             <div>
               <UserStatistics deviceStatistics={deviceStatistics} />
