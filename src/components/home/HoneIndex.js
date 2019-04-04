@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import UserStatistics from "./UserStatistics";
 import "../../style/ztt/css/homeIndex.css";
+import Swiper from 'swiper/dist/js/swiper.js'
+import 'swiper/dist/css/swiper.min.css'
 import { Row, Col, Progress, Carousel, message } from "antd";
 import { connect } from "react-redux";
 import * as homeActions from "../../action/index";
@@ -22,7 +24,12 @@ class HoneIndex extends Component {
   }
 
   componentDidMount() {
-    const {
+      new Swiper('.leftNewest', {
+          autoplay: true,//可选选项，自动滑动
+          slidesPerView : 3,
+          centeredSlides : true,
+      });
+      const {
       getMarker,
       getDeviceStatistics,
       getAlarmStatistics,
@@ -49,7 +56,17 @@ class HoneIndex extends Component {
           <div className="leftMap">
             <Map markerList={markerList} />
           </div>
-          <div className="leftNewest">
+          <div className="leftNewest" id="leftNewest">
+              <div className="swiper-container">
+                  <div className="swiper-wrapper">
+                    <div className="swiper-slide" style={{background:"red"}}>23232</div>
+                      <div className="swiper-slide">dfdfdf</div>
+                      <div className="swiper-slide">hkjhk</div>
+                      <div className="swiper-slide">34323</div>
+                      <div className="swiper-slide">fh4545</div>
+
+                  </div>
+              </div>
             <p className="titleHomeIndex">最新警情</p>
             <div>
               {alarmRecord.map((item, index) => {
