@@ -9,7 +9,7 @@ import CascaderModule from "../common/CascaderModule";
 import AlarmDetail from "./AlarmDetail";
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
-const Option = Select.Option;
+var province
 class AlarmList extends Component {
     constructor(props){
         super(props);
@@ -35,6 +35,7 @@ class AlarmList extends Component {
     }
     selectopt = (e) => { //检索
         e.preventDefault();
+        province=this.child.formref();
         this.props.form.validateFields((err, values) => {
             if(!err){
                 this.setState({
