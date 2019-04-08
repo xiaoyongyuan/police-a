@@ -83,6 +83,7 @@ class UserStatistics extends Component {
                 fontSize: 12,
                 //  formatter: '{b}{d}%',
                 formatter: function(params) {
+                  // console.log(params)
                   return params.name + " " + params.value + "%";
                 }
               },
@@ -102,8 +103,8 @@ class UserStatistics extends Component {
           ribbonType: true,
           layout: "circular",
           hoverAnimation: false,
-          width: "40%",
-          height: "40%",
+          width: "50%",
+          height: "50%",
           circular: {
             rotateLabel: true
           },
@@ -128,8 +129,8 @@ class UserStatistics extends Component {
           tooltip: {},
           ribbonType: true,
           layout: "circular",
-          width: "40%",
-          height: "40%",
+          width: "50%",
+          height: "50%",
 
           circular: {
             rotateLabel: true

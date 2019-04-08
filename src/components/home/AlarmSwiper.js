@@ -38,21 +38,34 @@ class AlarmSwiper extends Component {
         <div className="swiper-wrapper">
           {alarmList ? (
             alarmList.map((v, i) => (
-              <Link
-                to={{
-                  pathname: "/app/alarm/AlarmDetail",
-                  search: `?id=${v.code}`
-                }}
+              <div
+                className="swiper-slide"
+                key={i}
+                style={{ position: "relative" }}
               >
-                <div className="swiper-slide" key={i}>
-                  <img src={v.pic_min} alt="" />
-                  <p className="newAlarmTit">
-                    {v.city_name}
-                    {v.county_name}
-                    {v.town_name}
-                  </p>
-                </div>
-              </Link>
+                <img src={v.pic_min} alt="" />
+                <p className="newAlarmTit">
+                  {v.city_name}
+                  {v.county_name}
+                  {v.town_name}
+                </p>
+                <Link
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    zIndex: "10000",
+                    position: "absolute",
+                    left: 0,
+                    top: 0
+                  }}
+                  to={{
+                    pathname: "/app/alarm/AlarmDetail",
+                    search: `?id=${v.code}`
+                  }}
+                />
+                >
+              </div>
             ))
           ) : (
             <div> </div>

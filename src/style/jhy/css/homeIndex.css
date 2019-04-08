@@ -12,14 +12,12 @@
     padding: 5px 20px;
 }
 
-.details .ant-progress-circle .ant-progress-inner {
-    background-color: #b4ffd7;
-}
 
 .homeIndex .detailsName {
     width: 100%;
     text-align: center;
     padding: 10px 0;
+    color: #000;
 }
 
 .homeIndex .homeIndex-left {
@@ -89,8 +87,8 @@
 
 .homeIndex .titleHomeIndex {
     padding-left: 20px;
-    font-weight: bolder;
     font-size: 18px;
+    color: #000;
 }
 
 .homeIndex .newAlarmTit {
@@ -100,9 +98,10 @@
 }
 
 .homeIndex .alarmTit {
-    font-weight: bolder;
     font-size: 18px;
     margin: 0 !important;
+    color: #000;
+
 }
 
 
@@ -119,11 +118,12 @@
 .homeIndex .deviceWrap {
     width: 100%;
     height: 82%;
+    box-sizing: border-box;
     position: relative;
 }
 
 
 
 .homeIndex .echarts-for-react {
-    height: 100%;
+    height: 100% !important;
 }
