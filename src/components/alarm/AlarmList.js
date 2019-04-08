@@ -24,7 +24,7 @@ class AlarmList extends Component {
        
     }
     callPolice=()=>{
-      post({url:"/api/alarmhandle_cop/getlist",data:{pagesize:3,pageindex:this.state.page}},(res)=>{
+      post({url:"/api/alarmhandle_cop/getlist",data:{pagesize:10,pageindex:this.state.page}},(res)=>{
           if(res.success){
               this.setState({
                   callPoliceList:res.data,
@@ -187,7 +187,7 @@ class AlarmList extends Component {
                         </div>
                     ))
                 }
-                <div className="pagination"><Pagination defaultCurrent={1} current={this.state.page} total={this.state.totalcount} onChange={this.handlepage} hideOnSinglePage={true} /></div>
+                <div className="pagination"><Pagination defaultCurrent={1} current={this.state.page} total={this.state.totalcount} defaultPageSize={10} onChange={this.handlepage} hideOnSinglePage={true} /></div>
                  <Modal
                     width={1000}
                     title="警情详情"
