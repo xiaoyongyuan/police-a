@@ -194,6 +194,7 @@
 }
 .reportImgLeft,.reportImgRight{
     padding:12px;
+    cursor: pointer;
 }
 .reportImgLeft img,.reportImgRight video{
     width: 100%;
@@ -220,4 +221,8 @@
 .AlarmDetail .case{
     width: 140%;
     height: 100px;
+}
+.alarmImgStyle{
+    width: 100%;
+    padding: 10px;
 }

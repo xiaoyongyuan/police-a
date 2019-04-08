@@ -27,7 +27,6 @@ class SiderCustom extends Component {
     }
     static setMenuOpen = props => {
         const { pathname } = props.location;
-        console.log('props',props);
         return {
             openKey: pathname.substr(0, pathname.lastIndexOf('/')),
             selectedKey: pathname

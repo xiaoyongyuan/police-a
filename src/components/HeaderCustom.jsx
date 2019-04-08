@@ -57,7 +57,6 @@ class HeaderCustom extends Component {
     };
     render() {
         const { responsive, path } = this.props;
-        console.log('this.props.user',this.props.user)
         return (
             <Header className="custom-theme header" >
                 {
@@ -105,9 +104,6 @@ class HeaderCustom extends Component {
 
 const mapStateToProps = state => {  
     const { responsive = {data: {}} } = state.httpData;
-    console.log("state",state)
-    console.log("responsive",responsive)
-
     return {responsive};
 };
 

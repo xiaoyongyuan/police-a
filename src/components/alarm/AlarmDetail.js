@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Timeline,Form,Checkbox,Button } from 'antd';
+import {Timeline, Form, Checkbox, Button, Modal} from 'antd';
 import "../../style/sjg/police.css";
 import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
@@ -7,7 +7,9 @@ class AlarmDetail extends Component {
     constructor(props){
         super(props);
         this.state={
-            treatment:[]
+            treatment:[],
+            alarmImgType:false,
+            alarmVideo:false
         };
     }
     componentWillMount() {
@@ -39,6 +41,32 @@ class AlarmDetail extends Component {
     onChange=(e)=>{
         console.log(`checked = ${e.target.checked}`);
     };
+    hanlealarmImg=(pathImg)=>{
+        if(pathImg){
+            this.setState({
+                alarmImgType:true,
+                picmin:pathImg
+            })
+        }
+    };
+    handleCancelAlarmImg=()=>{
+        this.setState({
+            alarmImgType:false
+        })
+    };
+    hanlealarmVideo=(pathVideo)=>{
+        if(pathVideo){
+            this.setState({
+                alarmVideo:true,
+                pathVideo:pathVideo
+            })
+        }
+    }
+    handleCancelAlarmVideo=()=>{
+        this.setState({
+            alarmVideo:false
+        })
+    };
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -58,8 +86,8 @@ class AlarmDetail extends Component {
                         <p><span className="fontStyle">报警人：</span><span>{this.state.adminname}</span></p>
                         <p><span className="fontStyle">警情描述：</span><span>{this.state.lastmemo?this.state.lastmemo:"无"}</span></p>
                         <div className="reportImg">
-                            <div className="reportImgLeft"><img src={this.state.pic_min} alt="" /></div>
-                            <div className="reportImgRight"><video src={this.state.videopath} autoplay loop controls /></div>
+                            <div className="reportImgLeft"><img src={this.state.pic_min} alt="" onClick={()=>this.hanlealarmImg(this.state.pic_min)} /></div>
+                            <div className="reportImgRight"><video src={this.state.videopath} autoplay loop controls  onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
                         </div>
                     </div>
                 </div>
@@ -121,6 +149,24 @@ class AlarmDetail extends Component {
                         }
                     </div>
                 </div>
+                <Modal
+                    width={900}
+                    title="警情详情"
+                    visible={this.state.alarmImgType}
+                    onCancel={this.handleCancelAlarmImg}
+                    footer={null}
+                >
+                    <img src={this.state.picmin} className="alarmImgStyle" alt="" />
+                </Modal>
+                <Modal
+                    width={900}
+                    title="警情详情"
+                    visible={this.state.alarmVideo}
+                    onCancel={this.handleCancelAlarmVideo}
+                    footer={null}
+                >
+                    <video src={this.state.pathVideo}  className="alarmImgStyle" autoPlay loop controls />
+                </Modal>
             </div>
         )
     }
