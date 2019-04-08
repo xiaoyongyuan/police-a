@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { post } from "../../axios/tools.js";
-
-// import Swiper from "swiper";
-import "swiper/dist/css/swiper.css";
+import { Link } from "react-router-dom";
 
 class AlarmSwiper extends Component {
   constructor(props) {
@@ -40,14 +38,21 @@ class AlarmSwiper extends Component {
         <div className="swiper-wrapper">
           {alarmList ? (
             alarmList.map((v, i) => (
-              <div className="swiper-slide" key={i}>
-                <img src={v.pic_min} alt="" />
-                <p className="newAlarmTit">
-                  {v.city_name}
-                  {v.county_name}
-                  {v.town_name}
-                </p>
-              </div>
+              <Link
+                to={{
+                  pathname: "/app/alarm/AlarmDetail",
+                  search: `?id=${v.code}`
+                }}
+              >
+                <div className="swiper-slide" key={i}>
+                  <img src={v.pic_min} alt="" />
+                  <p className="newAlarmTit">
+                    {v.city_name}
+                    {v.county_name}
+                    {v.town_name}
+                  </p>
+                </div>
+              </Link>
             ))
           ) : (
             <div> </div>

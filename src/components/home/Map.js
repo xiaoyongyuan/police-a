@@ -83,7 +83,7 @@ class Map extends Component {
           var marker2 = new BMap.Marker(pt, { icon: myIcon2 }); // 创建标注
           map.addOverlay(marker2);
           marker2.addEventListener("click", function() {
-            routerhistory.push(`http://localhost:3006/#/app/alarm/AlarmDetail`);
+            routerhistory.push(`/app/alarm/AlarmDetail?id=${v.code}`);
           });
         }
       });
