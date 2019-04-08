@@ -1,8 +1,11 @@
-.homeIndex,
-.garden {
+.homeIndex {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 .homeIndex .details {
@@ -21,17 +24,17 @@
 
 .homeIndex .homeIndex-left {
     width: 78%;
+    background: #fff;
 }
 
 .homeIndex .homeIndex-right {
+    height: 100%;
     width: 22%;
     border: 1px solid #D8D8D8;
+    background: #fff;
 }
 
-.homeIndex .homeIndex-right {
-    display: flex;
-    flex-direction: column;
-}
+
 
 .homeIndex .newestAlarm {
     padding: 20px;
@@ -48,11 +51,22 @@
 
 .homeIndex .rightPoliceWrap {
     box-sizing: border-box;
-    padding: 5%;
+    padding: 20px;
+    height: 66%;
+}
+
+.homeIndex .garden {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap
+}
+
+.homeIndex .detailsName {
+    font-size: 16px;
 }
 
 .homeIndex .rightPolice {
-    margin: 10px;
+    margin-bottom: 10px;
     display: inline-block;
     width: 100%;
 }
@@ -74,10 +88,42 @@
 }
 
 .homeIndex .titleHomeIndex {
-    margin-left: 20px !important;
+    padding-left: 20px;
     font-weight: bolder;
+    font-size: 18px;
 }
+
+.homeIndex .newAlarmTit {
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+}
+
+.homeIndex .alarmTit {
+    font-weight: bolder;
+    font-size: 18px;
+    margin: 0 !important;
+}
+
 
 .homeIndex .leftNewest {
     border: 1px solid #D8D8D8;
+}
+
+.homeIndex .rightDevice {
+    height: 34%;
+    width: 100%;
+    box-sizing: border-box
+}
+
+.homeIndex .deviceWrap {
+    width: 100%;
+    height: 82%;
+    position: relative;
+}
+
+
+
+.homeIndex .echarts-for-react {
+    height: 100%;
 }

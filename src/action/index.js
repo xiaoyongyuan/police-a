@@ -47,26 +47,26 @@ export const fetchData = ({ funcName, url, params, stateName }) => dispatch => {
     });
 };
 
-export const getMarker = () => {
-  //取标记
-  return dispatch => {
-    post({ url: "/api/camera_cop/getlist" }, res => {
-      if (res.success === 1) {
-        dispatch({ type: type.GET_MARKER, payload: res.data });
-      }
-    });
-  };
-};
-export const getDeviceInfo = params => {
-  //查看设备详情
-  return dispatch => {
-    post({ url: "/api/camera_cop/getone", data: { code: params } }, res => {
-      if (res.success === 1) {
-        dispatch({ type: type.GET_DEVICEINFO, payload: res.data });
-      }
-    });
-  };
-};
+// export const getMarker = () => {
+//   //取标记
+//   return dispatch => {
+//     post({ url: "/api/camera_cop/getlist" }, res => {
+//       if (res.success === 1) {
+//         dispatch({ type: type.GET_MARKER, payload: res.data });
+//       }
+//     });
+//   };
+// };
+// export const getDeviceInfo = params => {
+//   //查看设备详情
+//   return dispatch => {
+//     post({ url: "/api/camera_cop/getone", data: { code: params } }, res => {
+//       if (res.success === 1) {
+//         dispatch({ type: type.GET_DEVICEINFO, payload: res.data });
+//       }
+//     });
+//   };
+// };
 export const getDeviceStatistics = () => {
   //获取设备统计
   return dispatch => {
@@ -90,16 +90,16 @@ export const getAlarmStatistics = () => {
     });
   };
 };
-export const getAlarmRecord = () => {
-  //获取警报最新十条记录
-  return dispatch => {
-    post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
-      if (res.success === 1) {
-        dispatch({
-          type: type.GET_ALARMRECORD,
-          payload: res.data
-        });
-      }
-    });
-  };
-};
+// export const getAlarmRecord = () => {
+//   //获取警报最新十条记录
+//   return dispatch => {
+//     post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
+//       if (res.success === 1) {
+//         dispatch({
+//           type: type.GET_ALARMRECORD,
+//           payload: res.data
+//         });
+//       }
+//     });
+//   };
+// };

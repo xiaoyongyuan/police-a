@@ -83,7 +83,6 @@ class UserStatistics extends Component {
                 fontSize: 12,
                 //  formatter: '{b}{d}%',
                 formatter: function(params) {
-                  // console.log(params)
                   return params.name + " " + params.value + "%";
                 }
               },
@@ -174,7 +173,7 @@ class UserStatistics extends Component {
         }
       ]
     };
-    return <ReactEcharts option={option} style={{ width: "100%" }} />;
+    return <ReactEcharts option={option} />;
   }
 }
 export default UserStatistics;
