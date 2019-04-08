@@ -51,7 +51,7 @@
 
 .homeIndex .rightPoliceWrap {
     box-sizing: border-box;
-    padding: 5%;
+    padding: 20px;
     height: 66%;
 }
 
@@ -66,7 +66,7 @@
 }
 
 .homeIndex .rightPolice {
-    margin: 10px;
+    margin-bottom: 10px;
     display: inline-block;
     width: 100%;
 }

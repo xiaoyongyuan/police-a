@@ -3,8 +3,8 @@ import { post } from "../../axios/tools.js";
 import { message } from "antd";
 import PropTypes from "prop-types";
 import BMap from "BMap";
-import pointRed from "../../style/jhy/imgs/point.jpg";
-import pointBlue from "../../style/jhy/imgs/point2.jpg";
+import pointRed from "../../style/jhy/imgs/point.png";
+import pointBlue from "../../style/jhy/imgs/point2.png";
 
 class Map extends Component {
   constructor(props) {
