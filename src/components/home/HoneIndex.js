@@ -17,6 +17,7 @@ class HoneIndex extends Component {
   render() {
     const { alarmStatistics } = this.props;
     const { deviceStatistics } = this.props;
+    console.log(deviceStatistics);
     const total = alarmStatistics.reduce((inittotal, item) => {
       return inittotal + item.count;
     }, 0);
@@ -44,7 +45,8 @@ class HoneIndex extends Component {
                   style={{
                     fontSize: "18px",
                     display: "inline-block",
-                    marginLeft: "180px"
+                    marginLeft: "60%",
+                    color: "#000"
                   }}
                 >
                   共{total}个
@@ -61,7 +63,7 @@ class HoneIndex extends Component {
                       percent={perval === 1 ? 100 : perval}
                       width={100}
                       strokeWidth={5}
-                      format={percent => `${percent}`}
+                      format={() => `${v.count}`}
                     />
                     <div className="detailsName">{v.name}</div>
                   </div>
