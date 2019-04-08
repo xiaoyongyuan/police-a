@@ -58,7 +58,8 @@ class UserStatistics extends Component {
       }
       return datas;
     }
-    let option = {
+
+    const option = {
       color: color,
       animationDurationUpdate: 1500,
       animationEasingUpdate: "quinticInOut",
@@ -103,8 +104,8 @@ class UserStatistics extends Component {
           ribbonType: true,
           layout: "circular",
           hoverAnimation: false,
-          width: "50%",
-          height: "50%",
+          width: "40%",
+          height: "40%",
           circular: {
             rotateLabel: true
           },
@@ -129,44 +130,55 @@ class UserStatistics extends Component {
           tooltip: {},
           ribbonType: true,
           layout: "circular",
-          width: "50%",
-          height: "50%",
+          width: "40%",
+          height: "40%",
 
-          circular: {
-            rotateLabel: true
-          },
           symbolSize: 30,
           label: {
             normal: {
-              show: false
+              show: true
             }
           },
-
+          hoverAnimation: true,
           edgeSymbol: ["circle"],
           edgeSymbolSize: [8, 30],
-          edgeLabel: {
-            normal: {
-              textStyle: {
-                fontSize: 8,
-                fontWeight: "bold",
-                fontFamily: "宋体"
-              }
-            }
-          },
 
           itemStyle: {
             normal: {
               label: {
                 rotate: true,
-                show: false
+                show: true,
+                color: "#000",
+                fontSize: 12,
+                position: ["46", "46"],
+                //  formatter: '{b}{d}%',
+                formatter: function(params) {
+                  // console.log(params)
+                  return params.value;
+                },
+                algin: "center",
+                alginArtical: " center"
               },
               borderColor: "#7C9ECD",
               borderWidth: 0
             },
             emphasis: {
               label: {
-                show: false
-              }
+                rotate: true,
+                show: true,
+                color: "#000",
+                fontSize: 14,
+                position: ["46", "46"],
+                //  formatter: '{b}{d}%',
+                formatter: function(params) {
+                  // console.log(params)
+                  return params.value;
+                },
+                algin: "center",
+                alginArtical: " center"
+              },
+              borderColor: "#7C9ECD",
+              borderWidth: 0
             }
           },
 

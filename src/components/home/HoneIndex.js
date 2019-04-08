@@ -25,7 +25,7 @@ class HoneIndex extends Component {
     return (
       <div className="homeIndex">
         <div className="homeIndex-left">
-          <div className="leftMap" style={{ width: "100%", height: "64%" }}>
+          <div className="leftMap" style={{ width: "100%", height: "66%" }}>
             <Map />
           </div>
           <div className="leftNewest" id="leftNewest">
