@@ -42,10 +42,12 @@ class AlarmList extends Component {
                     estatus: values.estatus,
                     bdate:values.range_picker1&&values.range_picker1.length?values.range_picker1[0].format("YYYY-MM-DD"):"",
                     edate:values.range_picker1&&values.range_picker1.length?values.range_picker1[1].format("YYYY-MM-DD"):"",
+                    usertype:province.usertype,
+                    zonecode:province.zonecode,
                 })
             }
         })
-    };
+};
     onRef = (ref) => {
         this.child = ref
     };
@@ -185,7 +187,7 @@ class AlarmList extends Component {
                         </div>
                     ))
                 }
-                <div className="pagination"><Pagination defaultCurrent={1} current={this.state.page} total={13} onChange={this.handlepage} hideOnSinglePage={true}/></div>
+                <div className="pagination"><Pagination defaultCurrent={1} current={this.state.page} total={this.state.totalcount} onChange={this.handlepage} hideOnSinglePage={true} /></div>
                  <Modal
                     width={1000}
                     title="警情详情"
