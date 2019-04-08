@@ -19,7 +19,8 @@ class AlarmSwiper extends Component {
         disableOnInteraction: false
       }, //可选选项，自动滑动
       slidesPerView: 4,
-      observer: true
+      observer: true,
+      pagination: {}
     });
     post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
       this.setState(
@@ -64,7 +65,6 @@ class AlarmSwiper extends Component {
                     search: `?id=${v.code}`
                   }}
                 />
-                >
               </div>
             ))
           ) : (
