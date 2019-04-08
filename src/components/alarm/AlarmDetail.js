@@ -33,6 +33,7 @@ class AlarmDetail extends Component {
                         videopath:res.data[0].videopath,
                         treatment:res.data.detail,
                         astatus:res.data[0].astatus,
+                        adminaccount:res.data[0].adminaccount,
                     });
                 }
             })
@@ -67,6 +68,52 @@ class AlarmDetail extends Component {
             alarmVideo:false
         })
     };
+    hanleTreatment=(status)=>{
+        if(status===0){
+            return(
+                this.state.treatment.map((v,i)=>(
+                    <Timeline key={i}>
+                        <Timeline.Item>
+                            <div className="linetime">{v.createon}</div>
+                            <div className="linetext">有新报警，报警人{v.handlemen}&nbsp;&nbsp;{v.memo}</div>
+                        </Timeline.Item>
+                    </Timeline>
+                ))
+            )
+        }else if(status===1){
+            return(
+                this.state.treatment.map((v,i)=>(
+                    <Timeline key={i}>
+                        <Timeline.Item>
+                            <div className="linetime">{v.createon}</div>
+                            <div className="linetext">{v.lastmen}接警，{v.memo}</div>
+                        </Timeline.Item>
+                    </Timeline>
+                ))
+            )
+        }else if(status===2){
+            return(
+                this.state.treatment.map((v,i)=>(
+                    <Timeline key={i}>
+                        <Timeline.Item>
+                            <div className="linetime">{v.createon}</div>
+                            <div className="linetext">{v.memo}</div>
+                        </Timeline.Item>
+                    </Timeline>
+                ))
+            )
+        }else if(status===3){
+            return(
+                this.state.treatment.map((v,i)=>(
+                    <Timeline key={i}>
+                        <Timeline.Item>
+                            <div className="linetime">已结案</div>
+                        </Timeline.Item>
+                    </Timeline>
+                ))
+            )
+        }
+    };
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -83,11 +130,11 @@ class AlarmDetail extends Component {
                     <div className="reportright">
                         <p><span className="fontStyle">报警时间：</span><span>{this.state.atime}</span></p>
                         <p><span className="fontStyle">案发地点：</span><span>{this.state.address}</span></p>
-                        <p><span className="fontStyle">报警人：</span><span>{this.state.adminname}</span></p>
+                        <p><span className="fontStyle">报警人：</span><span>{this.state.adminname}-{this.state.adminaccount}</span></p>
                         <p><span className="fontStyle">警情描述：</span><span>{this.state.lastmemo?this.state.lastmemo:"无"}</span></p>
                         <div className="reportImg">
                             <div className="reportImgLeft"><img src={this.state.pic_min} alt="" onClick={()=>this.hanlealarmImg(this.state.pic_min)} /></div>
-                            <div className="reportImgRight"><video autoplay="autoplay" loop="loop" src={this.state.videopath} onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
+                            <div className="reportImgRight"><video autoPlay="autoplay" loop="loop" src={this.state.videopath} onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
                         </div>
                     </div>
                 </div>
@@ -138,14 +185,7 @@ class AlarmDetail extends Component {
                     </div>
                     <div className="reportright polTimeline" style={{paddingLeft:'5%'}}>
                         {
-                            this.state.treatment.map((v,i)=>(
-                                <Timeline key={i}>
-                                    <Timeline.Item>
-                                        <div className="linetime">{v.handlemen}&nbsp;&nbsp;{v.createon}</div>
-                                        <div className="linetext">{v.memo}</div>
-                                    </Timeline.Item>
-                                </Timeline>
-                            ))
+                            this.hanleTreatment(this.state.astatus)
                         }
                     </div>
                 </div>
@@ -165,7 +205,7 @@ class AlarmDetail extends Component {
                     onCancel={this.handleCancelAlarmVideo}
                     footer={null}
                 >
-                    <video autoplay="autoplay" controls="controls" loop="loop" src={this.state.pathVideo} className="alarmImgStyle" />
+                    <video autoPlay="autoplay" controls="controls" loop="loop" src={this.state.pathVideo} className="alarmImgStyle" />
                 </Modal>
             </div>
         )

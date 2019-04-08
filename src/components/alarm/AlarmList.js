@@ -24,7 +24,15 @@ class AlarmList extends Component {
        
     }
     callPolice=()=>{
-      post({url:"/api/alarmhandle_cop/getlist",data:{pagesize:10,pageindex:this.state.page}},(res)=>{
+        var datas={
+            pagesize:10,
+            pageindex:this.state.page,
+            bdate:this.state.bdate,
+            edate:this.state.edate,
+            usertype:this.state.usertype,
+            zonecode:this.state.zonecode
+        };
+      post({url:"/api/alarmhandle_cop/getlist",data:datas},(res)=>{
           if(res.success){
               this.setState({
                   callPoliceList:res.data,
@@ -39,11 +47,12 @@ class AlarmList extends Component {
         this.props.form.validateFields((err, values) => {
             if(!err){
                 this.setState({
-                    estatus: values.estatus,
                     bdate:values.range_picker1&&values.range_picker1.length?values.range_picker1[0].format("YYYY-MM-DD"):"",
                     edate:values.range_picker1&&values.range_picker1.length?values.range_picker1[1].format("YYYY-MM-DD"):"",
                     usertype:province.usertype,
                     zonecode:province.zonecode,
+                },()=>{
+                    this.callPolice();
                 })
             }
         })
@@ -153,41 +162,44 @@ class AlarmList extends Component {
                     </Col>
                 </Row>
                 </div>
-                {
-                    this.state.callPoliceList.map((v,i)=>(
-                        <div className="policeboy" key={i}>
-                            <a href={"#/app/alarm/AlarmDetail?id="+v.code} className="underline">
-                                <div className="policeyuan">
-                                    <div>{i+1}</div>
-                                </div>
-                                <div className="policelist">
-                                    <div className="policeline"></div>
-                                    <div className="policecon">
-                                        <div className="policeinf">
-                                            <div className="poltop">
-                                                <Row className="pol polone">
-                                                    <Col span={4}>{v.atime}</Col>
-                                                    <Col span={7}>{v.city_name+v.county_name+v.town_name}</Col>
-                                                    <Col span={6}><span><Icon type="user-add" style={{color:"#2980F3"}} /> 报警人：</span><span>{v.adminname}</span></Col>
-                                                    <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} className="iphone" /> 联系电话：</span><span>{v.adminaccount}</span></Col>
-                                                </Row>
-                                                <Row className="pol poltwo">
-                                                    <Col span={24}><span className="powercolor">警情描述：</span><span>{v.lastmemo?v.lastmemo:"无"}</span> </Col>
-                                                </Row>
-                                            </div>
-                                            {this.handleState(v.astatus,v.atime,v.adminname,v.lastmemo,v.lastmen)}
-                                        </div>
-                                        <div className="policeimg">
-                                            <img src={v.pic_min} alt="" />
-                                        </div>
+                <div style={{width:"100%",height:"auto",textAlign:"center"}}><img src={nodata} alt="" style={{display:this.state.callPoliceList.length>0?"none":"inline-block",marginTop:"2%",width:"6%"}}/></div>
+                <div>
+                    {
+                        this.state.callPoliceList.map((v,i)=>(
+                            <div className="policeboy" key={i}>
+                                <a href={"#/app/alarm/AlarmDetail?id="+v.code} className="underline">
+                                    <div className="policeyuan">
+                                        <div>{i+1}</div>
                                     </div>
+                                    <div className="policelist">
+                                        <div className="policeline"></div>
+                                        <div className="policecon">
+                                            <div className="policeinf">
+                                                <div className="poltop">
+                                                    <Row className="pol polone">
+                                                        <Col span={4}>{v.atime}</Col>
+                                                        <Col span={7}>{v.city_name+v.county_name+v.town_name}</Col>
+                                                        <Col span={6}><span><Icon type="user-add" style={{color:"#2980F3"}} /> 报警人：</span><span>{v.adminname}</span></Col>
+                                                        <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} className="iphone" /> 联系电话：</span><span>{v.adminaccount}</span></Col>
+                                                    </Row>
+                                                    <Row className="pol poltwo">
+                                                        <Col span={24}><span className="powercolor">警情描述：</span><span>{v.lastmemo?v.lastmemo:"无"}</span> </Col>
+                                                    </Row>
+                                                </div>
+                                                {this.handleState(v.astatus,v.atime,v.adminname,v.lastmemo,v.lastmen)}
+                                            </div>
+                                            <div className="policeimg">
+                                                <img src={v.pic_min} alt="" />
+                                            </div>
+                                        </div>
 
-                                </div>
-                            </a>
-                        </div>
-                    ))
-                }
-                <div className="pagination"><Pagination defaultCurrent={1} current={this.state.page} total={this.state.totalcount} defaultPageSize={10} onChange={this.handlepage} hideOnSinglePage={true} /></div>
+                                    </div>
+                                </a>
+                            </div>
+                        ))
+                    }
+                </div>
+                <div className="pagination" style={{display:this.state.callPoliceList?"block":"none"}}><Pagination defaultCurrent={1} current={this.state.page} total={this.state.totalcount} defaultPageSize={10} onChange={this.handlepage} hideOnSinglePage={true} /></div>
                  <Modal
                     width={1000}
                     title="警情详情"
