@@ -7,15 +7,29 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="theme-color" content="#000000">
 	<title>傲科云平台</title>
-</head>
-
-<body>
 	<link rel="stylesheet/less" type="text/css" href="./theme.less" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.6,/css/swiper.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.6/js/swiper.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
 	<script src="./config.js" type="text/javascript"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PCfY1OLDqxWcZvBATcZqC2essHkrs3VH"></script>
+
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+	</style>
+</head>
+
+<body>
+	<script>
+		window.BMap = BMap;
+		window.Swiper = Swiper;
+	</script>
 	<script>
 		const primaryColor = localStorage.getItem('@primary-color');
 		primaryColor && window.less.modifyVars({
