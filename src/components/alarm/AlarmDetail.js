@@ -134,7 +134,7 @@ class AlarmDetail extends Component {
                         <p><span className="fontStyle">警情描述：</span><span>{this.state.lastmemo?this.state.lastmemo:"无"}</span></p>
                         <div className="reportImg">
                             <div className="reportImgLeft"><img src={this.state.pic_min} alt="" onClick={()=>this.hanlealarmImg(this.state.pic_min)} /></div>
-                            <div className="reportImgRight"><video autoplay="autoplay" loop="loop" src={this.state.videopath} onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
+                            <div className="reportImgRight"><video autoPlay="autoplay" loop="loop" src={this.state.videopath} onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
                         </div>
                     </div>
                 </div>
@@ -205,7 +205,7 @@ class AlarmDetail extends Component {
                     onCancel={this.handleCancelAlarmVideo}
                     footer={null}
                 >
-                    <video autoplay="autoplay" controls="controls" loop="loop" src={this.state.pathVideo} className="alarmImgStyle" />
+                    <video autoPlay="autoplay" controls="controls" loop="loop" src={this.state.pathVideo} className="alarmImgStyle" />
                 </Modal>
             </div>
         )
