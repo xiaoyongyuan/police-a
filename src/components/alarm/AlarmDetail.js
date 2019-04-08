@@ -13,8 +13,8 @@ class AlarmDetail extends Component {
         };
     }
     componentWillMount() {
-        this.setState({
-            id:this.props.query.id,
+            this.setState({
+                id:this.props.query.id,
         });
     }
     componentDidMount() {
@@ -87,7 +87,7 @@ class AlarmDetail extends Component {
                         <p><span className="fontStyle">警情描述：</span><span>{this.state.lastmemo?this.state.lastmemo:"无"}</span></p>
                         <div className="reportImg">
                             <div className="reportImgLeft"><img src={this.state.pic_min} alt="" onClick={()=>this.hanlealarmImg(this.state.pic_min)} /></div>
-                            <div className="reportImgRight"><video src={this.state.videopath} autoplay loop controls  onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
+                            <div className="reportImgRight"><video autoplay="autoplay" loop="loop" src={this.state.videopath} onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ class AlarmDetail extends Component {
                     </div>
                     <div className="reportright" style={{display:this.state.astatus===3?"none":"inline-block"}}>
                         <Form layout="vertical" onSubmit={this.handleSubmit}>
-                            <Form.Item label="警情处理:"
+                            <Form.Item label="警情处理："
                                 labelCol={{span: 2}}
                                 wrapperCol={{ span: 12}}
                                 labelAlign="right"
@@ -111,11 +111,11 @@ class AlarmDetail extends Component {
                                     <span><Checkbox onChange={this.onChange} style={{display:this.state.astatus===1 || this.state.astatus===2?"none":"inline-block"}}>接警</Checkbox><Checkbox onChange={this.onChange}>结束</Checkbox></span>
                                 )}
                             </Form.Item>
-                            <Form.Item label="案件描述:"
+                            <Form.Item label="案件描述："
                                labelCol={{span: 2}}
                                wrapperCol={{ span: 12}}
                             >
-                                {getFieldDecorator('userName')(
+                                {getFieldDecorator('description')(
                                     <span><textarea className="case" placeholder="案件描述..." /></span>
                                 )}
                             </Form.Item>
@@ -150,7 +150,7 @@ class AlarmDetail extends Component {
                     </div>
                 </div>
                 <Modal
-                    width={900}
+                    width={650}
                     title="警情详情"
                     visible={this.state.alarmImgType}
                     onCancel={this.handleCancelAlarmImg}
@@ -159,13 +159,13 @@ class AlarmDetail extends Component {
                     <img src={this.state.picmin} className="alarmImgStyle" alt="" />
                 </Modal>
                 <Modal
-                    width={900}
+                    width={650}
                     title="警情详情"
                     visible={this.state.alarmVideo}
                     onCancel={this.handleCancelAlarmVideo}
                     footer={null}
                 >
-                    <video src={this.state.pathVideo}  className="alarmImgStyle" autoPlay loop controls />
+                    <video autoplay="autoplay" controls="controls" loop="loop" src={this.state.pathVideo} className="alarmImgStyle" />
                 </Modal>
             </div>
         )
