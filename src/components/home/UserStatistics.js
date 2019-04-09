@@ -20,6 +20,9 @@ class UserStatistics extends Component {
       "#f38c2a",
       "#ff6254"
     ];
+    const total = this.myData.data.reduce((inittotal, item) => {
+      return inittotal + item.count;
+    }, 0);
     var data = [];
     this.myData.data.map((v, i) => {
       data[i] = {
@@ -27,16 +30,18 @@ class UserStatistics extends Component {
         value: v.count
       };
     });
-
     const seriesData = [];
     const seriesData2 = [];
 
     data.map((item, idx) => {
       seriesData.push({
         name: item.name,
-        value: item.value
+        value: `${
+          item.value / total === 1
+            ? (item.value / total) * 100
+            : item.value / total
+        }`
       });
-
       seriesData2.push({
         name: item.name,
         value: item.value,
@@ -60,6 +65,11 @@ class UserStatistics extends Component {
     }
 
     const option = {
+      tooltip: {
+        formatter: function(params) {
+          return params.name + "：" + params.value + "个";
+        }
+      },
       color: color,
       animationDurationUpdate: 1500,
       animationEasingUpdate: "quinticInOut",
@@ -133,52 +143,41 @@ class UserStatistics extends Component {
           width: "40%",
           height: "40%",
 
+          circular: {
+            rotateLabel: true
+          },
           symbolSize: 30,
           label: {
             normal: {
-              show: true
+              show: false
             }
           },
-          hoverAnimation: true,
+
           edgeSymbol: ["circle"],
           edgeSymbolSize: [8, 30],
+          edgeLabel: {
+            normal: {
+              textStyle: {
+                fontSize: 8,
+                fontWeight: "bold",
+                fontFamily: "宋体"
+              }
+            }
+          },
 
           itemStyle: {
             normal: {
               label: {
                 rotate: true,
-                show: true,
-                color: "#000",
-                fontSize: 12,
-                position: ["46", "46"],
-                //  formatter: '{b}{d}%',
-                formatter: function(params) {
-                  // console.log(params)
-                  return params.value;
-                },
-                algin: "center",
-                alginArtical: " center"
+                show: false
               },
               borderColor: "#7C9ECD",
               borderWidth: 0
             },
             emphasis: {
               label: {
-                rotate: true,
-                show: true,
-                color: "#000",
-                fontSize: 14,
-                position: ["46", "46"],
-                //  formatter: '{b}{d}%',
-                formatter: function(params) {
-                  // console.log(params)
-                  return params.value;
-                },
-                algin: "center",
-                alginArtical: " center"
-              },
-              borderColor: "#7C9ECD",
-              borderWidth: 0
+                show: false
+              }
             }
           },
 
