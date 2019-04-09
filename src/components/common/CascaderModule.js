@@ -38,16 +38,21 @@ class CascaderModule extends Component {
     formref = () => { //将form传给父组件由父组件控制表单提交
         return {
           zonecode:this.state.zonecode,
-          usertype:this.state.usertype
+          usertype:this.state.usertype,
+          zonelabel:this.state.zonelabel
         };
     };
     onChange = (value, selectedOptions) => {
+      var zonelabel='';
+      selectedOptions.map((el,i)=>{zonelabel=zonelabel+el.label})
       this.setState({
         zonecode:value.length?value[value.length-1]:'',
-        usertype:value.length-1
+        usertype:value.length-1,
+        zonelabel:zonelabel
       })   
     }
     loadData = (selectedOptions) => {
+      console.log('selectedOptions',selectedOptions)
       const targetOption = selectedOptions[selectedOptions.length - 1];
       targetOption.loading = true;
       var params={};
