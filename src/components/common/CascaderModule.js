@@ -52,7 +52,6 @@ class CascaderModule extends Component {
       })   
     }
     loadData = (selectedOptions) => {
-      console.log('selectedOptions',selectedOptions)
       const targetOption = selectedOptions[selectedOptions.length - 1];
       targetOption.loading = true;
       var params={};
