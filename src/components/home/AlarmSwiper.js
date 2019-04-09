@@ -18,9 +18,8 @@ class AlarmSwiper extends Component {
         //滑动后继续播放（不写官方默认暂停）
         disableOnInteraction: false
       }, //可选选项，自动滑动
-      slidesPerView: 4,
-      observer: true,
-      pagination: {}
+      slidesPerView: 8,
+      observer: true
     });
     post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
       this.setState(
@@ -46,7 +45,6 @@ class AlarmSwiper extends Component {
               >
                 <img src={v.pic_min} alt="" />
                 <p className="newAlarmTit">
-                  {v.city_name}
                   {v.county_name}
                   {v.town_name}
                 </p>

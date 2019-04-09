@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import BMap from "BMap";
 import pointRed from "../../style/jhy/imgs/point.png";
 import pointBlue from "../../style/jhy/imgs/point2.png";
+import mapStyle from "../../style/jhy/custom_map_config.json";
 
 class Map extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class Map extends Component {
           markerList: res.data
         },
         () => {
+          console.log(this.state.markerList, "this.state.markerList");
           const _this = this;
           this.initializeMap(_this);
         }
@@ -37,8 +39,31 @@ class Map extends Component {
     var BMap = window.BMap;
 
     var map = new BMap.Map("mapContainer"); // 创建Map实例
-    map.centerAndZoom("西安", 15);
+    map.centerAndZoom("西安市雁塔区", 12);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+    // map.setMapStyleV2(mapStyle);
+    const getBoundary = () => {
+      var bdary = new BMap.Boundary();
+      var name = "西安市雁塔区";
+      bdary.get(name, function(rs) {
+        //获取行政区域
+        map.clearOverlays(); //清除地图覆盖物
+        var count = rs.boundaries.length; //行政区域的点有多少个
+        for (var i = 0; i < count; i++) {
+          var ply = new BMap.Polygon(rs.boundaries[i], {
+            strokeWeight: 2, //设置多边形边线线粗
+            strokeColor: "#2eccff", //设置多边形边线颜色
+            strokeOpacity: 1, //设置多边形边线透明度0-1
+            strokeStyle: "dashed", //设置多边形边线样式为实线或虚线，取值 solid 或 dashed
+            fillColor: "#2eccff",
+            fillOpacity: 0.2
+          }); //建立多边形覆盖物
+          map.addOverlay(ply); //添加覆盖物
+          map.setViewport(ply.getPath()); //调整视野
+        }
+      });
+    };
+    getBoundary();
     if (this.state.markerList) {
       this.state.markerList.map((v, i) => {
         var pt = new BMap.Point(v.lng, v.lat);
@@ -55,6 +80,11 @@ class Map extends Component {
                     deviceInfo: res.data
                   },
                   () => {
+                    console.log(
+                      _this.state.deviceInfo,
+                      "this.state.markerList"
+                    );
+
                     var opts = {
                       width: 300, // 信息窗口宽度
                       height: 70, // 信息窗口高度
