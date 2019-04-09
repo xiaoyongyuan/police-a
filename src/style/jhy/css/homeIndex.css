@@ -87,7 +87,7 @@
 
 .homeIndex .titleHomeIndex {
     padding-left: 20px;
-    font-size: 18px;
+    font-size: 16px;
     color: #000;
 }
 
@@ -98,10 +98,18 @@
 }
 
 .homeIndex .alarmTit {
-    font-size: 18px;
+    font-size: 16px;
     margin: 0 !important;
     color: #000;
+    position: relative;
+}
 
+.homeIndex .alarmTitSpan {
+    font-size: 16px;
+    display: inline-block;
+    position: absolute;
+    right: 2%;
+    color: #000;
 }
 
 

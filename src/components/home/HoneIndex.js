@@ -41,16 +41,7 @@ class HoneIndex extends Component {
             <div className="rightPolice">
               <p className="alarmTit">
                 警情统计
-                <span
-                  style={{
-                    fontSize: "18px",
-                    display: "inline-block",
-                    marginLeft: "60%",
-                    color: "#000"
-                  }}
-                >
-                  共{total}个
-                </span>
+                <span className="alarmTitSpan">共{total}个</span>
               </p>
             </div>
             <div className="garden">
@@ -63,7 +54,7 @@ class HoneIndex extends Component {
                       percent={perval === 1 ? 100 : perval}
                       width={100}
                       strokeWidth={5}
-                      format={() => `${v.count}`}
+                      format={() => `${v.count}条`}
                     />
                     <div className="detailsName">{v.name}</div>
                   </div>
