@@ -41,7 +41,7 @@ class HoneIndex extends Component {
             <div className="rightPolice">
               <p className="alarmTit">
                 警情统计
-                <span className="alarmTitSpan">共{total}个</span>
+                <span className="alarmTitSpan">共{total}条</span>
               </p>
             </div>
             <div className="garden">

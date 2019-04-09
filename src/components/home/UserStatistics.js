@@ -67,7 +67,7 @@ class UserStatistics extends Component {
     const option = {
       tooltip: {
         formatter: function(params) {
-          return params.name + "：" + params.value + "条";
+          return params.name + "：" + params.value + "个";
         }
       },
       color: color,
