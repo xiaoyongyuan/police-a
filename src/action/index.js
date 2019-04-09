@@ -67,26 +67,15 @@ export const fetchData = ({ funcName, url, params, stateName }) => dispatch => {
 //     });
 //   };
 // };
-export const getDeviceStatistics = () => {
-  //获取设备统计
-  return dispatch => {
-    post({ url: "/api/camera_cop/gets_by_zone" }, res => {
-      if (res.success === 1) {
-        dispatch({ type: type.GET_DEVICESTATISTICS, payload: res.data });
-      }
-    });
-  };
-};
-export const getAlarmStatistics = () => {
+
+export const getStatistics = () => {
   //获取警报统计
   return dispatch => {
-    post({ url: "/api/alarmhandle_cop/gets_by_zone" }, res => {
-      if (res.success === 1) {
-        dispatch({
-          type: type.GET_ALARMSTATISTICS,
-          payload: res.data
-        });
-      }
+    post({ url: "/api/camera_cop/getcount_e" }, res => {
+      dispatch({
+        type: type.GET_STATISTICS,
+        payload: res.data
+      });
     });
   };
 };

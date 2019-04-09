@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import UserStatistics from "./UserStatistics";
 import { Row, Col, Statistic, Icon, Progress, Carousel, message } from "antd";
-import { connect } from "react-redux";
-import * as homeActions from "../../action/index";
+import { post } from "../../axios/tools.js";
 import Map from "./Map";
 import AlarmSwiper from "./AlarmSwiper";
 import "../../style/jhy/css/homeIndex.css";
@@ -12,18 +11,33 @@ import statis from "../../style/jhy/imgs/statis.png";
 import newalarm from "../../style/jhy/imgs/newalarm.png";
 
 class HoneIndex extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      statistic: {}
+    };
+  }
   componentDidMount() {
-    const { getDeviceStatistics, getAlarmStatistics } = this.props;
-    getDeviceStatistics();
-    getAlarmStatistics();
+    post({ url: "/api/camera_cop/getcount_e" }, res => {
+      this.setState(
+        {
+          statistic: res.data
+        },
+        () => {
+          console.log(
+            "this.statistic--------------------------------",
+            this.state.statistic
+          );
+        }
+      );
+    });
   }
 
   render() {
-    const { alarmStatistics } = this.props;
-    const { deviceStatistics } = this.props;
-    const total = alarmStatistics.reduce((inittotal, item) => {
-      return inittotal + item.count;
-    }, 0);
+    const statistic = this.state.statistic;
+    // const total = alarmStatistics.reduce((inittotal, item) => {
+    //   return inittotal + item.count;
+    // }, 0);
 
     return (
       <div className="homeIndex">
@@ -113,24 +127,4 @@ class HoneIndex extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    deviceStatistics: state.homeMoudle.deviceStatistics,
-    alarmStatistics: state.homeMoudle.alarmStatistics,
-    alarmRecord: state.homeMoudle.alarmRecord
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    getDeviceStatistics() {
-      dispatch(homeActions.getDeviceStatistics());
-    },
-    getAlarmStatistics() {
-      dispatch(homeActions.getAlarmStatistics());
-    }
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HoneIndex);
+export default HoneIndex;
