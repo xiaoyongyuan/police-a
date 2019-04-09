@@ -43,23 +43,17 @@ class AlarmList extends Component {
     }
     selectopt = (e) => { //检索
         e.preventDefault();
-        province=this.child.formref();
         this.props.form.validateFields((err, values) => {
             if(!err){
                 this.setState({
                     bdate:values.range_picker1&&values.range_picker1.length?values.range_picker1[0].format("YYYY-MM-DD"):"",
-                    edate:values.range_picker1&&values.range_picker1.length?values.range_picker1[1].format("YYYY-MM-DD"):"",
-                    usertype:province.usertype,
-                    zonecode:province.zonecode,
+                    edate:values.range_picker1&&values.range_picker1.length?values.range_picker1[1].format("YYYY-MM-DD"):""
                 },()=>{
                     this.callPolice();
                 })
             }
         })
 };
-    onRef = (ref) => {
-        this.child = ref
-    };
     progress=(astatus)=>{
         if(astatus===0){
             return "已推送未处理";
@@ -145,13 +139,13 @@ class AlarmList extends Component {
                                     <RangePicker placeholder={['开始时间', '结束时间']} />
                                 )}
                             </Form.Item>
-                            <FormItem label="区域">
+                           {/* <FormItem label="区域">
                                 {getFieldDecorator('estatus', {
                                     initialValue:""
                                 })(
                                     <CascaderModule onRef={this.onRef} />
                                 )}
-                                </FormItem>
+                                </FormItem>*/}
                             <FormItem>
                                 <Button type="primary" htmlType="submit">
                                     查询
