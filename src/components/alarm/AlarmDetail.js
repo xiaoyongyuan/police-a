@@ -107,13 +107,11 @@ class AlarmDetail extends Component {
             )
         }else if(status===3){
             return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
-                        <Timeline.Item>
-                            <div className="linetime">已结案</div>
-                        </Timeline.Item>
-                    </Timeline>
-                ))
+                <Timeline>
+                    <Timeline.Item>
+                        <div className="linetime">已结案</div>
+                    </Timeline.Item>
+                </Timeline>
             )
         }
     };
@@ -130,6 +128,7 @@ class AlarmDetail extends Component {
                     post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
                         if(res.success){
                             message.success("处理成功!");
+                            this.getone();
                         }else{
                             message.error("处理失败!");
                         }
