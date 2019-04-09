@@ -43,8 +43,8 @@ class CascaderModule extends Component {
         };
     };
     onChange = (value, selectedOptions) => {
-      var zonelabel='';
-      selectedOptions.map((el,i)=>{zonelabel=zonelabel+el.label})
+      var zonename='';
+      selectedOptions.map((el,i)=>{zonename=zonename+el.label})
       this.setState({
         zonecode:value.length?value[value.length-1]:'',
         usertype:value.length-1,
