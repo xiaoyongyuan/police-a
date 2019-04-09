@@ -1,42 +1,91 @@
 import React, { Component } from "react";
 import UserStatistics from "./UserStatistics";
-import "../../style/jhy/css/homeIndex.css";
-import { Row, Col, Progress, Carousel, message } from "antd";
-import { connect } from "react-redux";
-import * as homeActions from "../../action/index";
+import { Row, Col, Statistic, Icon, Progress, Carousel, message } from "antd";
+import { post } from "../../axios/tools.js";
 import Map from "./Map";
 import AlarmSwiper from "./AlarmSwiper";
+import "../../style/jhy/css/homeIndex.css";
+import alarm from "../../style/jhy/imgs/alarm.png";
+import device from "../../style/jhy/imgs/device.png";
+import statis from "../../style/jhy/imgs/statis.png";
+import newalarm from "../../style/jhy/imgs/newalarm.png";
 
 class HoneIndex extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      statistic: {}
+    };
+  }
   componentDidMount() {
-    const { getDeviceStatistics, getAlarmStatistics } = this.props;
-    getDeviceStatistics();
-    getAlarmStatistics();
+    post({ url: "/api/camera_cop/getcount_e" }, res => {
+      this.setState(
+        {
+          statistic: res.data
+        },
+        () => {
+          console.log(
+            "this.statistic--------------------------------",
+            this.state.statistic
+          );
+        }
+      );
+    });
   }
 
   render() {
-    const { alarmStatistics } = this.props;
-    const { deviceStatistics } = this.props;
-    console.log(deviceStatistics);
-    const total = alarmStatistics.reduce((inittotal, item) => {
-      return inittotal + item.count;
-    }, 0);
+    const statistic = this.state.statistic;
+    // const total = alarmStatistics.reduce((inittotal, item) => {
+    //   return inittotal + item.count;
+    // }, 0);
 
     return (
       <div className="homeIndex">
-        <div className="homeIndex-left">
-          <div className="leftMap" style={{ width: "100%", height: "66%" }}>
-            <Map />
-          </div>
-          <div className="leftNewest" id="leftNewest">
-            <p className="titleHomeIndex">最新警情</p>
-            <div style={{ paddingLeft: "8px" }}>
-              <AlarmSwiper />
+        {/* <div className="homeIndex-left"> */}
+        <div className="statistic">
+          <div className="statcol">
+            <div className="statit">
+              <img src={device} alt="" />
+              设备数
             </div>
+            <p className="statval">
+              <span className="origdata1">{}</span>个
+            </p>
+          </div>
+          <div className="statcol">
+            <div className="statit">
+              <img src={alarm} alt="" />
+              当前报警
+            </div>
+            <p className="statval">
+              <span className="origdata2">{}</span>次
+            </p>
+          </div>
+          <div className="statcol">
+            <div className="statit">
+              <img src={statis} alt="" />
+              一小时警情统计
+            </div>
+            <p className="statval">
+              <span className="origdata3">{}</span>次
+            </p>
           </div>
         </div>
+        <div className="topMap">
+          <Map />
+        </div>
+        <div className="newAlarm">
+          <div className="newAlarmTit">
+            <img src={newalarm} alt="" />
+            最新警情
+          </div>
+          <div style={{ paddingLeft: "8px" }}>
+            <AlarmSwiper />
+          </div>
+        </div>
+        {/* </div> */}
 
-        <div className="homeIndex-right" style={{ boxSing: "border-box" }}>
+        {/* <div className="homeIndex-right" style={{ boxSing: "border-box" }}>
           <div className="rightPoliceWrap">
             <div className="rightPolice">
               <p className="alarmTit">
@@ -72,30 +121,10 @@ class HoneIndex extends Component {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    deviceStatistics: state.homeMoudle.deviceStatistics,
-    alarmStatistics: state.homeMoudle.alarmStatistics,
-    alarmRecord: state.homeMoudle.alarmRecord
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    getDeviceStatistics() {
-      dispatch(homeActions.getDeviceStatistics());
-    },
-    getAlarmStatistics() {
-      dispatch(homeActions.getAlarmStatistics());
-    }
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HoneIndex);
+export default HoneIndex;

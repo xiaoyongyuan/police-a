@@ -1,14 +1,91 @@
 .homeIndex {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
     box-sizing: border-box;
     height: 100%;
     width: 100%;
     overflow: hidden;
+    position: relative;
 }
 
-.homeIndex .details {
+.homeIndex img {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.statistic {
+    position: absolute;
+    z-index: 1000;
+
+    top: 20px;
+    left: 20px;
+    width: 34.48%;
+    box-sizing: border-box;
+    height: 100px;
+    border: 1px solid red;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.statcol {
+    background: #fff;
+    box-sizing: border-box;
+    width: 33%;
+    height: 100%;
+    padding: 15px;
+    color: #222;
+}
+
+.statit {
+    font-size: 16px;
+}
+
+.statval {
+    font-size: 20px;
+}
+
+.origdata1,
+.origdata2,
+.origdata3 {
+    margin-left: 30px;
+
+}
+
+.origdata1 {
+    color: #10bcdc;
+}
+
+.origdata2 {
+    color: #ff0101;
+}
+
+.origdata3 {
+    color: #4088f9;
+}
+
+.statcol:nth-child(2) {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.topMap {
+    height: 71.4%;
+}
+
+.newAlarm {
+    height: 28.6%;
+}
+
+.homeIndex .newAlarmTit {
+    font-size: 16px;
+    text-align: left;
+    color: #222;
+    padding: 20px;
+}
+
+/* .homeIndex .details {
     padding: 5px 20px;
 }
 
@@ -21,7 +98,6 @@
 }
 
 .homeIndex .homeIndex-left {
-    width: 78%;
     background: #fff;
 }
 
@@ -89,15 +165,11 @@
     padding-left: 20px;
     font-size: 16px;
     color: #000;
-}
+} */
 
-.homeIndex .newAlarmTit {
-    font-size: 16px;
-    text-align: center;
-    color: #000;
-}
 
-.homeIndex .alarmTit {
+
+/* .homeIndex .alarmTit {
     font-size: 16px;
     margin: 0 !important;
     color: #000;
@@ -134,4 +206,4 @@
 
 .homeIndex .echarts-for-react {
     height: 100% !important;
-}
+} */

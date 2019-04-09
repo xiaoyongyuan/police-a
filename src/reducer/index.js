@@ -2,10 +2,7 @@ import { combineReducers } from "redux";
 import * as type from "../action/type";
 
 const defaultState = {
-  markerList: [],
-  deviceInfo: {},
-  deviceStatistics: [],
-  alarmStatistics: [],
+  statistics: {},
   alarmRecord: []
 };
 
@@ -34,25 +31,10 @@ const httpData = (state = {}, action) => {
 
 const homeMoudle = (state = defaultState, action) => {
   switch (action.type) {
-    case type.GET_MARKER:
+    case type.GET_STATISTICS:
       return {
         ...state,
-        markerList: action.payload
-      };
-    case type.GET_DEVICEINFO:
-      return {
-        ...state,
-        deviceInfo: action.payload
-      };
-    case type.GET_DEVICESTATISTICS:
-      return {
-        ...state,
-        deviceStatistics: action.payload
-      };
-    case type.GET_ALARMSTATISTICS:
-      return {
-        ...state,
-        alarmStatistics: action.payload
+        statistics: action.payload
       };
     case type.GET_ALARMRECORD:
       return {
