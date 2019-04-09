@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import {Select,Form, DatePicker, Row, Col, Button,LocaleProvider,Modal,Icon,Pagination} from 'antd';
+import {Form, DatePicker, Row, Col, Button,LocaleProvider,Modal,Icon,Pagination,Spin} from 'antd';
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import '../../style/sjg/police.css';
 import nodata from "../../style/imgs/nodata.png";
-import CascaderModule from "../common/CascaderModule";
 import AlarmDetail from "./AlarmDetail";
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
-var province
 class AlarmList extends Component {
     constructor(props){
         super(props);
         this.state= {
             alarmImgType: false,
             callPoliceList: [],
-            page:1
+            page:1,
+            spinStyle:true
         }
     }
     componentDidMount(){
@@ -29,23 +28,23 @@ class AlarmList extends Component {
             pageindex:this.state.page,
             bdate:this.state.bdate,
             edate:this.state.edate,
-            usertype:this.state.usertype,
-            zonecode:this.state.zonecode
         };
       post({url:"/api/alarmhandle_cop/getlist",data:datas},(res)=>{
           if(res.success){
               this.setState({
                   callPoliceList:res.data,
-                  totalcount:res.totalcount
+                  totalcount:res.totalcount,
+                  spinStyle:false
               })
           }
       })
-    }
+    };
     selectopt = (e) => { //检索
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if(!err){
                 this.setState({
+                    spinStyle:true,
                     bdate:values.range_picker1&&values.range_picker1.length?values.range_picker1[0].format("YYYY-MM-DD"):"",
                     edate:values.range_picker1&&values.range_picker1.length?values.range_picker1[1].format("YYYY-MM-DD"):""
                 },()=>{
@@ -72,7 +71,10 @@ class AlarmList extends Component {
     };
     //分页
     handlepage=(page)=>{
-        this.setState({page},()=>{
+        this.setState({
+            page,
+            spinStyle:true
+        },()=>{
             this.callPolice();
         })
     };
@@ -139,13 +141,6 @@ class AlarmList extends Component {
                                     <RangePicker placeholder={['开始时间', '结束时间']} />
                                 )}
                             </Form.Item>
-                           {/* <FormItem label="区域">
-                                {getFieldDecorator('estatus', {
-                                    initialValue:""
-                                })(
-                                    <CascaderModule onRef={this.onRef} />
-                                )}
-                                </FormItem>*/}
                             <FormItem>
                                 <Button type="primary" htmlType="submit">
                                     查询
@@ -156,8 +151,9 @@ class AlarmList extends Component {
                     </Col>
                 </Row>
                 </div>
-                <div style={{width:"100%",height:"auto",textAlign:"center"}}><img src={nodata} alt="" style={{display:this.state.callPoliceList.length>0?"none":"inline-block",marginTop:"2%",width:"6%"}}/></div>
-                <div>
+                <div style={{width:"100%",height:"auto",textAlign:"center"}}><img src={nodata} alt="" style={{display:this.state.callPoliceList.length>0?"none":"inline-block",marginTop:"2%",width:"6%"}} /></div>
+                <Spin size="large" spinning={this.state.spinStyle}>
+                  <div>
                     {
                         this.state.callPoliceList.map((v,i)=>(
                             <div className="policeboy" key={i}>
@@ -172,7 +168,7 @@ class AlarmList extends Component {
                                                 <div className="poltop">
                                                     <Row className="pol polone">
                                                         <Col span={4}>{v.atime}</Col>
-                                                        <Col span={7}>{v.city_name+v.county_name+v.town_name}</Col>
+                                                        <Col span={7}>{v.location}</Col>
                                                         <Col span={6}><span><Icon type="user-add" style={{color:"#2980F3"}} /> 报警人：</span><span>{v.adminname}</span></Col>
                                                         <Col span={7}><span><Icon type="phone" style={{color:"#2980F3"}} className="iphone" /> 联系电话：</span><span>{v.adminaccount}</span></Col>
                                                     </Row>
@@ -193,6 +189,7 @@ class AlarmList extends Component {
                         ))
                     }
                 </div>
+                </Spin>
                 <div className="pagination" style={{display:this.state.callPoliceList?"block":"none"}}><Pagination defaultCurrent={1} current={this.state.page} total={this.state.totalcount} defaultPageSize={10} onChange={this.handlepage} hideOnSinglePage={true} /></div>
                  <Modal
                     width={1000}
