@@ -39,7 +39,7 @@ class CascaderModule extends Component {
         return {
           zonecode:this.state.zonecode,
           usertype:this.state.usertype,
-          zonelabel:this.state.zonelabel
+          zonename:this.state.zonename
         };
     };
     onChange = (value, selectedOptions) => {
@@ -48,7 +48,7 @@ class CascaderModule extends Component {
       this.setState({
         zonecode:value.length?value[value.length-1]:'',
         usertype:value.length-1,
-        zonelabel:zonelabel
+        zonename:zonename
       })   
     }
     loadData = (selectedOptions) => {
