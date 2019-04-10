@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Timeline, Form, Checkbox, Button, Modal,message} from 'antd';
+import {Timeline, Form, Checkbox, Button, Modal,message,Input} from 'antd';
 import "../../style/sjg/police.css";
 import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
@@ -11,7 +11,8 @@ class AlarmDetail extends Component {
             alarmImgType:false,
             alarmVideo:false,
             ifCheck1:false,
-            ifCheck2:false
+            ifCheck2:false,
+            nodataImg:false
         };
     }
     componentWillMount() {
@@ -37,6 +38,11 @@ class AlarmDetail extends Component {
                         treatment:res.data.detail,
                         astatus:res.data[0].astatus,
                         adminaccount:res.data[0].adminaccount,
+                        nodataImg:true,
+                    });
+                }else{
+                    this.setState({
+                        nodataImg:false,
                     });
                 }
             })
@@ -68,54 +74,40 @@ class AlarmDetail extends Component {
             alarmVideo:false
         })
     };
-    hanleTreatment=(status)=>{
-        if(status===0){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+    progressTemp=(v,i)=>{
+        switch(v.astatus){
+            case 0 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
-                            <div className="linetext">有新报警，报警人{v.handlemen}&nbsp;&nbsp;{v.memo}</div>
+                            <div className="linetext">有新报警，报警人{v.handlemen}.{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===1){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+                    </Timeline>)
+            case 1 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
-                            <div className="linetext">{v.lastmen}接警{v.memo}</div>
+                            <div className="linetext">{v.handlemen}接警.{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===2){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+                    </Timeline>)
+            case 2 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
                             <div className="linetext">{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===3){
-            return(
-                <Timeline>
-                    <Timeline.Item>
-                        <div className="linetime">已结案</div>
-                    </Timeline.Item>
-                </Timeline>
-            )
+                    </Timeline>)
+            case 3 :
+             return (<Timeline key={i}>
+                        <Timeline.Item>
+                            <div className="linetime">{v.createon}</div>
+                            <div className="linetext">已结案，操作人{v.handlemen}.{v.memo}</div>
+                        </Timeline.Item>
+                    </Timeline>)
+
         }
     };
     handleSubmit=(e)=>{
-        console.log("11111");
-        this.props.form.resetFields();
-        console.log("22222");
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
             if(!err){
@@ -129,7 +121,12 @@ class AlarmDetail extends Component {
                         post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
                             if(res.success){
                                 message.success("处理成功!");
-                                this.getone();
+                                document.getElementById("case").value="";
+                                this.setState({
+                                    alarmValue:"",
+                                },()=>{
+                                    this.getone();
+                                });
                             }else{
                                 message.error("处理失败!");
                             }
@@ -147,6 +144,10 @@ class AlarmDetail extends Component {
             this.setState({
                 alarmValue:value
             })
+        }else{
+            this.setState({
+                alarmValue:""
+            })
         }
         if(value===1){
             this.setState({
@@ -162,8 +163,8 @@ class AlarmDetail extends Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className="AlarmDetail">
-                {
-                    this.state.id?<div>
+                <div style={{width:"110px",height:"auto",margin:"20px auto",display:this.state.id && this.state.nodataImg===false?"block":"none"}}><img src={nodata} style={{width:"100%",height:"100%"}} /></div>
+                <div>
                         <div className="reportinf">
                             <div className="reportleft">
                                 <div className="reportleft_img">
@@ -209,7 +210,7 @@ class AlarmDetail extends Component {
                                                wrapperCol={{ span: 12}}
                                     >
                                         {getFieldDecorator('description')(
-                                            <span><textarea className="case" placeholder="案件描述..." /></span>
+                                            <span><textarea className="case" placeholder="案件描述..." id="case" /></span>
                                         )}
                                     </Form.Item>
                                     <Form.Item
@@ -230,13 +231,12 @@ class AlarmDetail extends Component {
                                 </div>
                             </div>
                             <div className="reportright polTimeline" style={{paddingLeft:'5%'}}>
-                                {
-                                    this.hanleTreatment(this.state.astatus)
-                                }
+                                {this.state.treatment.map((v,i)=>(
+                                    this.progressTemp(v,i)
+                                ))}
                             </div>
                         </div>
-                    </div>:<div style={{width:"110px",height:"auto",margin:"20px auto"}}><img src={nodata} style={{width:"100%",height:"100%"}} /></div>
-                }
+                    </div>
                 <Modal
                     width={650}
                     title="警情详情"

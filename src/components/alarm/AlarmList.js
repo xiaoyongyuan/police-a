@@ -20,7 +20,6 @@ class AlarmList extends Component {
     }
     componentDidMount(){
         this.callPolice();
-       
     }
     callPolice=()=>{
         var datas={
@@ -33,8 +32,8 @@ class AlarmList extends Component {
           if(res.success){
               this.setState({
                   callPoliceList:res.data,
+                  spinStyle:false,
                   totalcount:res.totalcount,
-                  spinStyle:false
               })
           }
       })

@@ -39,6 +39,8 @@ class Map extends Component {
     var BMap = window.BMap;
 
     var map = new BMap.Map("mapContainer"); // 创建Map实例
+    var mapStyle = { style: "midnight" };
+    map.setMapStyle(mapStyle);
     map.centerAndZoom("西安市雁塔区", 12);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
