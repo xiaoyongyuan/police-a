@@ -2,7 +2,6 @@ import { combineReducers } from "redux";
 import * as type from "../action/type";
 
 const defaultState = {
-  statistics: {},
   alarmRecord: []
 };
 
@@ -29,24 +28,6 @@ const httpData = (state = {}, action) => {
   }
 };
 
-const homeMoudle = (state = defaultState, action) => {
-  switch (action.type) {
-    case type.GET_STATISTICS:
-      return {
-        ...state,
-        statistics: action.payload
-      };
-    case type.GET_ALARMRECORD:
-      return {
-        ...state,
-        alarmRecord: action.payload
-      };
-    default:
-      return { ...state };
-  }
-};
-
 export default combineReducers({
-  httpData,
-  homeMoudle
+  httpData
 });

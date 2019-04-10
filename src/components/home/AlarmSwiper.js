@@ -26,7 +26,9 @@ class AlarmSwiper extends Component {
         {
           alarmList: res.data
         },
-        () => {}
+        () => {
+          console.log(this.state.alarmList, "alarmlist");
+        }
       );
     });
   }
@@ -45,8 +47,8 @@ class AlarmSwiper extends Component {
               >
                 <img src={v.pic_min} alt="" />
                 <p className="newAlarmTit">
-                  {v.county_name}
-                  {v.town_name}
+                  {v.location} <br />
+                  {v.handletime}
                 </p>
                 <Link
                   style={{
