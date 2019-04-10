@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Timeline, Form, Checkbox, Button, Modal,message} from 'antd';
+import {Timeline, Form, Checkbox, Button, Modal,message,Input} from 'antd';
 import "../../style/sjg/police.css";
 import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
@@ -11,7 +11,8 @@ class AlarmDetail extends Component {
             alarmImgType:false,
             alarmVideo:false,
             ifCheck1:false,
-            ifCheck2:false
+            ifCheck2:false,
+            nodataImg:false
         };
     }
     componentWillMount() {
@@ -37,13 +38,15 @@ class AlarmDetail extends Component {
                         treatment:res.data.detail,
                         astatus:res.data[0].astatus,
                         adminaccount:res.data[0].adminaccount,
+                        nodataImg:true,
+                    });
+                }else{
+                    this.setState({
+                        nodataImg:false,
                     });
                 }
             })
         }
-    };
-    onChange=(e)=>{
-        console.log(`checked = ${e.target.checked}`);
     };
     hanlealarmImg=(pathImg)=>{
         if(pathImg){
@@ -103,25 +106,34 @@ class AlarmDetail extends Component {
                     </Timeline>)
 
         }
-    }
+    };
     handleSubmit=(e)=>{
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
             if(!err){
-                if(this.state.alarmValue || values.description){
-                    var datas={
-                        memo:values.description,
-                        astatus:this.state.alarmValue,
-                        code:this.state.oneCode
-                    };
-                    post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
-                        if(res.success){
-                            message.success("处理成功!");
-                            this.getone();
-                        }else{
-                            message.error("处理失败!");
-                        }
-                    })
+                if(this.state.alarmValue){
+                    if(this.state.alarmValue || values.description){
+                        var datas={
+                            memo:values.description,
+                            astatus:this.state.alarmValue,
+                            code:this.state.oneCode
+                        };
+                        post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
+                            if(res.success){
+                                message.success("处理成功!");
+                                document.getElementById("case").value="";
+                                this.setState({
+                                    alarmValue:"",
+                                },()=>{
+                                    this.getone();
+                                });
+                            }else{
+                                message.error("处理失败!");
+                            }
+                        })
+                    }
+                }else{
+                    message.warning("请选择处理状态！");
                 }
             }
         })
@@ -132,16 +144,18 @@ class AlarmDetail extends Component {
             this.setState({
                 alarmValue:value
             })
+        }else{
+            this.setState({
+                alarmValue:""
+            })
         }
         if(value===1){
             this.setState({
-                ifCheck1:true,
-                ifCheck2:false
+                ifCheck1:e.target.checked,
             })
         }else if(value===3){
             this.setState({
-                ifCheck1:false,
-                ifCheck2:true
+                ifCheck2:e.target.checked,
             })
         }
     };
@@ -149,8 +163,8 @@ class AlarmDetail extends Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className="AlarmDetail">
-                {
-                    this.state.id?<div>
+                <div style={{width:"110px",height:"auto",margin:"20px auto",display:this.state.id && this.state.nodataImg===false?"block":"none"}}><img src={nodata} style={{width:"100%",height:"100%"}} /></div>
+                <div>
                         <div className="reportinf">
                             <div className="reportleft">
                                 <div className="reportleft_img">
@@ -196,7 +210,7 @@ class AlarmDetail extends Component {
                                                wrapperCol={{ span: 12}}
                                     >
                                         {getFieldDecorator('description')(
-                                            <span><textarea className="case" placeholder="案件描述..." /></span>
+                                            <span><textarea className="case" placeholder="案件描述..." id="case" /></span>
                                         )}
                                     </Form.Item>
                                     <Form.Item
@@ -219,12 +233,10 @@ class AlarmDetail extends Component {
                             <div className="reportright polTimeline" style={{paddingLeft:'5%'}}>
                                 {this.state.treatment.map((v,i)=>(
                                     this.progressTemp(v,i)
-                                    
                                 ))}
                             </div>
                         </div>
-                    </div>:<div style={{width:"110px",height:"auto",margin:"20px auto"}}><img src={nodata} style={{width:"100%",height:"100%"}} /></div>
-                }
+                    </div>
                 <Modal
                     width={650}
                     title="警情详情"
