@@ -22,7 +22,6 @@ class Map extends Component {
 
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
-      console.log(res, "5555555555555555555555555");
       this.setState(
         {
           markerList: res.data,
@@ -30,7 +29,6 @@ class Map extends Component {
         },
         () => {
           const _this = this;
-          console.log("---------", this.state.markerList);
           this.initializeMap(_this);
         }
       );
@@ -44,8 +42,7 @@ class Map extends Component {
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    console.log(defpoint);
-    map.centerAndZoom(new BMap.Point(defpoint), 10);
+    map.centerAndZoom(defpoint, 10);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
     const getBoundary = () => {
@@ -85,11 +82,6 @@ class Map extends Component {
                     deviceInfo: res.data
                   },
                   () => {
-                    console.log(
-                      _this.state.deviceInfo,
-                      "this.state.markerList"
-                    );
-
                     var opts = {
                       width: 300, // 信息窗口宽度
                       height: 70, // 信息窗口高度

@@ -30,9 +30,7 @@ class AlarmSwiper extends Component {
         {
           alarmList: res.data
         },
-        () => {
-          console.log(this.state.alarmList, "alarmlist");
-        }
+        () => {}
       );
     });
   }

@@ -6,7 +6,6 @@ import { Form, Icon, Input, Button, Checkbox, message } from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchData, receiveData } from "@/action"; //action->index按需取
-import bg from "../../style/imgs/bg.jpg";
 import axios from "axios";
 import CascaderModule from "../common/CascaderModule";
 import "../../style/jhy/css/login.css";
