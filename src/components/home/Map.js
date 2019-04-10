@@ -125,9 +125,9 @@ class Map extends Component {
   };
 
   componentDidMount() {
-    dynamic = setInterval(this.getMarkerList(), 1000);
+    dynamic = setInterval(this.getMarkerList(), 1000 * 60);
   }
- 
+
   render() {
     return <div id="mapContainer" style={{ width: "100%", height: "100%" }} />;
   }

@@ -33,7 +33,7 @@ class AlarmSwiper extends Component {
           () => {}
         );
       }),
-      1000
+      1000 * 60
     );
   }
   componentWillUnmount() {
