@@ -73,9 +73,6 @@ class SiderCustom extends Component {
         collapsed={this.props.collapsed}
         style={{ overflowY: "auto" }}
       >
-        <div>
-          <img src={this.props.collapsed ? logoicon : logofont} />
-        </div>
         <SiderMenu
           identify="admin"
           menus={routes.menus}

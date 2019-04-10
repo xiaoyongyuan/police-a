@@ -10,7 +10,7 @@ import SiderCustom from './SiderCustom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { post } from '../axios/tools';
-
+import logo from "../style/jhy/imgs/logo.png";
 
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -30,8 +30,6 @@ class HeaderCustom extends Component {
                 user: _user
             });
         }
-       // const aa= post('login',);
-    
     };
     screenFull = () => { //全屏
         if (screenfull.enabled) {
@@ -55,23 +53,27 @@ class HeaderCustom extends Component {
     handleVisibleChange = (visible) => {
         this.setState({ visible });
     };
+    namequf=()=>{
+        const usertype=this.state.user.usertype;
+        switch(usertype){
+            case '0':
+            return '公安厅';
+            case '1':
+            return '公安局';
+            case '2':
+            return '公安分局';
+        }
+    }
     render() {
         const { responsive, path } = this.props;
         return (
-            <Header className="custom-theme header" >
-                {
-                    responsive.data.isMobile ? (
-                        <Popover content={<SiderCustom path={path} popoverHide={this.popoverHide} />} trigger="click" placement="bottomLeft" visible={this.state.visible} onVisibleChange={this.handleVisibleChange}>
-                            <Icon type="bars" className="header__trigger custom-trigger" />
-                        </Popover>
-                    ) : (
-                        <Icon
-                            className="header__trigger custom-trigger"
-                            type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.props.toggle}
-                        />
-                    )
-                }
+            <Header className="custom-theme header" style={{display:'flex', justifyContent:'space-between'}}>
+                <div className="logotext" style={{height:'65px',width:'500px'}}>
+                    <div style={{padding:'15px 0 0 15px'}}>
+                    <img src={logo} width="33px" style={{verticalAlign:'top'}} />
+                    <span style={{lineHeight:'35px',height:'35px',verticalAlign:'top',display:'inlineBlock',paddingLeft:'12px',fontSize:'25px',fontFamily:'黑体',color:'#fff' }}>{this.state.user.zonename}{this.namequf()}</span>
+                    </div>
+                </div>
                 <Menu
                     mode="horizontal"
                     style={{ lineHeight: '64px', float: 'right' }}
