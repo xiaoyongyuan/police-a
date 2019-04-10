@@ -97,7 +97,10 @@ class Login extends React.Component {
                 })(
                   <Input
                     prefix={
-                      <Icon type="environment" style={{ fontSize: 13 }} />
+                      <Icon
+                        type="environment"
+                        style={{ fontSize: 13, color: "#ffffff" }}
+                      />
                     }
                     placeholder="请输入地区编码"
                   />
@@ -108,8 +111,14 @@ class Login extends React.Component {
                   rules: [{ required: true, message: "请输入用户名!" }]
                 })(
                   <Input
-                    prefix={<Icon type="user" style={{ fontSize: 13 }} />}
+                    prefix={
+                      <Icon
+                        type="user"
+                        style={{ fontSize: 13, color: "#ffffff" }}
+                      />
+                    }
                     placeholder="请输入用户名"
+                    style={{ background: "#283a53" }}
                   />
                 )}
               </FormItem>
@@ -118,29 +127,26 @@ class Login extends React.Component {
                   rules: [{ required: true, message: "请输入密码!" }]
                 })(
                   <Input
-                    prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
+                    prefix={
+                      <Icon
+                        type="lock"
+                        style={{ fontSize: 13, color: "#ffffff" }}
+                      />
+                    }
                     type="password"
                     placeholder="请输入密码"
                   />
                 )}
               </FormItem>
               <FormItem>
-                {getFieldDecorator("remember", {
-                  valuePropName: "checked",
-                  initialValue: true
-                })(<Checkbox>记住我</Checkbox>)}
-                <span
-                  className="login-form-forgot"
-                  href=""
-                  style={{ float: "right" }}
-                >
-                  忘记密码
-                </span>
                 <Button
                   type="primary"
                   htmlType="submit"
                   className="lgbutton"
-                  style={{ width: "100%" }}
+                  style={{
+                    maxWidth: "158px",
+                    background: `url('${formbut}')  no-repeat center/100% 100%`
+                  }}
                 >
                   登录
                 </Button>
