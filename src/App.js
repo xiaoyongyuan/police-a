@@ -64,16 +64,17 @@ class App extends Component {
         const { auth, responsive } = this.props;
         return (
             <Layout>
-                {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} />}
-                <Layout style={{flexDirection: 'column'}}>
-                    <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} user={auth.data || {}} />
-                    <Content style={{overflow: 'initial', flex: '1 1 0' }}>
-                        <Routes auth={auth} />
-                    </Content>
-                    <Footer style={{ textAlign: 'center' }}>
-                    西安傲科云 ©{new Date().getFullYear()} 
-                    </Footer>
-                </Layout>
+                <HeaderCustom  style={{ position: 'fixed', zIndex: 1, width: '100%' }} collapsed={this.state.collapsed} user={auth.data || {}} />
+                <Content className="Layoutcontent" style={{height:'calc(100% - 65px)'}}>
+                    <Layout>
+                        {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} />}
+                        <Content style={{overflowY: 'scroll', flex: '1 1 0' }}>
+                            <Routes auth={auth} />
+                        </Content>
+                        
+                    </Layout>
+                </Content>             
+                
                 
             </Layout>
         );

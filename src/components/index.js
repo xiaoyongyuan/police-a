@@ -21,7 +21,6 @@ import CascaderModule from './common/CascaderModule'; //省市区三级联动
 // });
 
 export default {
-
     HoneIndex
     ,AlarmList ,AlarmSta ,AlarmDetail
     ,Employeelist
