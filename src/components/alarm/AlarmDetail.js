@@ -42,9 +42,6 @@ class AlarmDetail extends Component {
             })
         }
     };
-    onChange=(e)=>{
-        console.log(`checked = ${e.target.checked}`);
-    };
     hanlealarmImg=(pathImg)=>{
         if(pathImg){
             this.setState({
@@ -89,7 +86,7 @@ class AlarmDetail extends Component {
                     <Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
-                            <div className="linetext">{v.lastmen}接警，{v.memo}</div>
+                            <div className="linetext">{v.lastmen}接警{v.memo}</div>
                         </Timeline.Item>
                     </Timeline>
                 ))
@@ -116,23 +113,30 @@ class AlarmDetail extends Component {
         }
     };
     handleSubmit=(e)=>{
+        console.log("11111");
+        this.props.form.resetFields();
+        console.log("22222");
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
             if(!err){
-                if(this.state.alarmValue || values.description){
-                    var datas={
-                        memo:values.description,
-                        astatus:this.state.alarmValue,
-                        code:this.state.oneCode
-                    };
-                    post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
-                        if(res.success){
-                            message.success("处理成功!");
-                            this.getone();
-                        }else{
-                            message.error("处理失败!");
-                        }
-                    })
+                if(this.state.alarmValue){
+                    if(this.state.alarmValue || values.description){
+                        var datas={
+                            memo:values.description,
+                            astatus:this.state.alarmValue,
+                            code:this.state.oneCode
+                        };
+                        post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
+                            if(res.success){
+                                message.success("处理成功!");
+                                this.getone();
+                            }else{
+                                message.error("处理失败!");
+                            }
+                        })
+                    }
+                }else{
+                    message.warning("请选择处理状态！");
                 }
             }
         })
@@ -146,13 +150,11 @@ class AlarmDetail extends Component {
         }
         if(value===1){
             this.setState({
-                ifCheck1:true,
-                ifCheck2:false
+                ifCheck1:e.target.checked,
             })
         }else if(value===3){
             this.setState({
-                ifCheck1:false,
-                ifCheck2:true
+                ifCheck2:e.target.checked,
             })
         }
     };
