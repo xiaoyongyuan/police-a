@@ -21,9 +21,9 @@
 
     top: 20px;
     left: 20px;
-    width: 35%;
+    width: 600px;
+    height: 80px;
     box-sizing: border-box;
-    height: 100px;
     /* border: 1px solid red;*/
     display: flex;
     flex-flow: row nowrap;
@@ -32,10 +32,20 @@
 .statcol {
     background: #fff;
     box-sizing: border-box;
-    width: 33%;
+    width: 108px;
     height: 100%;
     padding: 10px;
     color: #222;
+}
+
+.statcol:nth-child(2) {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 125px;
+}
+
+.statcol:nth-child(3) {
+    width: 175px;
 }
 
 .statit {
@@ -65,17 +75,14 @@
     color: #4088f9;
 }
 
-.statcol:nth-child(2) {
-    margin-left: 20px;
-    margin-right: 20px;
-}
+
 
 .topMap {
-    height: 66%;
+    height: 74%;
 }
 
 .newAlarm {
-    height: 34%;
+    height: 26%;
 }
 
 .homeIndex .newAlarmTit {
@@ -91,7 +98,7 @@
     height: auto;
 }
 
-@media screen and (max-width: 1441px) {
+/* @media screen and (max-width: 1441px) {
     .statit {
         font-size: 14px;
     }
@@ -127,4 +134,4 @@
     .statcol:nth-child(3) {
         width: 35%;
     }
-}
+} */
