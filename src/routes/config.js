@@ -6,7 +6,7 @@ export default {
             key: '/app/alarm', title: '警报管理', icon: 'team',
             subs: [
                 { key: '/app/alarm/AlarmList', title: '警报', component: 'AlarmList'},
-                { key: '/app/alarm/AlarmSta', title: '警报统计', component: 'AlarmSta'},       
+                // { key: '/app/alarm/AlarmSta', title: '警报统计', component: 'AlarmSta'},       
             ],
         }, 
         {

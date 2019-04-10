@@ -10,7 +10,7 @@ import axios from "axios";
 import CascaderModule from "../common/CascaderModule";
 import "../../style/jhy/css/login.css";
 import logo from "../../style/jhy/imgs/logo.png";
-import backg from "../../style/jhy/imgs/backg.png";
+import backg from "../../style/jhy/imgs/backg.jpg";
 import locat from "../../style/jhy/imgs/locat.png";
 import pass from "../../style/jhy/imgs/pass.png";
 import user from "../../style/jhy/imgs/user.png";
@@ -80,7 +80,7 @@ class Login extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div className="loginPage" style={{ background: `url(${backg})` }}>
-        <div className="logincaption">{policeuser.zonename}{this.namequf()}</div>
+        <div className="logincaption">{policeuser?policeuser.zonename:null}{this.namequf()}</div>
         <div className="contwrap">
           <div className="logo">
             <img src={logo} alt="" />

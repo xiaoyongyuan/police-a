@@ -6,7 +6,8 @@ import BMap from "BMap";
 import pointRed from "../../style/jhy/imgs/point.png";
 import pointBlue from "../../style/jhy/imgs/point2.png";
 import mapStyle from "../../style/jhy/custom_map_config.json";
-
+import { setInterval } from "timers";
+var dynamic;
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,9 @@ class Map extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
-
+  componentWillUnmount() {
+    clearInterval(dynamic);
+  }
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
       this.setState(
@@ -38,11 +41,12 @@ class Map extends Component {
     const routerhistory = this.context.router.history;
     var BMap = window.BMap;
 
-    var map = new BMap.Map("mapContainer", { minZoom: 6, maxZoom: 14 }); // 创建Map实例
+    var map = new BMap.Map("mapContainer", { minZoom: 6, maxZoom: 19 }); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    map.centerAndZoom(defpoint, 10);
+    map.centerAndZoom(`${defpoint}`, 10);
+    map.setCurrentCity(`${defpoint}`);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
     const getBoundary = () => {
@@ -121,8 +125,9 @@ class Map extends Component {
   };
 
   componentDidMount() {
-    this.getMarkerList();
+    dynamic = setInterval(this.getMarkerList(), 1000 * 60);
   }
+
   render() {
     return <div id="mapContainer" style={{ width: "100%", height: "100%" }} />;
   }
