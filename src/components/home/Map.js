@@ -22,6 +22,7 @@ class Map extends Component {
 
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
+      console.log(res, "5555555555555555555555555");
       this.setState(
         {
           markerList: res.data,
@@ -29,6 +30,7 @@ class Map extends Component {
         },
         () => {
           const _this = this;
+          console.log("---------", this.state.markerList);
           this.initializeMap(_this);
         }
       );
@@ -38,11 +40,12 @@ class Map extends Component {
     const routerhistory = this.context.router.history;
     var BMap = window.BMap;
 
-    var map = new BMap.Map("mapContainer"); // 创建Map实例
+    var map = new BMap.Map("mapContainer", { minZoom: 10, maxZoom: 14 }); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    map.centerAndZoom(defpoint, 12);
+    console.log(defpoint);
+    map.centerAndZoom(new BMap.Point(defpoint), 10);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
     const getBoundary = () => {
