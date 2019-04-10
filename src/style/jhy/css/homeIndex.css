@@ -71,18 +71,18 @@
 }
 
 .topMap {
-    height: 64%;
+    height: 74%;
 }
 
 .newAlarm {
-    height: 36%;
+    height: 26%;
 }
 
 .homeIndex .newAlarmTit {
-    font-size: 16px;
+    font-size: 14px;
     text-align: left;
     color: #222;
-    padding: 20px;
+    padding: 5px;
 }
 
 .newAlarmImg {
