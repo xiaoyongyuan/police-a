@@ -45,7 +45,7 @@ class Map extends Component {
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    map.centerAndZoom(`${defpoint}`, 10);
+    map.centerAndZoom(`${defpoint}`, 11);
     map.setCurrentCity(`${defpoint}`);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
