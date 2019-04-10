@@ -20,7 +20,9 @@ class Map extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
-
+  componentWillUnmount() {
+    clearInterval(dynamic);
+  }
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
       this.setState(
@@ -40,11 +42,11 @@ class Map extends Component {
     var BMap = window.BMap;
 
     var map = new BMap.Map("mapContainer", { minZoom: 6, maxZoom: 19 }); // 创建Map实例
-    map.centerAndZoom(`${defpoint}`, 10);
-    map.setCurrentCity(`${defpoint}`);
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
+    map.centerAndZoom(`${defpoint}`, 10);
+    map.setCurrentCity(`${defpoint}`);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
     const getBoundary = () => {
@@ -125,9 +127,7 @@ class Map extends Component {
   componentDidMount() {
     dynamic = setInterval(this.getMarkerList(), 1000);
   }
-  componentWillUnmount() {
-    clearInterval(dynamic);
-  }
+ 
   render() {
     return <div id="mapContainer" style={{ width: "100%", height: "100%" }} />;
   }
