@@ -113,6 +113,7 @@ class AlarmDetail extends Component {
         post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
             if(res.success){
                 message.success("处理成功!");
+                this.props.form.resetFields();
                 document.getElementById("case").value="";
                 this.setState({
                     alarmValue:"",
@@ -128,62 +129,57 @@ class AlarmDetail extends Component {
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
             if(!err){
-                if(this.state.alarmValue===1 || this.state.alarmValue===3 && values.description){
-                    console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
-                    const datas={
-                        memo:values.description,
-                        astatus:this.state.alarmValue,
-                        code:this.state.oneCode
-                    };
-                    this.hanleRes(datas);
-                }else if(this.state.alarmValue===3 && this.state.astatus===1 || values.description ){
-                    console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
-                    const datas={
-                        memo:values.description,
-                        astatus:2,
-                        code:this.state.oneCode
-                    };
-                    this.hanleRes(datas);
-                }else if(this.state.alarmValue===3 && this.state.astatus===2 || values.description ){
-                    console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
-                    const datas={
-                        memo:values.description,
-                        astatus:this.state.alarmValue,
-                        code:this.state.oneCode
-                    };
-                    this.hanleRes(datas);
-                }else{
-                    message.warning("请选择警情类型或警情描述!");
-                }
-               /* if(this.state.astatus===1){
-                    if(this.state.alarmValue===undefined || values.description){
-                        var datas= {
-                            memo: values.description,
-                            astatus: 2,
-                            code: this.state.oneCode
+                if(this.state.alarmValue || values.description){
+                    if(this.state.astatus===0){
+                        console.log(values.description,"description");
+                        /* if((this.state.alarmValue===1 || this.state.alarmValue===3) || values.description){*/
+                        if(values.description && this.state.alarmValue===undefined){
+                            message.warning("请选择警情类型!");
+                        }else if((this.state.alarmValue===1 || this.state.alarmValue===3) || values.description){
+                            console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
+                            const datas={
+                                memo:values.description,
+                                astatus:this.state.alarmValue,
+                                code:this.state.oneCode
+                            };
+                            this.hanleRes(datas);
+                        }else if((this.state.alarmValue===1 || this.state.alarmValue===3) && values.description){
+                            const datas={
+                                memo:values.description,
+                                astatus:this.state.alarmValue,
+                                code:this.state.oneCode
+                            };
+                            this.hanleRes(datas);
+                        }
+
+                        /* }else{
+                             message.warning("请选择警情类型或警情描述!");
+                         }*/
+                    }else if(this.state.alarmValue===3 && this.state.astatus===1 || values.description ){
+                        console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
+                        const datas={
+                            memo:values.description,
+                            astatus:2,
+                            code:this.state.oneCode
                         };
                         this.hanleRes(datas);
-                    }
-                }else if(this.state.astatus==0){
-                    if(this.state.alarmValue || values.description){
-                        var datas={
+                    }else if(this.state.alarmValue===3 && this.state.astatus===2 || values.description ){
+                        console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
+                        const datas={
                             memo:values.description,
                             astatus:this.state.alarmValue,
                             code:this.state.oneCode
                         };
                         this.hanleRes(datas);
-                    }else{
-                        message.warning("请选择警情处理或警情描述!");
                     }
-                }else {
-                    message.warning("请选择警情处理或警情描述!");
-                }*/
+                }else{
+                    message.warning("请选择警情类型或警情描述!");
+                }
             }
         })
     };
     //接警
     hanleAlarm=(e,value)=>{
-        console.log(value,"value");
         if(e.target.checked){
             this.setState({
                 alarmValue:value
@@ -208,7 +204,7 @@ class AlarmDetail extends Component {
         return (
             <div className="AlarmDetail">
                 <div style={{width:"110px",height:"auto",margin:"20px auto",display:this.state.id && this.state.nodataImg===false?"block":"none"}}><img src={nodata} style={{width:"100%",height:"100%"}} /></div>
-                <div>
+                <div style={{display:this.state.id && this.state.nodataImg===false?"none":"block"}}>
                         <div className="reportinf">
                             <div className="reportleft">
                                 <div className="reportleft_img">
