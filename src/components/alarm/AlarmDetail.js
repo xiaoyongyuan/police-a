@@ -71,50 +71,39 @@ class AlarmDetail extends Component {
             alarmVideo:false
         })
     };
-    hanleTreatment=(status)=>{
-        if(status===0){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+    progressTemp=(v,i)=>{
+        switch(v.astatus){
+            case 0 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
-                            <div className="linetext">有新报警，报警人{v.handlemen}&nbsp;&nbsp;{v.memo}</div>
+                            <div className="linetext">有新报警，报警人{v.handlemen}.{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===1){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+                    </Timeline>)
+            case 1 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
-                            <div className="linetext">{v.lastmen}接警，{v.memo}</div>
+                            <div className="linetext">{v.handlemen}接警.{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===2){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+                    </Timeline>)
+            case 2 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
                             <div className="linetext">{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===3){
-            return(
-                <Timeline>
-                    <Timeline.Item>
-                        <div className="linetime">已结案</div>
-                    </Timeline.Item>
-                </Timeline>
-            )
+                    </Timeline>)
+            case 3 :
+             return (<Timeline key={i}>
+                        <Timeline.Item>
+                            <div className="linetime">{v.createon}</div>
+                            <div className="linetext">已结案，操作人{v.handlemen}.{v.memo}</div>
+                        </Timeline.Item>
+                    </Timeline>)
+
         }
-    };
+    }
     handleSubmit=(e)=>{
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
@@ -228,9 +217,10 @@ class AlarmDetail extends Component {
                                 </div>
                             </div>
                             <div className="reportright polTimeline" style={{paddingLeft:'5%'}}>
-                                {
-                                    this.hanleTreatment(this.state.astatus)
-                                }
+                                {this.state.treatment.map((v,i)=>(
+                                    this.progressTemp(v,i)
+                                    
+                                ))}
                             </div>
                         </div>
                     </div>:<div style={{width:"110px",height:"auto",margin:"20px auto"}}><img src={nodata} style={{width:"100%",height:"100%"}} /></div>
