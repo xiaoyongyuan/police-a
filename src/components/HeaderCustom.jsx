@@ -54,15 +54,18 @@ class HeaderCustom extends Component {
         this.setState({ visible });
     };
     namequf=()=>{
-        const usertype=this.state.user.usertype;
-        switch(usertype){
+        const usertype=this.state.user?this.state.user.usertype:null;
+        if(usertype){
+          switch(usertype){
             case '0':
             return '公安厅';
             case '1':
             return '公安局';
             case '2':
             return '公安分局';
+        }  
         }
+        
     }
     render() {
         const { responsive, path } = this.props;
@@ -71,7 +74,7 @@ class HeaderCustom extends Component {
                 <div className="logotext" style={{height:'65px',width:'500px'}}>
                     <div style={{padding:'15px 0 0 15px'}}>
                     <img src={logo} width="33px" style={{verticalAlign:'top'}} />
-                    <span style={{lineHeight:'35px',height:'35px',verticalAlign:'top',display:'inlineBlock',paddingLeft:'12px',fontSize:'25px',fontFamily:'黑体',color:'#fff' }}>{this.state.user.zonename}{this.namequf()}</span>
+                    <span style={{lineHeight:'35px',height:'35px',verticalAlign:'top',display:'inlineBlock',paddingLeft:'12px',fontSize:'25px',fontFamily:'黑体',color:'#fff' }}>{this.state.user?this.state.user.zonename:null}{this.namequf()}</span>
                     </div>
                 </div>
                 <Menu
