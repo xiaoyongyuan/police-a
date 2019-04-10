@@ -209,6 +209,7 @@
 .pagination{
     width: 100%;
     text-align: center;
+    margin: 10px 0 40px 0;
 }
 .AlarmDetail .ant-form-item-label label {
     font-weight: bolder;
@@ -228,4 +229,18 @@
 }
 .AlarmDetail .ant-form-item-children #policeHandling,.ant-form-item-children #description{
     margin-left: 13px;
+}
+@media screen and (max-width: 1280px){
+    .AlarmDetail .ant-col-xl-3 {
+          display: block;
+          box-sizing: border-box;
+          width: 8.5%!important;
+      }
+}
+@media screen and (max-width: 1280px){
+    .AlarmDetail .ant-col-xl-3 {
+        display: block;
+        box-sizing: border-box;
+        width: 10.5%!important;
+    }
 }

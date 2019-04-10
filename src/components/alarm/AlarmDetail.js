@@ -131,42 +131,33 @@ class AlarmDetail extends Component {
             if(!err){
                 if(this.state.alarmValue || values.description){
                     if(this.state.astatus===0){
-                        console.log(values.description,"description");
-                        /* if((this.state.alarmValue===1 || this.state.alarmValue===3) || values.description){*/
                         if(values.description && this.state.alarmValue===undefined){
                             message.warning("请选择警情类型!");
                         }else if((this.state.alarmValue===1 || this.state.alarmValue===3) || values.description){
-                            console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
                             const datas={
-                                memo:values.description,
+                                handlememo:values.description,
                                 astatus:this.state.alarmValue,
                                 code:this.state.oneCode
                             };
                             this.hanleRes(datas);
                         }else if((this.state.alarmValue===1 || this.state.alarmValue===3) && values.description){
                             const datas={
-                                memo:values.description,
+                                handlememo:values.description,
                                 astatus:this.state.alarmValue,
                                 code:this.state.oneCode
                             };
                             this.hanleRes(datas);
                         }
-
-                        /* }else{
-                             message.warning("请选择警情类型或警情描述!");
-                         }*/
                     }else if(this.state.alarmValue===3 && this.state.astatus===1 || values.description ){
-                        console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
                         const datas={
-                            memo:values.description,
+                            handlememo:values.description,
                             astatus:2,
                             code:this.state.oneCode
                         };
                         this.hanleRes(datas);
                     }else if(this.state.alarmValue===3 && this.state.astatus===2 || values.description ){
-                        console.log(values.description,"description",this.state.alarmValue,"alarmValue",this.state.astatus,"astatus");
                         const datas={
-                            memo:values.description,
+                            handlememo:values.description,
                             astatus:this.state.alarmValue,
                             code:this.state.oneCode
                         };
@@ -237,8 +228,14 @@ class AlarmDetail extends Component {
                             <div className="reportright">
                                 <Form layout="vertical" onSubmit={this.handleSubmit}>
                                     <Form.Item label="警情处理："
-                                               labelCol={{span: 2}}
-                                               wrapperCol={{ span: 12}}
+                                               labelCol={{
+                                                   xl:{ span:3 },
+                                                   xxl:{ span:2 }
+                                               }}
+                                               wrapperCol={{
+                                                   xl:{ span:12 },
+                                                   xxl:{ span:12 }
+                                               }}
                                                labelAlign="right"
                                     >
                                         {getFieldDecorator('policeHandling')(
@@ -246,8 +243,14 @@ class AlarmDetail extends Component {
                                         )}
                                     </Form.Item>
                                     <Form.Item label="案件描述："
-                                               labelCol={{span: 2}}
-                                               wrapperCol={{ span: 12}}
+                                               labelCol={{
+                                                   xl:{ span:3 },
+                                                   xxl:{ span:2 }
+                                               }}
+                                               wrapperCol={{
+                                                   xl:{ span:12 },
+                                                   xxl:{ span:12 }
+                                               }}
                                     >
                                         {getFieldDecorator('description')(
                                             <span><textarea className="case" placeholder="案件描述..." id="case" /></span>
