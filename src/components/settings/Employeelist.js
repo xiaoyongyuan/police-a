@@ -36,13 +36,13 @@ class Adminteam extends Component {
     }
     getList=()=>{
         const datas={
-            realname:this.state.realname,
-            account:this.state.account,
+            realname:this.state.lookName,
+            account:this.state.lookAccount,
             pageIndex:this.state.page
         };
+        console.log(datas,this.state.lookName,this.state.lookAccount,"getlist")
         post({url:"/api/usercop/getlist",data:datas},(res)=>{
             if(res.success){
-                console.log(res.data.length);
                 if(res.data.length>=1){
                     this.setState({
                         list:res.data,
@@ -67,7 +67,15 @@ class Adminteam extends Component {
     handleCreate=()=>{
         this.props.form.validateFields((err, values) => {
             if(!err){
-                post({url:"/api/usercop/add",data:{account:values.phone,zonecode:this.state.zonecode,usertype:this.state.adminuser.usertype}},(res)=>{
+                const datas={
+                    account:values.phone,//账号
+                    copID:values.bianhao,
+                    realname:values.xingming,
+                    linktel:values.dianhua,
+                    zonecode:this.state.zonecode,
+                    usertype:this.state.adminuser.usertype
+                };
+                post({url:"/api/usercop/add",data:datas},(res)=>{
                     if(res.success){
                         this.setState({
                             visible:false
@@ -97,14 +105,12 @@ class Adminteam extends Component {
         });
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if(!err){
-                this.setState({
-                    realname:values.realname,
-                    account:values.account,
-                },()=>{
-                    this.getList();
-                });
-            }
+            this.setState({
+                lookName:values.realname,
+                lookAccount:values.account,
+            },()=>{
+                this.getList();
+            });
         })
     };
     handleMove=(code)=>{
@@ -117,7 +123,8 @@ class Adminteam extends Component {
     deleteOk=()=>{
         const parasDel={
             zonecode:this.state.zonecode,
-            account:this.state.code
+            code:this.state.code,
+            ifdel:1
         };
         if(parasDel){
             post({url:"/api/usercop/del",data:parasDel},(res)=>{
@@ -182,7 +189,7 @@ class Adminteam extends Component {
                 render: (text,record,index) => {
                     return(
                         <div>
-                            <Button style={{display:record.userstatus===0?"none":"block"}} className="deleteBtn" onClick={()=>this.handleMove(record.account)}>删除</Button>
+                            <Button style={{display:record.userstatus===0?"none":"block"}} className="deleteBtn" onClick={()=>this.handleMove(record.code)}>删除</Button>
                         </div>
                     )
                 }
@@ -236,7 +243,39 @@ class Adminteam extends Component {
                 >
                     <Form>
                         <FormItem label="账号" {...formItemLayout}>
-                            {getFieldDecorator('phone')(
+                            {getFieldDecorator('phone',{
+                                rules:[{
+                                    required: true, message: '请输入账号!',
+                                }]
+                            })(
+                                <Input />
+                            )}
+                        </FormItem>
+                        <FormItem label="编号" {...formItemLayout}>
+                            {getFieldDecorator('bianhao',{
+                                rules:[{
+                                    required: true, message: '请输入账号!',
+                                }]
+                            })(
+                                <Input />
+                            )}
+                        </FormItem>
+                        <FormItem label="姓名" {...formItemLayout}>
+                            {getFieldDecorator('xingming',{
+                                rules:[{
+                                    required: true, message: '请输入账号!',
+                                }]
+                            })(
+                                <Input />
+                            )}
+                        </FormItem>
+                        <FormItem label="联系电话" {...formItemLayout}>
+                            {getFieldDecorator('dianhua',{
+                                rules:[{
+                                    required: false, message: '输入有误!',
+                                    pattern: new RegExp("^[0-9]*$")
+                                }]
+                            })(
                                 <Input />
                             )}
                         </FormItem>
