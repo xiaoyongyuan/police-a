@@ -10,6 +10,7 @@ import SiderCustom from './SiderCustom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { post } from '../axios/tools';
+
 import logo from "../style/jhy/imgs/logo.png";
 
 const { Header } = Layout;
@@ -29,15 +30,14 @@ class HeaderCustom extends Component {
             this.setState({
                 user: _user
             });
+            this.notify(_user.account)
         }
     };
     screenFull = () => { //全屏
-        if (screenfull.enabled) {
-            screenfull.request();
-        }
+        screenfull.toggle();
+        this.props.toggle();
     };
     menuClick = e => {
-        console.log(e);
         e.key === 'logout' && this.logout();
     };
     logout = () => { //退出
@@ -66,6 +66,19 @@ class HeaderCustom extends Component {
         }  
         }
         
+    } 
+    notify=(account)=>{ //消息推送
+        window.pushJs.init({
+           appKey:'7FD0C3504B625DE9219B5808B076D668',
+           chanel:'13152426570'
+        }).connect();
+        window.pushJs.onmessage = function(message) {
+            console.log("receive:" + message.data);
+        }
+        window.pushJs.onopen = function() {
+            console.log('open');
+        };
+
     }
     render() {
         const { responsive, path } = this.props;

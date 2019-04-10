@@ -64,7 +64,7 @@ class App extends Component {
         const { auth, responsive } = this.props;
         return (
             <Layout>
-                <HeaderCustom  style={{ position: 'fixed', zIndex: 1, width: '100%' }} collapsed={this.state.collapsed} user={auth.data || {}} />
+                <HeaderCustom toggle={this.toggle} style={{ position: 'fixed', zIndex: 1, width: '100%' }} collapsed={this.state.collapsed} user={auth.data || {}} />
                 <Content className="Layoutcontent" style={{height:'calc(100% - 65px)'}}>
                     <Layout>
                         {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} />}
