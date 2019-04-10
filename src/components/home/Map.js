@@ -41,12 +41,12 @@ class Map extends Component {
     var map = new BMap.Map("mapContainer"); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
-    map.centerAndZoom("西安市雁塔区", 12);
+    map.centerAndZoom("汉中市汉台区", 12);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
     const getBoundary = () => {
       var bdary = new BMap.Boundary();
-      var name = "西安市雁塔区";
+      var name = "汉中市汉台区";
       bdary.get(name, function(rs) {
         //获取行政区域
         var count = rs.boundaries.length; //行政区域的点有多少个

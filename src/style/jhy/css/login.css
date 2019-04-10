@@ -14,42 +14,77 @@
 }
 
 .contwrap {
-  max-height: 440px;
+  height: 440px;
   max-width: 1200px;
   box-sizing: border-box;
   position: relative;
-  padding-top: 15%;
+  top: 30%;
   margin: auto;
-  border: 1px solid #fff;
 }
 
 .logo {
   position: absolute;
-  top: 68%;
+  top: 10%;
   left: -11.67%;
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.formbut {
+.login-form {
+  position: relative;
   box-sizing: border-box;
-  width: 156px;
-  height: 50px;
+  margin-left: 47.5%;
+}
+
+.lgform {
+  position: absolute;
+  top: 26%;
+  left: 26%;
+}
+
+
+
+
+
+
+.lgbutton {
+  margin-left: 32%;
+  color: #fff !important;
+  border: 0 !important;
+  font-size: 20px !important;
+
+}
+
+.lgform .ant-input-affix-wrapper .ant-input {
+  height: 48px !important;
+  color: #e5e5e5 !important;
+  padding-left: 44px;
+  font-size: 18px;
+  border: 1px solid #f3f4f6 !important;
+  background: #283a53 !important;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #e5e5e5 !important;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #e5e5e5 !important;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #e5e5e5 !important;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #e5e5e5 !important;
 }

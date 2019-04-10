@@ -75,20 +75,32 @@ class Login extends React.Component {
 
           <div
             className="login-form"
+            // style={{
+            //   background: "url(" + formbacg + ") no-reapt center",
+            //   maxWidth: "520px",
+            //   height: "440px"
+            // }}
             style={{
-              background: "url(" + formbacg + ") no-reapt center",
+              background: `url('${formbacg}')  no-repeat center/100% 100%`,
               maxWidth: "520px",
               height: "440px"
             }}
           >
-            <Form onSubmit={this.handleSubmit} style={{ maxWidth: "300px" }}>
+            <Form
+              onSubmit={this.handleSubmit}
+              style={{ maxWidth: "300px" }}
+              className="lgform"
+            >
               <FormItem>
                 {getFieldDecorator("comid", {
                   rules: [{ required: false, message: "地区编码!" }]
                 })(
                   <Input
                     prefix={
-                      <Icon type="environment" style={{ fontSize: 13 }} />
+                      <Icon
+                        type="environment"
+                        style={{ fontSize: 18, color: "#ffffff" }}
+                      />
                     }
                     placeholder="请输入地区编码"
                   />
@@ -99,8 +111,14 @@ class Login extends React.Component {
                   rules: [{ required: true, message: "请输入用户名!" }]
                 })(
                   <Input
-                    prefix={<Icon type="user" style={{ fontSize: 13 }} />}
+                    prefix={
+                      <Icon
+                        type="user"
+                        style={{ fontSize: 18, color: "#ffffff" }}
+                      />
+                    }
                     placeholder="请输入用户名"
+                    style={{ background: "#283a53" }}
                   />
                 )}
               </FormItem>
@@ -109,21 +127,30 @@ class Login extends React.Component {
                   rules: [{ required: true, message: "请输入密码!" }]
                 })(
                   <Input
-                    prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
+                    prefix={
+                      <Icon
+                        type="lock"
+                        style={{ fontSize: 18, color: "#ffffff" }}
+                      />
+                    }
                     type="password"
                     placeholder="请输入密码"
                   />
                 )}
               </FormItem>
-              <div
-                htmlType="submit"
-                className="formbut"
-                style={{
-                  background: `url(${formbut}) no-reapt 100%/100%`
-                }}
-              >
-                登录
-              </div>
+              <FormItem>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="lgbutton"
+                  style={{
+                    maxWidth: "158px",
+                    background: `url('${formbut}')  no-repeat center/100% 100%`
+                  }}
+                >
+                  登录
+                </Button>
+              </FormItem>
             </Form>
           </div>
         </div>

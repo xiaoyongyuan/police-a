@@ -49,10 +49,10 @@ class AlarmSwiper extends Component {
                 style={{ position: "relative" }}
               >
                 <img src={v.pic_min} alt="" className="newAlarmImg" />
-                <p className="newAlarmTit">
-                  {v.location} <br />
-                  {v.handletime}
-                </p>
+                <div className="newAlarmTit">
+                  <p>{v.location}</p>
+                  <p>{v.handletime}</p>
+                </div>
                 <Link
                   style={{
                     display: "block",
