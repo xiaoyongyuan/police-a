@@ -19,7 +19,10 @@ class AlarmSwiper extends Component {
         disableOnInteraction: false
       }, //可选选项，自动滑动
       slidesPerView: 8,
-      observer: true
+      spaceBetween: 10,
+      observer: true,
+      observeParents: true,
+      observeSlideChildren: true
     });
     post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
       this.setState(
@@ -45,7 +48,7 @@ class AlarmSwiper extends Component {
                 key={i}
                 style={{ position: "relative" }}
               >
-                <img src={v.pic_min} alt="" />
+                <img src={v.pic_min} alt="" className="newAlarmImg" />
                 <p className="newAlarmTit">
                   {v.location} <br />
                   {v.handletime}

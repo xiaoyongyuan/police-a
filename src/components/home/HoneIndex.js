@@ -18,17 +18,22 @@ class HoneIndex extends Component {
     };
   }
   componentDidMount() {
+    // post({ url: "/api/camera_cop/getcount_e" }, res => {
+    //   this.setState(
+    //     {
+    //       statistic: res.data
+    //     },
+    //     () => {
+    //       console.log("+++++++++++++++++", this.state.statistic);
+    //     }
+    //   );
+    // });
     post({ url: "/api/camera_cop/getcount_e" }, res => {
       this.setState(
         {
-          statistic: res.data
+          statistic: res
         },
-        () => {
-          console.log(
-            "this.statistic--------------------------------",
-            this.state.statistic
-          );
-        }
+        () => {}
       );
     });
   }
@@ -49,7 +54,7 @@ class HoneIndex extends Component {
               设备数
             </div>
             <p className="statval">
-              <span className="origdata1">80</span>个
+              <span className="origdata1">{statistic.ecount}</span>个
             </p>
           </div>
           <div className="statcol">
@@ -58,7 +63,7 @@ class HoneIndex extends Component {
               当前报警
             </div>
             <p className="statval">
-              <span className="origdata2">41</span>次
+              <span className="origdata2">{statistic.acount}</span>次
             </p>
           </div>
           <div className="statcol">
@@ -67,7 +72,7 @@ class HoneIndex extends Component {
               一小时警情统计
             </div>
             <p className="statval">
-              <span className="origdata3">0</span>次
+              <span className="origdata3">{statistic.onehour}</span>次
             </p>
           </div>
         </div>

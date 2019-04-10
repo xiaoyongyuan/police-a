@@ -49,7 +49,6 @@ class Map extends Component {
       var name = "西安市雁塔区";
       bdary.get(name, function(rs) {
         //获取行政区域
-        map.clearOverlays(); //清除地图覆盖物
         var count = rs.boundaries.length; //行政区域的点有多少个
         for (var i = 0; i < count; i++) {
           var ply = new BMap.Polygon(rs.boundaries[i], {
