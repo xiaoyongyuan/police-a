@@ -18,16 +18,6 @@ class HoneIndex extends Component {
     };
   }
   componentDidMount() {
-    // post({ url: "/api/camera_cop/getcount_e" }, res => {
-    //   this.setState(
-    //     {
-    //       statistic: res.data
-    //     },
-    //     () => {
-    //       console.log("+++++++++++++++++", this.state.statistic);
-    //     }
-    //   );
-    // });
     post({ url: "/api/camera_cop/getcount_e" }, res => {
       this.setState(
         {
@@ -40,13 +30,9 @@ class HoneIndex extends Component {
 
   render() {
     const statistic = this.state.statistic;
-    // const total = alarmStatistics.reduce((inittotal, item) => {
-    //   return inittotal + item.count;
-    // }, 0);
 
     return (
       <div className="homeIndex">
-        {/* <div className="homeIndex-left"> */}
         <div className="statistic">
           <div className="statcol">
             <div className="statit">
@@ -88,45 +74,6 @@ class HoneIndex extends Component {
             <AlarmSwiper />
           </div>
         </div>
-        {/* </div> */}
-
-        {/* <div className="homeIndex-right" style={{ boxSing: "border-box" }}>
-          <div className="rightPoliceWrap">
-            <div className="rightPolice">
-              <p className="alarmTit">
-                警情统计
-                <span className="alarmTitSpan">共{total}条</span>
-              </p>
-            </div>
-            <div className="garden">
-              {alarmStatistics.map((v, i) => {
-                var perval = v.count / total;
-                return (
-                  <div className="details" key={i}>
-                    <Progress
-                      type="circle"
-                      percent={perval === 1 ? 100 : perval}
-                      width={100}
-                      strokeWidth={5}
-                      format={() => `${v.count}条`}
-                    />
-                    <div className="detailsName">{v.name}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="rightDevice">
-            <p className="titleHomeIndex">设备统计</p>
-            <div className="deviceWrap">
-              <UserStatistics
-                deviceStatistics={deviceStatistics}
-                className="userDevice"
-              />
-            </div>
-          </div>
-        </div> */}
       </div>
     );
   }

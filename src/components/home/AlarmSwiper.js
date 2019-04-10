@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { post } from "../../axios/tools.js";
 import { Link } from "react-router-dom";
+import { Empty } from "antd";
 
 class AlarmSwiper extends Component {
   constructor(props) {
@@ -29,9 +30,7 @@ class AlarmSwiper extends Component {
         {
           alarmList: res.data
         },
-        () => {
-          console.log(this.state.alarmList, "alarmlist");
-        }
+        () => {}
       );
     });
   }
@@ -71,7 +70,9 @@ class AlarmSwiper extends Component {
               </div>
             ))
           ) : (
-            <div> </div>
+            <div>
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+            </div>
           )}
         </div>
       </div>

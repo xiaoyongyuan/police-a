@@ -25,7 +25,7 @@
 .logo {
   position: absolute;
   top: 10%;
-  left: -11.67%;
+  left: 0;
 }
 
 
@@ -34,7 +34,7 @@
 .login-form {
   position: relative;
   box-sizing: border-box;
-  margin-left: 47.5%;
+  margin-left: 57%;
 }
 
 .lgform {
