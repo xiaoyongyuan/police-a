@@ -226,6 +226,6 @@
     width: 100%;
     padding: 10px;
 }
-.AlarmDetail .ant-form-item-children #userName,.ant-form-item-children #description{
+.AlarmDetail .ant-form-item-children #policeHandling,.ant-form-item-children #description{
     margin-left: 13px;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Timeline, Form, Checkbox, Button, Modal} from 'antd';
+import {Timeline, Form, Checkbox, Button, Modal,message} from 'antd';
 import "../../style/sjg/police.css";
 import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
@@ -9,12 +9,14 @@ class AlarmDetail extends Component {
         this.state={
             treatment:[],
             alarmImgType:false,
-            alarmVideo:false
+            alarmVideo:false,
+            ifCheck1:false,
+            ifCheck2:false
         };
     }
     componentWillMount() {
-            this.setState({
-                id:this.props.query.id,
+        this.setState({
+            id:this.props.query.id,
         });
     }
     componentDidMount() {
@@ -25,8 +27,9 @@ class AlarmDetail extends Component {
             post({url:"/api/alarmhandle_cop/getone",data:{code:this.state.id}},(res)=>{
                 if(res.success){
                     this.setState({
+                        oneCode:res.data[0].code,
                         atime:res.data[0].atime,
-                        address:res.data[0].province_name+res.data[0].city_name+res.data[0].county_name+res.data[0].town_name+res.data[0].village_name,
+                        address:res.data[0].location,
                         adminname:res.data[0].adminname,
                         lastmemo:res.data[0].lastmemo,
                         pic_min:res.data[0].pic_min,
@@ -68,127 +71,160 @@ class AlarmDetail extends Component {
             alarmVideo:false
         })
     };
-    hanleTreatment=(status)=>{
-        if(status===0){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+    progressTemp=(v,i)=>{
+        switch(v.astatus){
+            case 0 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
-                            <div className="linetext">有新报警，报警人{v.handlemen}&nbsp;&nbsp;{v.memo}</div>
+                            <div className="linetext">有新报警，报警人{v.handlemen}.{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===1){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+                    </Timeline>)
+            case 1 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
-                            <div className="linetext">{v.lastmen}接警，{v.memo}</div>
+                            <div className="linetext">{v.handlemen}接警.{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===2){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+                    </Timeline>)
+            case 2 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
                             <div className="linetime">{v.createon}</div>
                             <div className="linetext">{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
-        }else if(status===3){
-            return(
-                this.state.treatment.map((v,i)=>(
-                    <Timeline key={i}>
+                    </Timeline>)
+            case 3 :
+             return (<Timeline key={i}>
                         <Timeline.Item>
-                            <div className="linetime">已结案</div>
+                            <div className="linetime">{v.createon}</div>
+                            <div className="linetext">已结案，操作人{v.handlemen}.{v.memo}</div>
                         </Timeline.Item>
-                    </Timeline>
-                ))
-            )
+                    </Timeline>)
+
+        }
+    }
+    handleSubmit=(e)=>{
+        e.preventDefault();
+        this.props.form.validateFields((err,values)=>{
+            if(!err){
+                if(this.state.alarmValue || values.description){
+                    var datas={
+                        memo:values.description,
+                        astatus:this.state.alarmValue,
+                        code:this.state.oneCode
+                    };
+                    post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
+                        if(res.success){
+                            message.success("处理成功!");
+                            this.getone();
+                        }else{
+                            message.error("处理失败!");
+                        }
+                    })
+                }
+            }
+        })
+    };
+    //接警
+    hanleAlarm=(e,value)=>{
+        if(e.target.checked){
+            this.setState({
+                alarmValue:value
+            })
+        }
+        if(value===1){
+            this.setState({
+                ifCheck1:true,
+                ifCheck2:false
+            })
+        }else if(value===3){
+            this.setState({
+                ifCheck1:false,
+                ifCheck2:true
+            })
         }
     };
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className="AlarmDetail">
-                <div className="reportinf">
-                    <div className="reportleft">
-                        <div className="reportleft_img">
-                            <img src={nodata} alt="" />
+                {
+                    this.state.id?<div>
+                        <div className="reportinf">
+                            <div className="reportleft">
+                                <div className="reportleft_img">
+                                    <img src={nodata} alt="" />
+                                </div>
+                                <div className="reportleft_text">
+                                    报案信息
+                                </div>
+                            </div>
+                            <div className="reportright">
+                                <p><span className="fontStyle">报警时间：</span><span>{this.state.atime}</span></p>
+                                <p><span className="fontStyle">案发地点：</span><span>{this.state.address}</span></p>
+                                <p><span className="fontStyle">报警人：</span><span>{this.state.adminname}-{this.state.adminaccount}</span></p>
+                                <p><span className="fontStyle">警情描述：</span><span>{this.state.lastmemo?this.state.lastmemo:"无"}</span></p>
+                                <div className="reportImg">
+                                    <div className="reportImgLeft"><img src={this.state.pic_min} alt="" onClick={()=>this.hanlealarmImg(this.state.pic_min)} /></div>
+                                    <div className="reportImgRight"><video autoPlay="autoplay" loop="loop" src={this.state.videopath} onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="reportleft_text">
-                            报案信息
+                        <div className="handle reportinf" style={{display:this.state.astatus===3?"none":"inline-flex"}}>
+                            <div className="reportleft">
+                                <div className="reportleft_img">
+                                    <img src={nodata} alt="" />
+                                </div>
+                                <div className="reportleft_text">
+                                    处理信息
+                                </div>
+                            </div>
+                            <div className="reportright">
+                                <Form layout="vertical" onSubmit={this.handleSubmit}>
+                                    <Form.Item label="警情处理："
+                                               labelCol={{span: 2}}
+                                               wrapperCol={{ span: 12}}
+                                               labelAlign="right"
+                                    >
+                                        {getFieldDecorator('policeHandling')(
+                                            <span><Checkbox onChange={(e)=>this.hanleAlarm(e,1)} style={{display:this.state.astatus===1 || this.state.astatus===2?"none":"inline-block"}} checked={this.state.ifCheck1}>接警</Checkbox><Checkbox onChange={(e)=>this.hanleAlarm(e,3)} checked={this.state.ifCheck2}>结束</Checkbox></span>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item label="案件描述："
+                                               labelCol={{span: 2}}
+                                               wrapperCol={{ span: 12}}
+                                    >
+                                        {getFieldDecorator('description')(
+                                            <span><textarea className="case" placeholder="案件描述..." /></span>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item
+                                        wrapperCol={{ span: 12, offset: 6 }}
+                                    >
+                                        <Button type="primary" htmlType="submit">处理</Button>
+                                    </Form.Item>
+                                </Form>
+                            </div>
                         </div>
-                    </div>
-                    <div className="reportright">
-                        <p><span className="fontStyle">报警时间：</span><span>{this.state.atime}</span></p>
-                        <p><span className="fontStyle">案发地点：</span><span>{this.state.address}</span></p>
-                        <p><span className="fontStyle">报警人：</span><span>{this.state.adminname}-{this.state.adminaccount}</span></p>
-                        <p><span className="fontStyle">警情描述：</span><span>{this.state.lastmemo?this.state.lastmemo:"无"}</span></p>
-                        <div className="reportImg">
-                            <div className="reportImgLeft"><img src={this.state.pic_min} alt="" onClick={()=>this.hanlealarmImg(this.state.pic_min)} /></div>
-                            <div className="reportImgRight"><video autoPlay="autoplay" loop="loop" src={this.state.videopath} onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
+                        <div className="march reportinf">
+                            <div className="reportleft">
+                                <div className="reportleft_img">
+                                    <img src={nodata} alt="" />
+                                </div>
+                                <div className="reportleft_text">
+                                    处理进展
+                                </div>
+                            </div>
+                            <div className="reportright polTimeline" style={{paddingLeft:'5%'}}>
+                                {this.state.treatment.map((v,i)=>(
+                                    this.progressTemp(v,i)
+                                    
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div className="handle reportinf">
-                    <div className="reportleft">
-                        <div className="reportleft_img">
-                            <img src={nodata} alt="" />
-                        </div>
-                        <div className="reportleft_text">
-                            处理信息
-                        </div>
-                    </div>
-                    <div className="reportright" style={{display:this.state.astatus===3?"none":"inline-block"}}>
-                        <Form layout="vertical" onSubmit={this.handleSubmit}>
-                            <Form.Item label="警情处理："
-                                labelCol={{span: 2}}
-                                wrapperCol={{ span: 12}}
-                                labelAlign="right"
-                            >
-                                {getFieldDecorator('userName')(
-                                    <span><Checkbox onChange={this.onChange} style={{display:this.state.astatus===1 || this.state.astatus===2?"none":"inline-block"}}>接警</Checkbox><Checkbox onChange={this.onChange}>结束</Checkbox></span>
-                                )}
-                            </Form.Item>
-                            <Form.Item label="案件描述："
-                               labelCol={{span: 2}}
-                               wrapperCol={{ span: 12}}
-                            >
-                                {getFieldDecorator('description')(
-                                    <span><textarea className="case" placeholder="案件描述..." /></span>
-                                )}
-                            </Form.Item>
-                            <Form.Item
-                                wrapperCol={{ span: 12, offset: 6 }}
-                            >
-                                <Button type="primary" htmlType="submit">处理</Button>
-                            </Form.Item>
-                        </Form>
-                    </div>
-                </div>
-                <div className="march reportinf">
-                    <div className="reportleft">
-                        <div className="reportleft_img">
-                            <img src={nodata} alt="" />
-                        </div>
-                        <div className="reportleft_text">
-                            处理进展
-                        </div>
-                    </div>
-                    <div className="reportright polTimeline" style={{paddingLeft:'5%'}}>
-                        {
-                            this.hanleTreatment(this.state.astatus)
-                        }
-                    </div>
-                </div>
+                    </div>:<div style={{width:"110px",height:"auto",margin:"20px auto"}}><img src={nodata} style={{width:"100%",height:"100%"}} /></div>
+                }
                 <Modal
                     width={650}
                     title="警情详情"
