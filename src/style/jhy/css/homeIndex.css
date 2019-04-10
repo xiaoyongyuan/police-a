@@ -1,3 +1,9 @@
+.elli {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .homeIndex {
     display: flex;
     flex-direction: column;

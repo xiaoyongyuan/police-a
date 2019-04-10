@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { post } from "../../axios/tools.js";
 import { Link } from "react-router-dom";
-
-
+var dynamicc;
 class AlarmSwiper extends Component {
   constructor(props) {
     super(props);
@@ -25,14 +24,20 @@ class AlarmSwiper extends Component {
       observeParents: true,
       observeSlideChildren: true
     });
-    post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
-      this.setState(
-        {
-          alarmList: res.data
-        },
-        () => {}
-      );
-    });
+    dynamicc = setInterval(
+      post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
+        this.setState(
+          {
+            alarmList: res.data
+          },
+          () => {}
+        );
+      }),
+      1000
+    );
+  }
+  componentWillUnmount() {
+    clearInterval(dynamicc);
   }
 
   render() {
@@ -49,8 +54,8 @@ class AlarmSwiper extends Component {
               >
                 <img src={v.pic_min} alt="" className="newAlarmImg" />
                 <div className="newAlarmTit">
-                  <p>{v.location}</p>
-                  <p>{v.handletime}</p>
+                  <p className="elli">{v.location}</p>
+                  <p className="elli">{v.handletime}</p>
                 </div>
                 <Link
                   style={{
@@ -70,8 +75,7 @@ class AlarmSwiper extends Component {
               </div>
             ))
           ) : (
-            <div>
-            </div>
+            <div />
           )}
         </div>
       </div>
