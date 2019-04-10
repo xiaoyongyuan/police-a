@@ -48,8 +48,42 @@
 
 
 
-.formbut {
-  box-sizing: border-box;
-  width: 156px;
-  height: 50px;
+.lgbutton {
+  background: #1c7588 !important;
+  color: #fff !important;
+  border: 1px solid #2ecde3 !important;
+  font-size: 20px !important;
+}
+
+.lgform .ant-input-affix-wrapper .ant-input:not(:first-child) {
+  height: 50px !important;
+  color: #9df5ff !important;
+  padding-left: 44px;
+  font-size: 18px;
+  border: 1px solid #2ecde3 !important;
+  background: #164451 !important;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #9df5ff !important;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #9df5ff !important;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #9df5ff !important;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #9df5ff !important;
 }

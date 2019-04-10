@@ -75,13 +75,22 @@ class Login extends React.Component {
 
           <div
             className="login-form"
+            // style={{
+            //   background: "url(" + formbacg + ") no-reapt center",
+            //   maxWidth: "520px",
+            //   height: "440px"
+            // }}
             style={{
-              background: "url(" + formbacg + ") no-reapt center",
+              background: `url('${formbacg}')  no-repeat center/100% 100%`,
               maxWidth: "520px",
               height: "440px"
             }}
           >
-            <Form onSubmit={this.handleSubmit} style={{ maxWidth: "300px" }}>
+            <Form
+              onSubmit={this.handleSubmit}
+              style={{ maxWidth: "300px" }}
+              className="lgform"
+            >
               <FormItem>
                 {getFieldDecorator("comid", {
                   rules: [{ required: false, message: "地区编码!" }]
@@ -115,15 +124,27 @@ class Login extends React.Component {
                   />
                 )}
               </FormItem>
-              <div
-                htmlType="submit"
-                className="formbut"
-                style={{
-                  background: `url(${formbut}) no-reapt 100%/100%`
-                }}
-              >
-                登录
-              </div>
+              <FormItem>
+                {getFieldDecorator("remember", {
+                  valuePropName: "checked",
+                  initialValue: true
+                })(<Checkbox>记住我</Checkbox>)}
+                <span
+                  className="login-form-forgot"
+                  href=""
+                  style={{ float: "right" }}
+                >
+                  忘记密码
+                </span>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="lgbutton"
+                  style={{ width: "100%" }}
+                >
+                  登录
+                </Button>
+              </FormItem>
             </Form>
           </div>
         </div>
