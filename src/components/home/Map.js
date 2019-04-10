@@ -38,7 +38,7 @@ class Map extends Component {
     const routerhistory = this.context.router.history;
     var BMap = window.BMap;
 
-    var map = new BMap.Map("mapContainer", { minZoom: 10, maxZoom: 14 }); // 创建Map实例
+    var map = new BMap.Map("mapContainer", { minZoom: 6, maxZoom: 14 }); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
@@ -82,32 +82,24 @@ class Map extends Component {
                     deviceInfo: res.data
                   },
                   () => {
+                    var optstit = `<p>
+                    用户名：${_this.state.deviceInfo.adminname}
+                    <span style="margin-left:30px;">
+                    电话：${_this.state.deviceInfo.adminaccount}
+                    </span>
+                    </p>`;
                     var opts = {
                       width: 300, // 信息窗口宽度
-                      height: 70, // 信息窗口高度
-                      title: `用户名：${
-                        _this.state.deviceInfo.adminname
-                      }&nbsp;&nbsp;电话：${
-                        _this.state.deviceInfo.adminaccount
-                      }`, // 信息窗口标题
+                      height: 120, // 信息窗口高度
+                      title: optstit,
                       enableMessage: true, //设置允许信息窗发送短息
                       message: ""
                     };
-                    var infoWindow = new BMap.InfoWindow(
-                      // (
-                      // (
-                      //   <div>
-                      //     <p>设备名：{_this.state.deviceInfo.name}</p>
-                      //     <p>设备地址：{_this.state.deviceInfo.location}</p>
-                      //   </div>
-                      // ),
-                      // `{ _this.state.deviceInfo.name }`,
-                      // ),
-                      `设备名：${_this.state.deviceInfo.name}
-                      设备地址：${_this.state.deviceInfo.location}
-                      `,
-                      opts
-                    ); // 创建信息窗口对象
+                    var cont = `
+                    <p>设备名：${_this.state.deviceInfo.name}</p>
+                           <p>设备地址：${_this.state.deviceInfo.location}</p>
+                    `;
+                    var infoWindow = new BMap.InfoWindow(cont, opts); // 创建信息窗口对象
                     map.openInfoWindow(infoWindow, pt); //开启信息窗口
                   }
                 );
