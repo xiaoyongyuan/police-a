@@ -49,7 +49,6 @@ class Map extends Component {
       var name = "西安市雁塔区";
       bdary.get(name, function(rs) {
         //获取行政区域
-        map.clearOverlays(); //清除地图覆盖物
         var count = rs.boundaries.length; //行政区域的点有多少个
         for (var i = 0; i < count; i++) {
           var ply = new BMap.Polygon(rs.boundaries[i], {
@@ -90,18 +89,27 @@ class Map extends Component {
                     var opts = {
                       width: 300, // 信息窗口宽度
                       height: 70, // 信息窗口高度
-                      title: `账号：${
+                      title: `用户名：${
+                        _this.state.deviceInfo.adminname
+                      }&nbsp;&nbsp;电话：${
                         _this.state.deviceInfo.adminaccount
-                      }&nbsp;&nbsp;用户名：${_this.state.deviceInfo.adminname}`, // 信息窗口标题
+                      }`, // 信息窗口标题
                       enableMessage: true, //设置允许信息窗发送短息
                       message: ""
                     };
                     var infoWindow = new BMap.InfoWindow(
-                      `地址：${_this.state.deviceInfo.province_name} ${
-                        _this.state.deviceInfo.city_name
-                      } ${_this.state.deviceInfo.county_name} ${
-                        _this.state.deviceInfo.town_name
-                      } ${_this.state.deviceInfo.village_name}`,
+                      // (
+                      // (
+                      //   <div>
+                      //     <p>设备名：{_this.state.deviceInfo.name}</p>
+                      //     <p>设备地址：{_this.state.deviceInfo.location}</p>
+                      //   </div>
+                      // ),
+                      // `{ _this.state.deviceInfo.name }`,
+                      // ),
+                      `设备名：${_this.state.deviceInfo.name}
+                      设备地址：${_this.state.deviceInfo.location}
+                      `,
                       opts
                     ); // 创建信息窗口对象
                     map.openInfoWindow(infoWindow, pt); //开启信息窗口
