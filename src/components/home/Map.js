@@ -12,7 +12,7 @@ class Map extends Component {
     super(props);
     this.state = {
       markerList: [],
-
+      zonename: "",
       deviceInfo: {}
     };
   }
@@ -24,10 +24,10 @@ class Map extends Component {
     post({ url: "/api/camera_cop/getlist" }, res => {
       this.setState(
         {
-          markerList: res.data
+          markerList: res.data,
+          zonename: res.zonename
         },
         () => {
-          console.log(this.state.markerList, "this.state.markerList");
           const _this = this;
           this.initializeMap(_this);
         }
@@ -41,13 +41,14 @@ class Map extends Component {
     var map = new BMap.Map("mapContainer"); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
-    map.centerAndZoom("汉中市汉台区", 12);
+    const defpoint = this.state.zonename;
+    map.centerAndZoom(defpoint, 12);
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
     const getBoundary = () => {
       var bdary = new BMap.Boundary();
-      var name = "汉中市汉台区";
-      bdary.get(name, function(rs) {
+      // var name = "汉中市汉台区";
+      bdary.get(defpoint, function(rs) {
         //获取行政区域
         var count = rs.boundaries.length; //行政区域的点有多少个
         for (var i = 0; i < count; i++) {
