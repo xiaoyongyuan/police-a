@@ -99,7 +99,7 @@ class Login extends React.Component {
                     prefix={
                       <Icon
                         type="environment"
-                        style={{ fontSize: 13, color: "#ffffff" }}
+                        style={{ fontSize: 18, color: "#ffffff" }}
                       />
                     }
                     placeholder="请输入地区编码"
@@ -114,7 +114,7 @@ class Login extends React.Component {
                     prefix={
                       <Icon
                         type="user"
-                        style={{ fontSize: 13, color: "#ffffff" }}
+                        style={{ fontSize: 18, color: "#ffffff" }}
                       />
                     }
                     placeholder="请输入用户名"
@@ -130,7 +130,7 @@ class Login extends React.Component {
                     prefix={
                       <Icon
                         type="lock"
-                        style={{ fontSize: 13, color: "#ffffff" }}
+                        style={{ fontSize: 18, color: "#ffffff" }}
                       />
                     }
                     type="password"
