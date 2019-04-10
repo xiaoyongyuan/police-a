@@ -173,9 +173,14 @@ class Adminteam extends Component {
                 key: 'realname',
                 render: text => <span>{text}</span>,
             },{
-                title: '邮箱',
-                dataIndex: 'emailaddress',
-                key: 'emailaddress',
+                title: '编号',
+                dataIndex: 'copID',
+                key: 'copID',
+                render: text => <span>{text}</span>,
+            },{
+                title: '联系电话',
+                dataIndex: 'linktel',
+                key: 'linktel',
                 render: text => <span>{text}</span>,
             },{
                 title: '身份',

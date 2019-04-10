@@ -244,3 +244,8 @@
         width: 10.5%!important;
     }
 }
+
+.AlarmDetail .ant-timeline-item-tail{
+    border-left: 2px solid #E8E8E8!important;
+    display: block!important;
+}
