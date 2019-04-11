@@ -18,9 +18,6 @@ class Map extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
-  componentWillUnmount() {
-    clearInterval(dynamic);
-  }
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
       this.setState(
@@ -42,7 +39,6 @@ class Map extends Component {
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    console.log(defpoint, "defpoint");
     map.centerAndZoom(`${defpoint}`, 10);
     map.setCurrentCity(`${defpoint}`);
     map.setZoom(10);
@@ -122,10 +118,6 @@ class Map extends Component {
     } else {
     }
   };
-
-  componentDidMount() {
-    dynamic = setInterval(this.getMarkerList(), 1000 * 60);
-  }
 
   render() {
     return <div id="mapContainer" style={{ width: "100%", height: "100%" }} />;

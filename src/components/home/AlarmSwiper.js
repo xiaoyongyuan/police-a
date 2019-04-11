@@ -3,7 +3,6 @@ import { post } from "../../axios/tools.js";
 import { Link } from "react-router-dom";
 import nodata from "../../style/imgs/nodata.png";
 import nopic from "../../style/jhy/imgs/nopic.png";
-var dynamicc;
 class AlarmSwiper extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +25,7 @@ class AlarmSwiper extends Component {
       observeParents: true,
       observeSlideChildren: true
     });
-    dynamicc = setInterval(
+    this.dynamicc = setInterval(() => {
       post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
         this.setState(
           {
@@ -34,12 +33,12 @@ class AlarmSwiper extends Component {
           },
           () => {}
         );
-      }),
-      1000 * 60
-    );
+      });
+    }, 1000 * 60);
   }
+
   componentWillUnmount() {
-    clearInterval(dynamicc);
+    clearInterval(this.dynamicc);
   }
 
   render() {
@@ -47,14 +46,14 @@ class AlarmSwiper extends Component {
     return (
       <div className="swiper-container">
         <div className="swiper-wrapper">
-          {alarmList ? (
+          {alarmList.length > 0 ? (
             alarmList.map((v, i) => (
               <div
                 className="swiper-slide"
                 key={i}
                 style={{ position: "relative" }}
               >
-                {v.pic_min ? (
+                {v.pic_min != "" ? (
                   <img src={v.pic_min} alt="" className="newAlarmImg" />
                 ) : (
                   <img src={nopic} alt="" className="newAlarmImg" />
