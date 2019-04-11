@@ -90,12 +90,13 @@
 
 
 .topMap {
-    height: 73%;
+    height: 72%;
     box-sizing: border-box;
+    
 }
 
 .newAlarm {
-    height: 27%;
+    height: 28%;
 }
 
 .homeIndex .newAlarmTit {
@@ -113,11 +114,15 @@
 
 .nodata {
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 3%;
 }
 
 .nodata img {
     display: inline-block;
     max-width: 100%;
     height: auto;
+}
+
+.anchorBL {
+    display: none;
 }
