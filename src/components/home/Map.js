@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { post } from "../../axios/tools.js";
 import { message } from "antd";
 import PropTypes from "prop-types";
-import BMap from "BMap";
 import pointRed from "../../style/jhy/imgs/point.png";
 import pointBlue from "../../style/jhy/imgs/point2.png";
 import mapStyle from "../../style/jhy/custom_map_config.json";
@@ -40,7 +39,6 @@ class Map extends Component {
   initializeMap = _this => {
     const routerhistory = this.context.router.history;
     var BMap = window.BMap;
-
     var map = new BMap.Map("mapContainer", { minZoom: 6, maxZoom: 19 }); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);

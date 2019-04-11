@@ -20,7 +20,6 @@ import formbacg from "../../style/jhy/imgs/formbacg.png";
 const FormItem = Form.Item;
 const logincomcode = localStorage.getItem("loginzonecode");
 const loginaccount = localStorage.getItem("loginpoliceaccount");
-const policeuser = localStorage.getItem("policeuser")?JSON.parse(localStorage.getItem("policeuser")):null;
 
 class Login extends React.Component {
   componentWillMount() {
@@ -37,7 +36,8 @@ class Login extends React.Component {
     const { auth: nextAuth = {}, history } = this.props;
     if (nextAuth.data && nextAuth.data.success) {
       localStorage.setItem("loginzonecode", nextAuth.data.data.companycode);
-      localStorage.setItem("loginpoliceaccount", nextAuth.data.data.account);
+      localStorage.setItem("loginzonecode", nextAuth.data.data.companycode);
+      localStorage.setItem("loginname", nextAuth.data.data.zonename+this.namequf(nextAuth.data.data.usertype));
       localStorage.setItem("policetoken", nextAuth.data.token);
       localStorage.setItem("policeuser", JSON.stringify(nextAuth.data.data));
       localStorage.setItem("policecomid", nextAuth.data.data.companycode);
@@ -64,23 +64,22 @@ class Login extends React.Component {
   onRef = ref => {
     this.child = ref;
   };
-  namequf=()=>{
-    if(policeuser){
-      switch(policeuser.usertype){
-            case '0':
-            return '公安厅';
-            case '1':
-            return '公安局';
-            case '2':
-            return '公安分局';
-        }
+  namequf=(usertype)=>{
+    switch(usertype){
+        case '0':
+        return '公安厅';
+        case '1':
+        return '公安局';
+        case '2':
+        return '公安分局';
     }        
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    const loginname = localStorage.getItem("loginname");
     return (
       <div className="loginPage" style={{ background: `url(${backg})` }}>
-        <div className="logincaption">{policeuser?policeuser.zonename:null}{this.namequf()}</div>
+        <div className="logincaption">{loginname}</div>
         <div className="contwrap">
           <div className="logo">
             <img src={logo} alt="" />
