@@ -183,10 +183,23 @@ class AlarmDetail extends Component {
         if(value===1){
             this.setState({
                 ifCheck1:e.target.checked,
+            },()=>{
+                if(this.state.ifCheck1===true){
+                    this.setState({
+                        ifCheck2:false
+                    })
+                }
             })
+
         }else if(value===3){
             this.setState({
                 ifCheck2:e.target.checked,
+            },()=>{
+                if(this.state.ifCheck2===true){
+                    this.setState({
+                        ifCheck1:false
+                    })
+                }
             })
         }
     };
