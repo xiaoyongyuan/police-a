@@ -4,7 +4,6 @@ import { message } from "antd";
 import PropTypes from "prop-types";
 import pointRed from "../../style/jhy/imgs/point.png";
 import pointBlue from "../../style/jhy/imgs/point2.png";
-import mapStyle from "../../style/jhy/custom_map_config.json";
 import { setInterval } from "timers";
 var dynamic;
 class Map extends Component {

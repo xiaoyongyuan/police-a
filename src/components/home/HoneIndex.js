@@ -30,7 +30,6 @@ class HoneIndex extends Component {
 
   render() {
     const statistic = this.state.statistic;
-
     return (
       <div className="homeIndex">
         <div className="statistic">

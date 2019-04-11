@@ -169,6 +169,7 @@ class Login extends React.Component {
             </Form>
           </div>
         </div>
+        <div className="copyright">陕ICP备18019072号-1</div>
       </div>
     );
   }
