@@ -249,27 +249,33 @@ class Adminteam extends Component {
                     <Form>
                         <FormItem label="账号" {...formItemLayout}>
                             {getFieldDecorator('phone',{
-                                rules:[{
-                                    required: true, message: '请输入账号!',
-                                }]
+                                rules:[
+                                    {required: true, message: '请输入账号!'},
+                                    {max:10,message: '账号至多10位！'},
+                                    {min:3,message: '账号至少3位！'}
+                                ]
                             })(
                                 <Input />
                             )}
                         </FormItem>
                         <FormItem label="编号" {...formItemLayout}>
                             {getFieldDecorator('bianhao',{
-                                rules:[{
-                                    required: true, message: '请输入账号!',
-                                }]
+                                rules:[
+                                    {required: true, message: '请输入编号!',},
+                                    {max:10,message:"编号至多10位！"},
+                                    {min:3,message: '编号至少3位！'}
+                                ]
                             })(
                                 <Input />
                             )}
                         </FormItem>
                         <FormItem label="姓名" {...formItemLayout}>
                             {getFieldDecorator('xingming',{
-                                rules:[{
-                                    required: true, message: '请输入账号!',
-                                }]
+                                rules:[
+                                    {required: true, message: '请输入姓名!',},
+                                    {max:10,message: '账号至多10位！'},
+                                    {min:2,message: '账号至少2位！'}
+                                 ]
                             })(
                                 <Input />
                             )}
