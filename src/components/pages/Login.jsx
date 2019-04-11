@@ -37,7 +37,10 @@ class Login extends React.Component {
     if (nextAuth.data && nextAuth.data.success) {
       localStorage.setItem("loginzonecode", nextAuth.data.data.companycode);
       localStorage.setItem("loginzonecode", nextAuth.data.data.companycode);
-      localStorage.setItem("loginname", nextAuth.data.data.zonename+this.namequf(nextAuth.data.data.usertype));
+      localStorage.setItem(
+        "loginname",
+        nextAuth.data.data.zonename + this.namequf(nextAuth.data.data.usertype)
+      );
       localStorage.setItem("policetoken", nextAuth.data.token);
       localStorage.setItem("policeuser", JSON.stringify(nextAuth.data.data));
       localStorage.setItem("policecomid", nextAuth.data.data.companycode);
@@ -64,16 +67,16 @@ class Login extends React.Component {
   onRef = ref => {
     this.child = ref;
   };
-  namequf=(usertype)=>{
-    switch(usertype){
-        case '0':
-        return '公安厅';
-        case '1':
-        return '公安局';
-        case '2':
-        return '公安分局';
-    }        
-  }
+  namequf = usertype => {
+    switch (usertype) {
+      case "0":
+        return "公安厅";
+      case "1":
+        return "公安局";
+      case "2":
+        return "公安分局";
+    }
+  };
   render() {
     const { getFieldDecorator } = this.props.form;
     const loginname = localStorage.getItem("loginname");
@@ -156,7 +159,7 @@ class Login extends React.Component {
                   htmlType="submit"
                   className="lgbutton"
                   style={{
-                    maxWidth: "158px",
+                    width: "158px",
                     background: `url('${formbut}')  no-repeat center/100% 100%`
                   }}
                 >

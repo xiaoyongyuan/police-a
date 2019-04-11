@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { post } from "../../axios/tools.js";
 import { Link } from "react-router-dom";
+import nodata from "../../style/imgs/nodata.png";
 var dynamicc;
 class AlarmSwiper extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class AlarmSwiper extends Component {
     return (
       <div className="swiper-container">
         <div className="swiper-wrapper">
-          {alarmList ? (
+          {/* {alarmList ? (
             alarmList.map((v, i) => (
               <div
                 className="swiper-slide"
@@ -74,9 +75,20 @@ class AlarmSwiper extends Component {
                 />
               </div>
             ))
-          ) : (
-            <div />
-          )}
+          ) : ( */}
+          <div
+            className="nodata"
+            style={
+              {
+                // display: "flex",
+                // justifyContent: "center",
+                // alignItems: "center"
+              }
+            }
+          >
+            <img src={nodata} alt="" />
+          </div>
+          {/* )} */}
         </div>
       </div>
     );

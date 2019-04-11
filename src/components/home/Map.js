@@ -39,12 +39,15 @@ class Map extends Component {
   initializeMap = _this => {
     const routerhistory = this.context.router.history;
     var BMap = window.BMap;
-    var map = new BMap.Map("mapContainer", { minZoom: 6, maxZoom: 19 }); // 创建Map实例
+    var map = new BMap.Map("mapContainer", { minZoom: 10, maxZoom: 15 }); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    map.centerAndZoom(`${defpoint}`, 11);
+    console.log(defpoint, "defpoint");
+    map.centerAndZoom(`${defpoint}`, 10);
     map.setCurrentCity(`${defpoint}`);
+    map.setZoom(10);
+    map.setDefaultCursor("hand");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // map.setMapStyleV2(mapStyle);
     const getBoundary = () => {
@@ -118,7 +121,6 @@ class Map extends Component {
         }
       });
     } else {
-      message.info("获取设备位置出错");
     }
   };
 
