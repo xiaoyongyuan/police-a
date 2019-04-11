@@ -108,7 +108,7 @@ class Login extends React.Component {
             >
               <FormItem>
                 {getFieldDecorator("comid", {
-                  rules: [{ required: false, message: "地区编码!" }]
+                  rules: [{ required: true, message: "地区编码!" }]
                 })(
                   <Input
                     prefix={
