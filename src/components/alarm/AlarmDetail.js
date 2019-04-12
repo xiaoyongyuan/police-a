@@ -131,9 +131,15 @@ class AlarmDetail extends Component {
             if(!err){
                 if(this.state.alarmValue || values.description){
                     if(this.state.astatus===0){
+                        console.log(this.state.alarmValue,"alarmValue");
                         if(values.description && this.state.alarmValue===undefined){
+                            console.log("幼稚啊===");
+                            message.warning("请选择警情类型!");
+                        }else if(values.description && !this.state.alarmValue){
+                            console.log("!==");
                             message.warning("请选择警情类型!");
                         }else if((this.state.alarmValue===1 || this.state.alarmValue===3) || values.description){
+                            console.log("||");
                             const datas={
                                 handlememo:values.description,
                                 astatus:this.state.alarmValue,
@@ -141,6 +147,7 @@ class AlarmDetail extends Component {
                             };
                             this.hanleRes(datas);
                         }else if((this.state.alarmValue===1 || this.state.alarmValue===3) && values.description){
+                            console.log("&&");
                             const datas={
                                 handlememo:values.description,
                                 astatus:this.state.alarmValue,
