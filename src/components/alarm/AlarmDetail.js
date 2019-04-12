@@ -34,8 +34,9 @@ class AlarmDetail extends Component {
                         atime:res.data[0].atime,
                         address:res.data[0].location,
                         adminname:res.data[0].adminname,
-                        lastmemo:res.data[0].lastmemo,
+                        memo:res.data[0].memo,
                         pic_min:res.data[0].pic_min,
+                        picpath:res.data[0].picpath,
                         videopath:res.data[0].videopath,
                         treatment:res.data.detail,
                         astatus:res.data[0].astatus,
@@ -131,15 +132,11 @@ class AlarmDetail extends Component {
             if(!err){
                 if(this.state.alarmValue || values.description){
                     if(this.state.astatus===0){
-                        console.log(this.state.alarmValue,"alarmValue");
                         if(values.description && this.state.alarmValue===undefined){
-                            console.log("幼稚啊===");
                             message.warning("请选择警情类型!");
                         }else if(values.description && !this.state.alarmValue){
-                            console.log("!==");
                             message.warning("请选择警情类型!");
                         }else if((this.state.alarmValue===1 || this.state.alarmValue===3) || values.description){
-                            console.log("||");
                             const datas={
                                 handlememo:values.description,
                                 astatus:this.state.alarmValue,
@@ -147,7 +144,6 @@ class AlarmDetail extends Component {
                             };
                             this.hanleRes(datas);
                         }else if((this.state.alarmValue===1 || this.state.alarmValue===3) && values.description){
-                            console.log("&&");
                             const datas={
                                 handlememo:values.description,
                                 astatus:this.state.alarmValue,
@@ -229,9 +225,9 @@ class AlarmDetail extends Component {
                                 <p><span className="fontStyle">报警时间：</span><span>{this.state.atime}</span></p>
                                 <p><span className="fontStyle">案发地点：</span><span>{this.state.address}</span></p>
                                 <p><span className="fontStyle">报警人：</span><span>{this.state.adminname}-{this.state.adminaccount}</span></p>
-                                <p><span className="fontStyle">警情描述：</span><span>{this.state.lastmemo?this.state.lastmemo:"无"}</span></p>
+                                <p><span className="fontStyle">警情描述：</span><span>{this.state.memo?this.state.memo:"无"}</span></p>
                                 <div className="reportImg">
-                                    <div className="reportImgLeft"><img src={this.state.pic_min} alt="" onClick={()=>this.hanlealarmImg(this.state.pic_min)} /></div>
+                                    <div className="reportImgLeft"><img src={this.state.pic_min} alt="" onClick={()=>this.hanlealarmImg(this.state.picpath)} /></div>
                                     <div className="reportImgRight"><video autoPlay="autoplay" loop="loop" src={this.state.videopath} onClick={()=>this.hanlealarmVideo(this.state.videopath)} /></div>
                                 </div>
                             </div>
