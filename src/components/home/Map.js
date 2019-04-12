@@ -118,8 +118,13 @@ class Map extends Component {
     }
   };
 
+  componentDidMount() {
+    this.getMarkerList();
+  }
   render() {
-    return <div id="mapContainer" style={{ width: "100%", height: "100%" }} />;
+    return (
+      <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
+    );
   }
 }
 

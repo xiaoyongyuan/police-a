@@ -70,6 +70,7 @@
 
 .unit {
     font-size: 16px;
+    margin-left: 5px;
 }
 
 .origdata1,
@@ -130,3 +131,4 @@
 .anchorBL {
     display: none;
 }
+
