@@ -25,6 +25,14 @@ class AlarmSwiper extends Component {
       observeParents: true,
       observeSlideChildren: true
     });
+    post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
+      this.setState(
+        {
+          alarmList: res.data
+        },
+        () => {}
+      );
+    });
     this.dynamicc = setInterval(() => {
       post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
         this.setState(

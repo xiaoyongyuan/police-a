@@ -19,6 +19,14 @@ class HoneIndex extends Component {
   }
 
   componentDidMount() {
+    post({ url: "/api/camera_cop/getcount_e" }, res => {
+      this.setState(
+        {
+          statistic: res
+        },
+        () => {}
+      );
+    });
     this.dynamic = setInterval(() => {
       post({ url: "/api/camera_cop/getcount_e" }, res => {
         this.setState(

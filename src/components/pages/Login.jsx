@@ -160,6 +160,7 @@ class Login extends React.Component {
                   className="lgbutton"
                   style={{
                     width: "158px",
+                    height: "100%",
                     background: `url('${formbut}')  no-repeat center/100% 100%`
                   }}
                 >
