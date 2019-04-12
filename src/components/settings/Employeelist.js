@@ -1,17 +1,8 @@
 import React, { Component} from 'react';
 import {Form, Input, Row, Col, Button, Modal, Table, Spin, message,LocaleProvider } from 'antd';
 import {post} from "../../axios/tools";
+import AddEmployee from "./AddEmployee";
 const FormItem = Form.Item;
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 18 },
-        sm: { span: 6 },
-    },
-    wrapperCol: {
-        xs: { span:18 },
-        sm: { span: 14 },
-    },
-};
 class Adminteam extends Component {
     constructor(props){
         super(props);
@@ -65,7 +56,8 @@ class Adminteam extends Component {
     };
     //新增
     handleCreate=()=>{
-        this.props.form.validateFields((err, values) => {
+        const forms=this.formRef.formref();
+        forms.validateFields((err, values) => {
             if(!err){
                 const datas={
                     account:values.phone,//账号
@@ -93,7 +85,8 @@ class Adminteam extends Component {
 
     };
     handleCancel=()=>{
-        this.props.form.resetFields();
+        const forms=this.formRef.formref();
+        forms.resetFields();
         this.setState({
             visible:false
         });
@@ -246,51 +239,7 @@ class Adminteam extends Component {
                        onOk={()=>this.handleCreate()}
                        onCancel={this.handleCancel}
                 >
-                    <Form>
-                        <FormItem label="账号" {...formItemLayout}>
-                            {getFieldDecorator('phone',{
-                                rules:[
-                                    {required: true, message: '请输入账号!'},
-                                    {max:10,message: '账号至多10位！'},
-                                    {min:3,message: '账号至少3位！'}
-                                ]
-                            })(
-                                <Input />
-                            )}
-                        </FormItem>
-                        <FormItem label="编号" {...formItemLayout}>
-                            {getFieldDecorator('bianhao',{
-                                rules:[
-                                    {required: true, message: '请输入编号!',},
-                                    {max:10,message:"编号至多10位！"},
-                                    {min:3,message: '编号至少3位！'}
-                                ]
-                            })(
-                                <Input />
-                            )}
-                        </FormItem>
-                        <FormItem label="姓名" {...formItemLayout}>
-                            {getFieldDecorator('xingming',{
-                                rules:[
-                                    {required: true, message: '请输入姓名!',},
-                                    {max:10,message: '账号至多10位！'},
-                                    {min:2,message: '账号至少2位！'}
-                                 ]
-                            })(
-                                <Input />
-                            )}
-                        </FormItem>
-                        <FormItem label="联系电话" {...formItemLayout}>
-                            {getFieldDecorator('dianhua',{
-                                rules:[{
-                                    required: false, message: '输入有误!',
-                                    pattern: new RegExp("^[0-9]*$")
-                                }]
-                            })(
-                                <Input />
-                            )}
-                        </FormItem>
-                    </Form>
+                    <AddEmployee  wrappedComponentRef={(form) => this.formRef = form} />
                 </Modal>
                 <Modal title="提示信息"
                        visible={this.state.deleteshow}
