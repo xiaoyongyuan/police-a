@@ -290,8 +290,8 @@ class AlarmDetail extends Component {
                                 ))}
                             </div>
                         </div>
+                       <div style={{width:"73%",textAlign:"center",margin:"20px"}}><Button type="primary"><a href="#/app/alarm/AlarmList">返回</a></Button></div>
                     </div>
-                <div style={{width:"100%",textAlign:"center",margin:"20px"}}><Button type="primary"><a href="#/app/alarm/AlarmList">返回</a></Button></div>
                 <Modal
                     width={650}
                     title="警情详情"
