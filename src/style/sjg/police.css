@@ -105,8 +105,20 @@
 .AlarmDetail .reportleft{
    width: 16%;
    height: auto;
-   background: #90CDFD;
    color: #fff;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+}
+.rightImg1 {
+    background: #009999;
+}
+.rightImg2{
+    background:#1B6FEC ;
+}
+.rightImg3{
+    background:#EF7625 ;
 }
 .AlarmDetail .reportright{
     width: 84%;

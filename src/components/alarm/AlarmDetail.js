@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Timeline, Form, Checkbox, Button, Modal,message,Input} from 'antd';
 import "../../style/sjg/police.css";
 import {post} from "../../axios/tools";
+import "../../style/ztt/icon/iconfont.css";
 import nodata from "../../style/imgs/nodata.png";
 class AlarmDetail extends Component {
     constructor(props){
@@ -213,10 +214,8 @@ class AlarmDetail extends Component {
                 <div style={{width:"110px",height:"auto",margin:"20px auto",display:this.state.id && this.state.nodataImg===false?"block":"none"}}><img src={nodata} style={{width:"100%",height:"100%"}} /></div>
                 <div style={{display:this.state.id && this.state.nodataImg===false?"none":"block"}}>
                         <div className="reportinf">
-                            <div className="reportleft">
-                                <div className="reportleft_img">
-                                    <img src={nodata} alt="" />
-                                </div>
+                            <div className="reportleft rightImg1">
+                                <div className="iconfont icon-baoandengji" />
                                 <div className="reportleft_text">
                                     报案信息
                                 </div>
@@ -233,10 +232,8 @@ class AlarmDetail extends Component {
                             </div>
                         </div>
                         <div className="handle reportinf" style={{display:this.state.astatus===3?"none":"inline-flex"}}>
-                            <div className="reportleft">
-                                <div className="reportleft_img">
-                                    <img src={nodata} alt="" />
-                                </div>
+                            <div className="reportleft rightImg2">
+                                <div className="iconfont icon-chuli" />
                                 <div className="reportleft_text">
                                     处理信息
                                 </div>
@@ -281,10 +278,8 @@ class AlarmDetail extends Component {
                             </div>
                         </div>
                         <div className="march reportinf">
-                            <div className="reportleft">
-                                <div className="reportleft_img">
-                                    <img src={nodata} alt="" />
-                                </div>
+                            <div className="reportleft rightImg3">
+                                <div className="iconfont icon-jinzhantubiao" />
                                 <div className="reportleft_text">
                                     处理进展
                                 </div>
@@ -296,6 +291,7 @@ class AlarmDetail extends Component {
                             </div>
                         </div>
                     </div>
+                <div style={{width:"100%",textAlign:"center",margin:"20px"}}><Button type="primary"><a href="#/app/alarm/AlarmList">返回</a></Button></div>
                 <Modal
                     width={650}
                     title="警情详情"
