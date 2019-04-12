@@ -34,16 +34,23 @@ class Map extends Component {
   initializeMap = _this => {
     const routerhistory = this.context.router.history;
     var BMap = window.BMap;
-    var map = new BMap.Map("mapContainer", { minZoom: 10, maxZoom: 15 }); // 创建Map实例
+    var map = new BMap.Map("mapContainer"); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    map.centerAndZoom(`${defpoint}`, 10);
-    map.setCurrentCity(`${defpoint}`);
-    map.setZoom(10);
+    // map.centerAndZoom(`${defpoint}`, 8);
+    map.centerAndZoom(new BMap.Point(108.953098279, 34.2777998978), 8);
+    map.setZoom(8);
+    // map.setCurrentCity(`${defpoint}`);
+    map.setCurrentCity("西安");
     map.setDefaultCursor("hand");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-    // map.setMapStyleV2(mapStyle);
+    const vponts = [];
+    this.state.markerList.map((v, i) => {
+      var po = new BMap.Point(v.lng, v.lat);
+      vponts.push(po);
+    });
+    map.setViewport(vponts);
     const getBoundary = () => {
       var bdary = new BMap.Boundary();
       // var name = "汉中市汉台区";
@@ -68,6 +75,7 @@ class Map extends Component {
     if (this.state.markerList) {
       this.state.markerList.map((v, i) => {
         var pt = new BMap.Point(v.lng, v.lat);
+        // map.setViewport(pt, 8);
         if (v.count === "") {
           var myIcon = new BMap.Icon(`${pointBlue}`, new BMap.Size(40, 40));
           var marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
@@ -122,9 +130,7 @@ class Map extends Component {
     this.getMarkerList();
   }
   render() {
-    return (
-      <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
-    );
+    return <div id="mapContainer" style={{ width: "100%", height: "100%" }} />;
   }
 }
 
