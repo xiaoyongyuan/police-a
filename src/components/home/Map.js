@@ -38,11 +38,8 @@ class Map extends Component {
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    // map.centerAndZoom(`${defpoint}`, 8);
-    map.centerAndZoom(new BMap.Point(108.953098279, 34.2777998978), 8);
-    map.setZoom(8);
-    // map.setCurrentCity(`${defpoint}`);
-    map.setCurrentCity("西安");
+    map.centerAndZoom(`${defpoint}`, 12);
+    map.setCurrentCity(`${defpoint}`);
     map.setDefaultCursor("hand");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     const vponts = [];
@@ -53,7 +50,6 @@ class Map extends Component {
     map.setViewport(vponts);
     const getBoundary = () => {
       var bdary = new BMap.Boundary();
-      // var name = "汉中市汉台区";
       bdary.get(defpoint, function(rs) {
         //获取行政区域
         var count = rs.boundaries.length; //行政区域的点有多少个
@@ -67,7 +63,7 @@ class Map extends Component {
             fillOpacity: 0.2
           }); //建立多边形覆盖物
           map.addOverlay(ply); //添加覆盖物
-          map.setViewport(ply.getPath()); //调整视野
+          // map.setViewport(ply.getPath()); //调整视野
         }
       });
     };
