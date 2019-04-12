@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import pointRed from "../../style/jhy/imgs/point.png";
 import pointBlue from "../../style/jhy/imgs/point2.png";
 import { setInterval } from "timers";
-var dynamic;
 class Map extends Component {
   constructor(props) {
     super(props);

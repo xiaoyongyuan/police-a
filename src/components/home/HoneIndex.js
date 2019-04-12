@@ -45,7 +45,8 @@ class HoneIndex extends Component {
               设备数
             </div>
             <p className="statval">
-              <span className="origdata1">{statistic.ecount}</span>个
+              <span className="origdata1">{statistic.ecount}</span>
+              <span className="unit">个</span>
             </p>
           </div>
           <div className="statcol">
@@ -54,7 +55,8 @@ class HoneIndex extends Component {
               当前报警
             </div>
             <p className="statval">
-              <span className="origdata2">{statistic.acount}</span>次
+              <span className="origdata2">{statistic.acount}</span>
+              <span className="unit">次</span>
             </p>
           </div>
           <div className="statcol">
@@ -63,7 +65,8 @@ class HoneIndex extends Component {
               一小时警情统计
             </div>
             <p className="statval">
-              <span className="origdata3">{statistic.onehour}</span>次
+              <span className="origdata3">{statistic.onehour}</span>
+              <span className="unit">次</span>
             </p>
           </div>
         </div>
