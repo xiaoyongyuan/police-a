@@ -38,16 +38,19 @@ class Map extends Component {
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    map.centerAndZoom(`${defpoint}`, 12);
+    map.centerAndZoom(`${defpoint}`, 10);
     map.setCurrentCity(`${defpoint}`);
     map.setDefaultCursor("hand");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-    const vponts = [];
-    this.state.markerList.map((v, i) => {
-      var po = new BMap.Point(v.lng, v.lat);
-      vponts.push(po);
-    });
-    map.setViewport(vponts);
+    // if (this.state.markerList) {
+    //   const vponts = [];
+    //   this.state.markerList.map((v, i) => {
+    //     var po = new BMap.Point(v.lng, v.lat);
+    //     vponts.push(po);
+    //   });
+    //   map.setViewport(vponts);
+    // }
+
     const getBoundary = () => {
       var bdary = new BMap.Boundary();
       bdary.get(defpoint, function(rs) {
@@ -63,7 +66,6 @@ class Map extends Component {
             fillOpacity: 0.2
           }); //建立多边形覆盖物
           map.addOverlay(ply); //添加覆盖物
-          // map.setViewport(ply.getPath()); //调整视野
         }
       });
     };
