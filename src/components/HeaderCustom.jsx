@@ -54,21 +54,7 @@ class HeaderCustom extends Component {
   handleVisibleChange = visible => {
     this.setState({ visible });
   };
-  namequf = () => {
-    const usertype = this.state.user ? this.state.user.usertype : null;
-    if (usertype) {
-      switch (usertype) {
-        case "0":
-          return "公安厅";
-        case "1":
-          return "公安局";
-        case "2":
-          return "公安分局";
-        default:
-          return "";
-      }
-    }
-  };
+ 
   notify = account => {
     //消息推送
     window.pushJs
@@ -83,47 +69,52 @@ class HeaderCustom extends Component {
     window.pushJs.onopen = function() {
       console.log("open");
     };
-  };
-  render() {
-    return (
-      <Header
-        className="custom-theme header"
-        style={{ display: "flex", justifyContent: "space-between" }}
-      >
-        <div className="logotext" style={{ height: "65px", width: "500px" }}>
-          <div style={{ padding: "15px 0 0 15px" }}>
-            <img
-              src={logo}
-              width="33px"
-              style={{ verticalAlign: "top" }}
-              alt=""
-            />
-            <span
-              style={{
-                lineHeight: "35px",
-                height: "35px",
-                verticalAlign: "top",
-                display: "inlineBlock",
-                paddingLeft: "12px",
-                fontSize: "25px",
-                fontFamily: "黑体",
-                color: "#fff"
-              }}
-            >
-              {this.state.user ? this.state.user.zonename : null}
-              {this.namequf()}
-            </span>
-          </div>
-        </div>
-        <Menu
-          mode="horizontal"
-          style={{ lineHeight: "64px", float: "right" }}
-          onClick={this.menuClick}
-        >
-          <Menu.Item key="full" onClick={this.screenFull}>
-            <Icon type="arrows-alt" onClick={this.screenFull} />
-          </Menu.Item>
-          {/*<Menu.Item key="1">
+    namequf=()=>{
+        const usertype=this.state.user?this.state.user.usertype:null;
+        if(usertype){
+          switch(usertype){
+            case '0':
+            return '公安厅';
+            case '1':
+            return '公安局';
+            case '2':
+            return '公安分局';
+        }  
+        }
+        
+    } 
+    // notify=(account)=>{ //消息推送
+        // window.pushJs.init({
+        //    appKey:'7FD0C3504B625DE9219B5808B076D668',
+        //    chanel:'13152426570'
+        // }).connect();
+        // window.pushJs.onmessage = function(message) {
+        //     console.log("receive:" + message.data);
+        // }
+        // window.pushJs.onopen = function() {
+        //     console.log('open');
+        // };
+
+    // }
+    render() {
+        const { responsive, path } = this.props;
+        return (
+            <Header className="custom-theme header" style={{display:'flex', justifyContent:'space-between'}}>
+                <div className="logotext" style={{height:'65px',width:'500px'}}>
+                    <div style={{padding:'15px 0 0 15px'}}>
+                    <img src={logo} width="33px" style={{verticalAlign:'top'}} />
+                    <span style={{lineHeight:'35px',height:'35px',verticalAlign:'top',display:'inlineBlock',paddingLeft:'12px',fontSize:'25px',fontFamily:'黑体',color:'#fff' }}>{this.state.user?this.state.user.zonename:null}{this.namequf()}</span>
+                    </div>
+                </div>
+                <Menu
+                    mode="horizontal"
+                    style={{ lineHeight: '64px', float: 'right' }}
+                    onClick={this.menuClick}
+                >
+                    <Menu.Item key="full" onClick={this.screenFull} >
+                        <Icon type="arrows-alt" onClick={this.screenFull} />
+                    </Menu.Item>
+                    {/*<Menu.Item key="1">
                         <Badge count={25} overflowCount={10} style={{marginLeft: 10}}>
                             <Icon type="notification" />
                         </Badge>

@@ -107,7 +107,7 @@ class Login extends React.Component {
             >
               <FormItem>
                 {getFieldDecorator("comid", {
-                  rules: [{ required: true, message: "地区编码!" }]
+                  rules: [{ required: true, message: "请输入区域码!" }]
                 })(
                   <Input
                     prefix={
@@ -116,7 +116,7 @@ class Login extends React.Component {
                         style={{ fontSize: 18, color: "#ffffff" }}
                       />
                     }
-                    placeholder="请输入地区编码"
+                    placeholder="请输入区域码"
                   />
                 )}
               </FormItem>
