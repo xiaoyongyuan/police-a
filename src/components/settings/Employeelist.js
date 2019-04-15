@@ -73,7 +73,7 @@ class Adminteam extends Component {
                             visible:false
                         },()=>{
                             message.success("添加成功！");
-                            this.props.form.resetFields();
+                            forms.resetFields();
                             this.getList();
                         });
                     }else{
