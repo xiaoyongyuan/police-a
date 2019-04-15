@@ -13,7 +13,8 @@ class AlarmDetail extends Component {
             alarmVideo:false,
             ifCheck1:false,
             ifCheck2:false,
-            nodataImg:false
+            nodataImg:false,
+            alarmValue:2, //选择的警情类型
         };
     }
     componentWillMount() {
@@ -43,6 +44,8 @@ class AlarmDetail extends Component {
                         astatus:res.data[0].astatus,
                         adminaccount:res.data[0].adminaccount,
                         nodataImg:true,
+                        ifCheck:false,
+                        acceptCheck:false,
                     });
                 }else{
                     _this.setState({
@@ -111,14 +114,14 @@ class AlarmDetail extends Component {
 
         }
     };
-    hanleRes=(datas)=>{
+    hanleRes=(datas)=>{ //处理请求
         post({url:"/api/alarmhandle_cop/alarmhandle",data:datas},(res)=>{
             if(res.success){
                 message.success("处理成功!");
                 this.props.form.resetFields();
                 document.getElementById("case").value="";
                 this.setState({
-                    alarmValue:"",
+                    alarmValue:2,
                 },()=>{
                     this.getone();
                 });
@@ -127,85 +130,28 @@ class AlarmDetail extends Component {
             }
         })
     };
-    handleSubmit=(e)=>{
+    handleSubmit=(e)=>{ //处理提交
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
-            if(!err){
-                if(this.state.alarmValue || values.description){
-                    if(this.state.astatus===0){
-                        if(values.description && this.state.alarmValue===undefined){
-                            message.warning("请选择警情类型!");
-                        }else if(values.description && !this.state.alarmValue){
-                            message.warning("请选择警情类型!");
-                        }else if((this.state.alarmValue===1 || this.state.alarmValue===3) || values.description){
-                            const datas={
-                                handlememo:values.description,
-                                astatus:this.state.alarmValue,
-                                code:this.state.oneCode
-                            };
-                            this.hanleRes(datas);
-                        }else if((this.state.alarmValue===1 || this.state.alarmValue===3) && values.description){
-                            const datas={
-                                handlememo:values.description,
-                                astatus:this.state.alarmValue,
-                                code:this.state.oneCode
-                            };
-                            this.hanleRes(datas);
-                        }
-                    }else if(this.state.alarmValue===3 && this.state.astatus===1 || values.description ){
-                        const datas={
-                            handlememo:values.description,
-                            astatus:2,
-                            code:this.state.oneCode
-                        };
-                        this.hanleRes(datas);
-                    }else if(this.state.alarmValue===3 && this.state.astatus===2 || values.description ){
-                        const datas={
-                            handlememo:values.description,
-                            astatus:this.state.alarmValue,
-                            code:this.state.oneCode
-                        };
-                        this.hanleRes(datas);
-                    }
-                }else{
-                    message.warning("请选择警情类型或警情描述!");
-                }
+            if(!err){                
+                if(this.state.alarmValue==2 && !values.description ) return message.warning("请填写内容！");
+                if(this.state.astatus==0 && this.state.alarmValue==2 ) return message.warning("请选择处理类型");
+                const datas={
+                    handlememo:values.description?values.description:'',
+                    astatus:this.state.alarmValue?this.state.alarmValue:2,
+                    code:this.state.oneCode
+                };
+                this.hanleRes(datas);
             }
         })
     };
     //接警
-    hanleAlarm=(e,value)=>{
-        if(e.target.checked){
-            this.setState({
-                alarmValue:value
-            })
-        }else{
-            this.setState({
-                alarmValue:""
-            })
-        }
-        if(value===1){
-            this.setState({
-                ifCheck1:e.target.checked,
-            },()=>{
-                if(this.state.ifCheck1===true){
-                    this.setState({
-                        ifCheck2:false
-                    })
-                }
-            })
-
-        }else if(value===3){
-            this.setState({
-                ifCheck2:e.target.checked,
-            },()=>{
-                if(this.state.ifCheck2===true){
-                    this.setState({
-                        ifCheck1:false
-                    })
-                }
-            })
-        }
+    hanleAlarm=(e,value=2,select,unselect)=>{ //警情状态护理
+        this.setState({
+            [select]:e.target.checked,
+            [unselect]:false,
+            alarmValue:e.target.checked?value:2
+        })
     };
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -231,7 +177,10 @@ class AlarmDetail extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="handle reportinf" style={{display:this.state.astatus===3?"none":"inline-flex"}}>
+                        {
+                            this.state.astatus==3
+                        ?null
+                        :<div className="handle reportinf">
                             <div className="reportleft rightImg2">
                                 <div className="iconfont icon-chuli" />
                                 <div className="reportleft_text">
@@ -252,7 +201,7 @@ class AlarmDetail extends Component {
                                                labelAlign="right"
                                     >
                                         {getFieldDecorator('policeHandling')(
-                                            <span><Checkbox onChange={(e)=>this.hanleAlarm(e,1)} style={{display:this.state.astatus===1 || this.state.astatus===2?"none":"inline-block"}} checked={this.state.ifCheck1}>接警</Checkbox><Checkbox onChange={(e)=>this.hanleAlarm(e,3)} checked={this.state.ifCheck2}>结束</Checkbox></span>
+                                            <span><Checkbox onChange={(e)=>this.hanleAlarm(e,1,'acceptCheck','ifCheck')} style={{display:this.state.astatus===1 || this.state.astatus===2?"none":"inline-block"}} checked={this.state.acceptCheck}>接警</Checkbox><Checkbox onChange={(e)=>this.hanleAlarm(e,3,'ifCheck','acceptCheck')} checked={this.state.ifCheck}>结束</Checkbox></span>
                                         )}
                                     </Form.Item>
                                     <Form.Item label="案件描述："
@@ -277,6 +226,7 @@ class AlarmDetail extends Component {
                                 </Form>
                             </div>
                         </div>
+                        }
                         <div className="march reportinf">
                             <div className="reportleft rightImg3">
                                 <div className="iconfont icon-jinzhantubiao" />
