@@ -38,8 +38,8 @@ class Map extends Component {
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    map.centerAndZoom(`${defpoint}`, 10);
-    map.setCurrentCity(`${defpoint}`);
+    map.centerAndZoom(defpoint, 10);
+    map.setCurrentCity(defpoint);
     map.setDefaultCursor("hand");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     // if (this.state.markerList) {
@@ -70,7 +70,7 @@ class Map extends Component {
       });
     };
     getBoundary();
-    if (this.state.markerList) {
+    if (this.state.markerList.length > 0) {
       this.state.markerList.map((v, i) => {
         var pt = new BMap.Point(v.lng, v.lat);
         // map.setViewport(pt, 8);
