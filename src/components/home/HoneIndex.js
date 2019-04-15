@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import UserStatistics from "./UserStatistics";
-import { Row, Col, Statistic, Icon, Progress, Carousel, message } from "antd";
+// import UserStatistics from "./UserStatistics";
 import { post } from "../../axios/tools.js";
 import Map from "./Map";
 import AlarmSwiper from "./AlarmSwiper";

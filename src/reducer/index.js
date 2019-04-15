@@ -1,10 +1,6 @@
 import { combineReducers } from "redux";
 import * as type from "../action/type";
 
-const defaultState = {
-  alarmRecord: []
-};
-
 const handleData = (state = { isFetching: true, data: {} }, action) => {
   switch (action.type) {
     case type.REQUEST_DATA:

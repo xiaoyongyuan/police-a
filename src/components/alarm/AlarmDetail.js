@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import {Timeline, Form, Checkbox, Button, Modal,message,Input} from 'antd';
+import React, { Component } from "react";
+import { Timeline, Form, Checkbox, Button, Modal, message } from "antd";
 import "../../style/sjg/police.css";
-import {post} from "../../axios/tools";
+import { post } from "../../axios/tools";
 import "../../style/ztt/icon/iconfont.css";
 import nodata from "../../style/imgs/nodata.png";
 class AlarmDetail extends Component {
@@ -17,13 +17,26 @@ class AlarmDetail extends Component {
             alarmValue:2, //选择的警情类型
         };
     }
-    componentWillMount() {
-        this.setState({
-            id:this.props.query.id,
-        });
+  };
+  hanlealarmImg = pathImg => {
+    if (pathImg) {
+      this.setState({
+        alarmImgType: true,
+        picmin: pathImg
+      });
     }
-    componentDidMount() {
-       this.getone();
+  };
+  handleCancelAlarmImg = () => {
+    this.setState({
+      alarmImgType: false
+    });
+  };
+  hanlealarmVideo = pathVideo => {
+    if (pathVideo) {
+      this.setState({
+        alarmVideo: true,
+        pathVideo: pathVideo
+      });
     }
     getone=()=>{
         const _this=this;
@@ -249,20 +262,103 @@ class AlarmDetail extends Component {
                     onCancel={this.handleCancelAlarmImg}
                     footer={null}
                 >
-                    <img src={this.state.picmin} className="alarmImgStyle" alt="" />
-                </Modal>
-                <Modal
-                    width={650}
-                    title="警情详情"
-                    visible={this.state.alarmVideo}
-                    onCancel={this.handleCancelAlarmVideo}
-                    footer={null}
+                  {getFieldDecorator("policeHandling")(
+                    <span>
+                      <Checkbox
+                        onChange={e => this.hanleAlarm(e, 1)}
+                        style={{
+                          display:
+                            this.state.astatus === 1 || this.state.astatus === 2
+                              ? "none"
+                              : "inline-block"
+                        }}
+                        checked={this.state.ifCheck1}
+                      >
+                        接警
+                      </Checkbox>
+                      <Checkbox
+                        onChange={e => this.hanleAlarm(e, 3)}
+                        checked={this.state.ifCheck2}
+                      >
+                        结束
+                      </Checkbox>
+                    </span>
+                  )}
+                </Form.Item>
+                <Form.Item
+                  label="案件描述："
+                  labelCol={{
+                    xl: { span: 3 },
+                    xxl: { span: 2 }
+                  }}
+                  wrapperCol={{
+                    xl: { span: 12 },
+                    xxl: { span: 12 }
+                  }}
                 >
-                    <video autoPlay="autoplay" controls="controls" loop="loop" src={this.state.pathVideo} className="alarmImgStyle" />
-                </Modal>
+                  {getFieldDecorator("description")(
+                    <span>
+                      <textarea
+                        className="case"
+                        placeholder="案件描述..."
+                        id="case"
+                      />
+                    </span>
+                  )}
+                </Form.Item>
+                <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+                  <Button type="primary" htmlType="submit">
+                    处理
+                  </Button>
+                </Form.Item>
+              </Form>
             </div>
-        )
-    }
+          </div>
+          <div className="march reportinf">
+            <div className="reportleft rightImg3">
+              <div className="iconfont icon-jinzhantubiao" />
+              <div className="reportleft_text">处理进展</div>
+            </div>
+            <div
+              className="reportright polTimeline"
+              style={{ paddingLeft: "5%" }}
+            >
+              {this.state.treatment.map((v, i) => this.progressTemp(v, i))}
+            </div>
+          </div>
+          <div style={{ width: "73%", textAlign: "center", margin: "20px" }}>
+            <Button type="primary">
+              <a href="#/app/alarm/AlarmList">返回</a>
+            </Button>
+          </div>
+        </div>
+        <Modal
+          width={650}
+          title="警情详情"
+          visible={this.state.alarmImgType}
+          onCancel={this.handleCancelAlarmImg}
+          footer={null}
+        >
+          <img src={this.state.picmin} className="alarmImgStyle" alt="" />
+        </Modal>
+        <Modal
+          width={650}
+          title="警情详情"
+          visible={this.state.alarmVideo}
+          onCancel={this.handleCancelAlarmVideo}
+          footer={null}
+        >
+          <video
+            autoPlay="autoplay"
+            controls="controls"
+            loop="loop"
+            src={this.state.pathVideo}
+            className="alarmImgStyle"
+          />
+        </Modal>
+      </div>
+    );
+  }
 }
 
-export default AlarmDetail=Form.create()(AlarmDetail);
+export default (AlarmDetail = Form.create()(AlarmDetail));

@@ -13,7 +13,7 @@ class AlarmSwiper extends Component {
 
   componentDidMount() {
     var Swiper = window.Swiper;
-    var mySwiper = new Swiper(".swiper-container", {
+    new Swiper(".swiper-container", {
       loop: false, //循环
       autoplay: {
         //滑动后继续播放（不写官方默认暂停）
@@ -61,7 +61,7 @@ class AlarmSwiper extends Component {
                 key={i}
                 style={{ position: "relative" }}
               >
-                {v.pic_min != "" ? (
+                {v.pic_min !== "" ? (
                   <img src={v.pic_min} alt="" className="newAlarmImg" />
                 ) : (
                   <img src={nopic} alt="" className="newAlarmImg" />
