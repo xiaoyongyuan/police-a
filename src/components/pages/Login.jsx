@@ -81,19 +81,14 @@ class Login extends React.Component {
     const loginname = localStorage.getItem("loginname");
     return (
       <div className="loginPage" style={{ background: `url(${backg})` }}>
-        <div className="logincaption">{loginname}</div>
+        <div className="logincaption">{loginname?loginname:'椒图警务平台'}</div>
         <div className="contwrap">
           <div className="logo">
-            <img src={logo} alt="" />
+            <img src={logo} alt="logo" />
           </div>
 
           <div
             className="login-form"
-            // style={{
-            //   background: "url(" + formbacg + ") no-reapt center",
-            //   maxWidth: "520px",
-            //   height: "440px"
-            // }}
             style={{
               background: `url('${formbacg}')  no-repeat center/100% 100%`,
               maxWidth: "520px",
