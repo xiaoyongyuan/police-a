@@ -68,16 +68,16 @@ class HeaderCustom extends Component {
         
     } 
     notify=(account)=>{ //消息推送
-        window.pushJs.init({
-           appKey:'7FD0C3504B625DE9219B5808B076D668',
-           chanel:'13152426570'
-        }).connect();
-        window.pushJs.onmessage = function(message) {
-            console.log("receive:" + message.data);
-        }
-        window.pushJs.onopen = function() {
-            console.log('open');
-        };
+        // window.pushJs.init({
+        //    appKey:'7FD0C3504B625DE9219B5808B076D668',
+        //    chanel:'13152426570'
+        // }).connect();
+        // window.pushJs.onmessage = function(message) {
+        //     console.log("receive:" + message.data);
+        // }
+        // window.pushJs.onopen = function() {
+        //     console.log('open');
+        // };
 
     }
     render() {
