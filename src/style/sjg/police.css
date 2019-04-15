@@ -85,7 +85,22 @@
 .powercolor{
     color:#000;
 }
-
+.CaseClosed{
+    color:#5C8CFF;
+    font-weight: bolder;
+}
+.AlarmReceiver{
+    color:#FF9900;
+    font-weight: bolder;
+}
+.Pushed{
+    color:#D51326;
+    font-weight: bolder;
+}
+.processing{
+    color:#37AF2A;
+    font-weight: bolder;
+}
 .AlarmDetail {
   max-width: 1300px;
   padding: 20px;
