@@ -25,7 +25,6 @@
     width: 40px;
     height:40px;
     line-height: 40px;
-    background: #2980F3;
     border-radius: 50%;
 
 }
@@ -85,21 +84,17 @@
 .powercolor{
     color:#000;
 }
-.CaseClosed{
-    color:#5C8CFF;
-    font-weight: bolder;
+.caseClosed{
+    background-color:#9c9d9e;
 }
-.AlarmReceiver{
-    color:#FF9900;
-    font-weight: bolder;
+.alarmReceiver{
+    background-color:#FF9900;
 }
-.Pushed{
-    color:#D51326;
-    font-weight: bolder;
+.pushed{
+    background-color:#D51326;
 }
 .processing{
-    color:#37AF2A;
-    font-weight: bolder;
+    background-color:#37AF2A;
 }
 .AlarmDetail {
   max-width: 1300px;

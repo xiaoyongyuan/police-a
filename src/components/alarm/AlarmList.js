@@ -82,7 +82,7 @@ class AlarmList extends Component {
             return (
                 <div className="dashed">
                     <Row className="pol polone">
-                        <Col span={24}><span className="powercolor Pushed">已推送</span></Col>
+                        <Col span={24}><span className="powercolor">已推送</span></Col>
                     </Row>
                     <Row className="pol poltwo">
                         <Col span={24}><span className="powercolor">{atime}</span></Col>
@@ -93,7 +93,7 @@ class AlarmList extends Component {
             return(
                 <div className="dashed">
                     <Row className="pol polone">
-                        <Col span={24} className="AlarmReceiver"><span className="powercolor AlarmReceiver">接警人：</span>{adminname}</Col>
+                        <Col span={24}><span className="powercolor">接警人：</span>{adminname}</Col>
                     </Row>
                     <Row className="pol poltwo">
                         <Col span={24}><span className="powercolor">最新进展：</span>{lastmemo}&nbsp;&nbsp;{atime}</Col>
@@ -104,7 +104,7 @@ class AlarmList extends Component {
             return(
                 <div className="dashed">
                     <Row className="pol polone">
-                        <Col span={24} className="processing"><span className="powercolor processing">处理人：</span>{lastmen}</Col>
+                        <Col span={24}><span className="powercolor">处理人：</span>{lastmen}</Col>
                     </Row>
                     <Row className="pol poltwo">
                         <Col span={24}><span className="powercolor">最新进展：</span>{lastmemo}&nbsp;&nbsp;{atime}</Col>
@@ -115,7 +115,7 @@ class AlarmList extends Component {
             return(
                 <div className="dashed">
                     <Row className="pol polone">
-                        <Col span={24}><span className="powercolor CaseClosed">已结案</span></Col>
+                        <Col span={24}><span className="powercolor">已结案</span></Col>
                     </Row>
                     <Row className="pol poltwo">
                         <Col span={24}><span className="powercolor">{atime}</span></Col>
@@ -124,6 +124,28 @@ class AlarmList extends Component {
             )
         }
     };
+    detail=(astatus)=>{
+        if(astatus===0){
+            return "pushed";
+        }else if(astatus===1){
+            return "processing";
+        }else if(astatus===2){
+            return "alarmReceiver";
+        }else if(astatus===3){
+            return "caseClosed";
+        }
+    };
+    linepolice=(astatus)=>{
+        if(astatus===0){
+            return "pushed policeline";
+        }else if(astatus===1){
+            return "processing policeline";
+        }else if(astatus===2){
+            return "alarmReceiver policeline";
+        }else if(astatus===3){
+            return "caseClosed policeline";
+        }
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -158,10 +180,10 @@ class AlarmList extends Component {
                             <div className="policeboy" key={i}>
                                 <a href={"#/app/alarm/AlarmDetail?id="+v.code} className="underline">
                                     <div className="policeyuan">
-                                        <div>{i+1}</div>
+                                        <div className={this.detail(v.astatus)}>{i+1}</div>
                                     </div>
                                     <div className="policelist">
-                                        <div className="policeline"></div>
+                                        <div className={this.linepolice(v.astatus)}></div>
                                         <div className="policecon">
                                             <div className="policeinf">
                                                 <div className="poltop">
