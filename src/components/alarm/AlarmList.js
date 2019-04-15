@@ -82,7 +82,7 @@ class AlarmList extends Component {
             return (
                 <div className="dashed">
                     <Row className="pol polone">
-                        <Col span={24}><span className="powercolor">已推送</span></Col>
+                        <Col span={24}><span className="powercolor Pushed">已推送</span></Col>
                     </Row>
                     <Row className="pol poltwo">
                         <Col span={24}><span className="powercolor">{atime}</span></Col>
@@ -93,7 +93,7 @@ class AlarmList extends Component {
             return(
                 <div className="dashed">
                     <Row className="pol polone">
-                        <Col span={24}><span className="powercolor">接警人：</span>{adminname}</Col>
+                        <Col span={24} className="AlarmReceiver"><span className="powercolor AlarmReceiver">接警人：</span>{adminname}</Col>
                     </Row>
                     <Row className="pol poltwo">
                         <Col span={24}><span className="powercolor">最新进展：</span>{lastmemo}&nbsp;&nbsp;{atime}</Col>
@@ -104,7 +104,7 @@ class AlarmList extends Component {
             return(
                 <div className="dashed">
                     <Row className="pol polone">
-                        <Col span={24}><span className="powercolor">处理人：</span>{lastmen}</Col>
+                        <Col span={24} className="processing"><span className="powercolor processing">处理人：</span>{lastmen}</Col>
                     </Row>
                     <Row className="pol poltwo">
                         <Col span={24}><span className="powercolor">最新进展：</span>{lastmemo}&nbsp;&nbsp;{atime}</Col>
@@ -115,7 +115,7 @@ class AlarmList extends Component {
             return(
                 <div className="dashed">
                     <Row className="pol polone">
-                        <Col span={24}><span className="powercolor">已结案</span></Col>
+                        <Col span={24}><span className="powercolor CaseClosed">已结案</span></Col>
                     </Row>
                     <Row className="pol poltwo">
                         <Col span={24}><span className="powercolor">{atime}</span></Col>
