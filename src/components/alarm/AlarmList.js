@@ -126,24 +126,24 @@ class AlarmList extends Component {
     };
     detail=(astatus)=>{
         if(astatus===0){
-            return "caseClosed";
+            return "pushed";
         }else if(astatus===1){
             return "processing";
         }else if(astatus===2){
             return "alarmReceiver";
         }else if(astatus===3){
-            return "pushed";
+            return "caseClosed";
         }
     };
     linepolice=(astatus)=>{
         if(astatus===0){
-            return "caseClosed policeline";
+            return "pushed policeline";
         }else if(astatus===1){
             return "processing policeline";
         }else if(astatus===2){
             return "alarmReceiver policeline";
         }else if(astatus===3){
-            return "pushed policeline";
+            return "caseClosed policeline";
         }
     }
     render() {
