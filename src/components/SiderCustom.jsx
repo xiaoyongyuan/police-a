@@ -49,7 +49,7 @@ class SiderCustom extends Component {
     firstHide: true // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
   };
   componentDidMount() {
-    const state = SiderCustom.setMenuOpen(this.props);
+    // const state = SiderCustom.setMenuOpen(this.props);
   }
   menuClick = e => {
     this.setState({

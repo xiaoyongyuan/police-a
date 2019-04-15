@@ -25,16 +25,16 @@ class UserStatistics extends Component {
     }, 0);
     var data = [];
     this.myData.data.map((v, i) => {
-      data[i] = {
+      return (data[i] = {
         name: v.county_name,
         value: v.count
-      };
+      });
     });
     const seriesData = [];
     const seriesData2 = [];
 
     data.map((item, idx) => {
-      seriesData.push({
+      return seriesData.push({
         name: item.name,
         value: `${
           item.value / total === 1
@@ -42,7 +42,7 @@ class UserStatistics extends Component {
             : item.value / total
         }`
       });
-      seriesData2.push({
+      return seriesData2.push({
         name: item.name,
         value: item.value,
         symbolSize: item.value,

@@ -2,18 +2,14 @@
  * Created by hao.cheng on 2017/4/16.
  */
 import React from "react";
-import { Form, Icon, Input, Button, Checkbox, message } from "antd";
+import { Form, Icon, Input, Button } from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchData, receiveData } from "@/action"; //action->index按需取
-import axios from "axios";
-import CascaderModule from "../common/CascaderModule";
+// import CascaderModule from "../common/CascaderModule";
 import "../../style/jhy/css/login.css";
 import logo from "../../style/jhy/imgs/logo.png";
 import backg from "../../style/jhy/imgs/backg.jpg";
-import locat from "../../style/jhy/imgs/locat.png";
-import pass from "../../style/jhy/imgs/pass.png";
-import user from "../../style/jhy/imgs/user.png";
 import formbut from "../../style/jhy/imgs/forbut.png";
 import formbacg from "../../style/jhy/imgs/formbacg.png";
 
@@ -28,8 +24,9 @@ class Login extends React.Component {
   }
   componentDidMount() {
     this.props.form.setFieldsValue({
-      comid: logincomcode && logincomcode != "undefined" ? logincomcode : null,
-      account: loginaccount && loginaccount != "undefined" ? loginaccount : null
+      comid: logincomcode && logincomcode !== "undefined" ? logincomcode : null,
+      account:
+        loginaccount && loginaccount !== "undefined" ? loginaccount : null
     });
   }
   componentDidUpdate(prevProps) {
@@ -75,6 +72,8 @@ class Login extends React.Component {
         return "公安局";
       case "2":
         return "公安分局";
+      default:
+        return "";
     }
   };
   render() {

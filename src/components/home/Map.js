@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { post } from "../../axios/tools.js";
-import { message } from "antd";
 import PropTypes from "prop-types";
 import pointRed from "../../style/jhy/imgs/point.png";
 import pointBlue from "../../style/jhy/imgs/point2.png";
-import { setInterval } from "timers";
 class Map extends Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -14,9 +15,9 @@ class Map extends Component {
       deviceInfo: {}
     };
   }
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  };
+  componentDidMount() {
+    this.getMarkerList();
+  }
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
       this.setState(
@@ -119,14 +120,12 @@ class Map extends Component {
             routerhistory.push(`/app/alarm/AlarmDetail?id=${v.code}`);
           });
         }
+        return "";
       });
     } else {
     }
   };
 
-  componentDidMount() {
-    this.getMarkerList();
-  }
   render() {
     return <div id="mapContainer" style={{ width: "100%", height: "100%" }} />;
   }
