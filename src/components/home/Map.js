@@ -39,19 +39,12 @@ class Map extends Component {
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
-    map.centerAndZoom(defpoint, 10);
+    //以下写法我也很无奈，领导要求，就这样吧
+    defpoint&&defpoint.indexOf('汉中市汉台区')>0?map.centerAndZoom(new BMap.Point(107.053349,33.191015), 12):map.centerAndZoom(defpoint, 10);
+    
     map.setCurrentCity(defpoint);
     map.setDefaultCursor("hand");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-    // if (this.state.markerList) {
-    //   const vponts = [];
-    //   this.state.markerList.map((v, i) => {
-    //     var po = new BMap.Point(v.lng, v.lat);
-    //     vponts.push(po);
-    //   });
-    //   map.setViewport(vponts);
-    // }
-
     const getBoundary = () => {
       var bdary = new BMap.Boundary();
       bdary.get(defpoint, function(rs) {
@@ -71,11 +64,10 @@ class Map extends Component {
       });
     };
     getBoundary();
-    if (this.state.markerList.length > 0) {
+    if (this.state.markerList && this.state.markerList.length > 0) {
       this.state.markerList.map((v, i) => {
         var pt = new BMap.Point(v.lng, v.lat);
-        // map.setViewport(pt, 8);
-        if (v.count === "") {
+        if (!v.count) {
           var myIcon = new BMap.Icon(`${pointBlue}`, new BMap.Size(40, 40));
           var marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
           map.addOverlay(marker);

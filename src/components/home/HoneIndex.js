@@ -22,18 +22,14 @@ class HoneIndex extends Component {
       this.setState(
         {
           statistic: res
-        },
-        () => {}
-      );
+        });
     });
     this.dynamic = setInterval(() => {
       post({ url: "/api/camera_cop/getcount_e" }, res => {
         this.setState(
           {
             statistic: res
-          },
-          () => {}
-        );
+          });
       });
     }, 1000 * 60);
   }
