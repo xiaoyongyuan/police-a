@@ -54,7 +54,8 @@ class AlarmSwiper extends Component {
     return (
       <div className="swiper-container">
         <div className="swiper-wrapper">
-          {alarmList.length > 0 ? (
+
+          {alarmList? (
             alarmList.map((v, i) => (
               <div
                 className="swiper-slide"
