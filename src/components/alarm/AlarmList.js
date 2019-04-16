@@ -172,22 +172,22 @@ class AlarmList extends Component {
     if (astatus === 0) {
       return "pushed";
     } else if (astatus === 1) {
-      return "processing";
+      return "caseClosed";
     } else if (astatus === 2) {
       return "alarmReceiver";
     } else if (astatus === 3) {
-      return "caseClosed";
+      return "processing";
     }
   };
   linepolice = astatus => {
     if (astatus === 0) {
       return "pushed policeline";
     } else if (astatus === 1) {
-      return "processing policeline";
+      return "policeline";
     } else if (astatus === 2) {
       return "alarmReceiver policeline";
     } else if (astatus === 3) {
-      return "caseClosed policeline";
+      return "processing policeline";
     }
   };
   render() {
