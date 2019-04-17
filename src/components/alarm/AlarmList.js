@@ -9,7 +9,8 @@ import {
   Modal,
   Icon,
   Pagination,
-  Spin
+  Spin,
+   Tabs
 } from "antd";
 import { post } from "../../axios/tools";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
@@ -19,6 +20,7 @@ import nodata from "../../style/imgs/nodata.png";
 import AlarmDetail from "./AlarmDetail";
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
+const TabPane = Tabs.TabPane;
 class AlarmList extends Component {
   constructor(props) {
     super(props);
@@ -33,13 +35,14 @@ class AlarmList extends Component {
     this.callPolice();
   }
   callPolice = () => {
-    var datas = {
-      pagesize: 10,
-      pageindex: this.state.page,
-      bdate: this.state.bdate,
-      edate: this.state.edate
-    };
-    post({ url: "/api/alarmhandle_cop/getlist", data: datas }, res => {
+     let data={
+          pagesize: 10,
+          pageindex: this.state.page,
+          bdate: this.state.bdate,
+          edate: this.state.edate,
+          handlestatus:this.state.handlestatus
+      };
+    post({ url: "/api/alarmhandle_cop/getlist", data:data}, res => {
       if (res.success) {
         this.setState({
           callPoliceList: res.data,
@@ -190,13 +193,22 @@ class AlarmList extends Component {
       return "processing policeline";
     }
   };
+  //未处理
+  untreatedHandle=(status)=>{
+        this.setState({
+            handlestatus:status,
+            page:1,
+        },()=>{
+            this.callPolice();
+        })
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
       <div className="AlarmList">
         <div className="shange">
           <Row style={{ margin: "1%" }}>
-            <Col span={18}>
+            <Col span={15}>
               <LocaleProvider locale={zh_CN}>
                 <Form layout="inline" onSubmit={this.selectopt}>
                   <Form.Item label="日期">
@@ -212,6 +224,10 @@ class AlarmList extends Component {
                 </Form>
               </LocaleProvider>
             </Col>
+              <Button type="primary" onClick={()=>this.untreatedHandle("")} style={{marginLeft:"1%"}}>全部</Button>
+              <Button type="primary" onClick={()=>this.untreatedHandle(1)}>未处理</Button>
+              <Button type="primary" onClick={()=>this.untreatedHandle(2)}>处理中</Button>
+              <Button type="primary" onClick={()=>this.untreatedHandle(3)}>已结束</Button>
           </Row>
         </div>
         <div style={{ width: "100%", height: "auto", textAlign: "center" }}>
