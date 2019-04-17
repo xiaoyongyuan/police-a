@@ -19,17 +19,15 @@ class HoneIndex extends Component {
 
   componentDidMount() {
     post({ url: "/api/camera_cop/getcount_e" }, res => {
-      this.setState(
-        {
-          statistic: res
-        });
+      this.setState({
+        statistic: res
+      });
     });
     this.dynamic = setInterval(() => {
       post({ url: "/api/camera_cop/getcount_e" }, res => {
-        this.setState(
-          {
-            statistic: res
-          });
+        this.setState({
+          statistic: res
+        });
       });
     }, 1000 * 5);
   }
@@ -81,7 +79,14 @@ class HoneIndex extends Component {
             <img src={newalarm} alt="" />
             最新警情
           </div>
-          <div style={{ paddingLeft: "8px" }}>
+          <div
+            style={{
+              paddingLeft: "8px",
+              boxSizing: "border-box",
+              height: "82%",
+              paddingBottom: "10px"
+            }}
+          >
             <AlarmSwiper />
           </div>
         </div>
