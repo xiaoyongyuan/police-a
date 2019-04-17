@@ -26,23 +26,15 @@ class AlarmSwiper extends Component {
       observeSlideChildren: true
     });
     post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
-      this.setState(
-        {
-          alarmList: res.data
-        },
-        () => {}
-      );
-    });
+      if(res.success) this.setState({alarmList: res.data});
+      
     this.dynamicc = setInterval(() => {
+
       post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
-        this.setState(
-          {
-            alarmList: res.data
-          },
-          () => {}
-        );
+        if(res.success) this.setState({alarmList: res.data});
+        this.setState({alarmList: res.data});
       });
-    }, 1000 * 60);
+    }, 1000 * 5);
   }
 
   componentWillUnmount() {
