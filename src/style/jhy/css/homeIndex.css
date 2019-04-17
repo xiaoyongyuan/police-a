@@ -42,7 +42,7 @@
 }
 
 .statcol {
-    background:rgba(255,255,255,.9);
+    background: rgba(255, 255, 255, .9);
     border-radius: 3px;
     box-sizing: border-box;
     width: 108px;
@@ -112,10 +112,44 @@
     padding: 5px;
 }
 
+.alarmloc,
+.alarmtime {
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10010;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.ant-layout p {
+    margin: 0 !important;
+}
+
+.homeIndex p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.alarmloc {
+    position: absolute;
+    padding: 0 5px;
+    top: 3px;
+    left: 0;
+    font-size: 20px;
+}
+
+.alarmtime {
+    position: absolute;
+    padding: 0 5px;
+
+    bottom: 3px;
+    left: 0;
+    font-size: 14px;
+}
+
 .newAlarmImg {
     display: inline-block;
     max-width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .nodata {
@@ -132,4 +166,3 @@
 .anchorBL {
     display: none;
 }
-
