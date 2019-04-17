@@ -15,10 +15,10 @@ class AlarmSwiper extends Component {
     var Swiper = window.Swiper;
     new Swiper(".swiper-container", {
       loop: false, //循环
-      // autoplay: {
-      //   //滑动后继续播放（不写官方默认暂停）
-      //   disableOnInteraction: false
-      // }, //可选选项，自动滑动
+       autoplay: {
+         //滑动后继续播放（不写官方默认暂停）
+         disableOnInteraction: false
+       }, //可选选项，自动滑动
       slidesPerView: 5,
       spaceBetween: 10,
       observer: true,
