@@ -1,9 +1,10 @@
-import React, { Component,Fragment } from "react";
+import React, { Component, Fragment } from "react";
 import { post } from "../../axios/tools.js";
 import { notification, Modal, Icon } from "antd";
 import PropTypes from "prop-types";
-import pointRed from "../../style/jhy/imgs/point.png";
-import pointBlue from "../../style/jhy/imgs/point2.png";
+import redpoint from "../../style/jhy/imgs/redpoint.png";
+import greenpoint from "../../style/jhy/imgs/greenpoint.png";
+import graypoint from "../../style/jhy/imgs/graypoint.png";
 import "../../style/jhy/css/mapslayer.css";
 
 class Map extends Component {
@@ -16,41 +17,41 @@ class Map extends Component {
       markerList: [],
       zonename: "",
       deviceInfo: {},
-      modalVisible:false, //详情弹层
-      equipdat:{}, //设备详情
+      modalVisible: false, //详情弹层
+      equipdat: {} //设备详情
     };
   }
   componentDidMount() {
     this.getMarkerList();
   }
-  setstates=(sta,vla=true)=>{
-    this.setState([sta],vla)
-  }
-  isonline=(i)=>{ //是否在线
-        if(this.state.camera[i]&&this.state.camera[i].heart.time){
-            let time= this.state.camera[i].heart.time.toString();// 取到时间
-            let yijingtime=new Date(time); //取到时间转换
-            let timq=yijingtime.getTime(yijingtime) // 取到时间戳
-            let myDate=new Date();// 当前时间
-            let timc=myDate.getTime(myDate) // 当前时间戳
-            if(timc-timq>60000){
-                return(<div className="onLine offLineBack">离线</div>)
-            }else{
-                return(<div className="onLine onLineBack">在线</div>)
-            }
-        }else{
-           return(<div className="onLine onLineBack">离线</div>)
-        }
-            
-   }
-  momenttime=(bdate)=>{
-    if(!bdate) return false;
-    if((new Date()).getTime()-(new Date(bdate)).getTime()>60000){
-      return false
-    }else{
-      return true
+  setstates = (sta, vla = true) => {
+    this.setState([sta], vla);
+  };
+  isonline = i => {
+    //是否在线
+    if (this.state.camera[i] && this.state.camera[i].heart.time) {
+      let time = this.state.camera[i].heart.time.toString(); // 取到时间
+      let yijingtime = new Date(time); //取到时间转换
+      let timq = yijingtime.getTime(yijingtime); // 取到时间戳
+      let myDate = new Date(); // 当前时间
+      let timc = myDate.getTime(myDate); // 当前时间戳
+      if (timc - timq > 60000) {
+        return <div className="onLine offLineBack">离线</div>;
+      } else {
+        return <div className="onLine onLineBack">在线</div>;
+      }
+    } else {
+      return <div className="onLine onLineBack">离线</div>;
     }
-  }
+  };
+  momenttime = bdate => {
+    if (!bdate) return false;
+    if (new Date().getTime() - new Date(bdate).getTime() > 60000) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
       this.setState(
@@ -73,8 +74,10 @@ class Map extends Component {
     map.setMapStyle(mapStyle);
     const defpoint = this.state.zonename;
     //以下写法我也很无奈，领导要求，就这样吧
-    defpoint&&defpoint.indexOf('汉中市汉台区')>0?map.centerAndZoom(new BMap.Point(107.053349,33.191015), 12):map.centerAndZoom(defpoint, 10);
-    
+    defpoint && defpoint.indexOf("汉中市汉台区") > 0
+      ? map.centerAndZoom(new BMap.Point(107.053349, 33.191015), 12)
+      : map.centerAndZoom(defpoint, 10);
+
     map.setCurrentCity(defpoint);
     map.setDefaultCursor("hand");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
@@ -98,104 +101,104 @@ class Map extends Component {
     };
     getBoundary();
     if (this.state.markerList && this.state.markerList.length > 0) {
+      console.log(this.state.markerList, "list");
       this.state.markerList.map((v, i) => {
         var pt = new BMap.Point(v.lng, v.lat);
-        var myIcon = new BMap.Icon(`${!v.count?pointBlue:pointRed}`, new BMap.Size(40, 40));
-          var marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
-          map.addOverlay(marker);
-          marker.addEventListener("click", function() {
-            post({ url: "/api/camera_cop/getone", data: { code: v.code }},(res)=>{
-              if(res.success){
-                _this.setState({'equipdat':Object.assign({},res.data,res.alarm,{prestatus:_this.momenttime(res.data.hearttime)||_this.momenttime(res.alarm.atime)}),modalVisible:true})
-              }
-
-              
-            })
-          })
-          return;
-        if (!v.count) {
-          var myIcon = new BMap.Icon(`${pointBlue}`, new BMap.Size(40, 40));
-          var marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
-          map.addOverlay(marker);
-
-          var myIcon2 = new BMap.Icon(`${pointRed}`, new BMap.Size(40, 40));
-          var marker2 = new BMap.Marker(pt, { icon: myIcon2 }); // 创建标注
-          map.addOverlay(marker2);
-          marker.addEventListener("click", function() {           
-            
-            return;
-            post(
-              { url: "/api/camera_cop/getone", data: { code: v.code } },
-              res => {
-                _this.setState(
-                  {
-                    deviceInfo: res.data
-                  },
-                  () => {
-                    var optstit = `<p>
-                    用户名：${_this.state.deviceInfo.adminname}
-                    <span style="margin-left:30px;">
-                    电话：${_this.state.deviceInfo.adminaccount}
-                    </span>
-                    </p>`;
-                    var opts = {
-                      width: 300, // 信息窗口宽度
-                      height: 120, // 信息窗口高度
-                      title: optstit,
-                      enableMessage: true, //设置允许信息窗发送短息
-                      message: ""
-                    };
-                    var cont = `
-                    <p>设备名：${_this.state.deviceInfo.name}</p>
-                           <p>设备地址：${_this.state.deviceInfo.location}</p>
-                    `;
-                    var infoWindow = new BMap.InfoWindow(cont, opts); // 创建信息窗口对象
-                    map.openInfoWindow(infoWindow, pt); //开启信息窗口
-                  }
-                );
-              }
-            );
-          });
-        } else if (v.count > 0) {
-          var myIcon2 = new BMap.Icon(`${pointRed}`, new BMap.Size(40, 40));
-          var marker2 = new BMap.Marker(pt, { icon: myIcon2 }); // 创建标注
-          map.addOverlay(marker2);
-          marker2.addEventListener("click", function() {
-            routerhistory.push(`/app/alarm/AlarmDetail?id=${v.code}`);
-          });
+        var myIcon = new BMap.Icon(
+          `${!v.count ? greenpoint : redpoint}`,
+          new BMap.Size(40, 40)
+        );
+        var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
+        var marker;
+        if (!this.momenttime(v.lasttime)) {
+          marker = new BMap.Marker(pt, { icon: offlineIcon });
+        } else {
+          marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
         }
-        return "";
+        map.addOverlay(marker);
+        marker.addEventListener("click", function() {
+          post(
+            { url: "/api/camera_cop/getone", data: { code: v.code } },
+            res => {
+              if (res.success) {
+                console.log(res, "huoquyige");
+                _this.setState({
+                  equipdat: Object.assign({}, res.data, res.alarm, {
+                    prestatus:
+                      _this.momenttime(res.data.hearttime) ||
+                      _this.momenttime(res.alarm.atime)
+                  }),
+                  modalVisible: true
+                });
+              }
+            }
+          );
+        });
       });
-    } else {
     }
   };
-  modalVis=()=>{
-      this.setState({modalVisible:false})
-  }
+  modalVis = () => {
+    this.setState({ modalVisible: false });
+  };
   render() {
-
     return (
       <Fragment>
-      <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
-      <div className="layerdatail" style={{display:this.state.equipdat.adminaccount&&this.state.modalVisible?'block':'none'}} >
-        <h3>设备详情<Icon type="close" onClick={this.modalVis} style={{cursor: 'pointer',color:'#444',position:'absolute',top:'10px',right:'10px'}} /></h3>
-        <p><label>用户名：</label> <span>{this.state.equipdat.adminname}</span></p>
-        <p><label>电话：</label> <span>{this.state.equipdat.adminaccount}</span></p>
-        <p><label>设备名：</label> <span>{this.state.equipdat.name}</span></p>
-        <p><label>设备状态：</label> <span>{this.state.equipdat.prestatus?'在线':'离线'}</span></p>
-        <p><label>设备地址：</label> <span>{this.state.equipdat.location}</span></p>
-        {
-          this.state.equipdat.atime
-          ?<Fragment>
-            <p><label>现场情况：</label> <span>{this.state.equipdat.atime}</span></p>
-            <div><img src={this.state.equipdat.pic_min} width='100%' /></div>
-          </Fragment>:null
-        }
-        
-
-
-      </div>
-      </Fragment>);
+        <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
+        <div
+          className="layerdatail"
+          style={{
+            display:
+              this.state.equipdat.adminaccount && this.state.modalVisible
+                ? "block"
+                : "none"
+          }}
+        >
+          <h3>
+            设备详情
+            <Icon
+              type="close"
+              onClick={this.modalVis}
+              style={{
+                cursor: "pointer",
+                color: "#444",
+                position: "absolute",
+                top: "10px",
+                right: "10px"
+              }}
+            />
+          </h3>
+          <p>
+            <label>用户名：</label> <span>{this.state.equipdat.adminname}</span>
+          </p>
+          <p>
+            <label>电话：</label>{" "}
+            <span>{this.state.equipdat.adminaccount}</span>
+          </p>
+          <p>
+            <label>设备名：</label> <span>{this.state.equipdat.name}</span>
+          </p>
+          <p>
+            <label>设备状态：</label>{" "}
+            <span>{this.state.equipdat.prestatus ? "在线" : "离线"}</span>
+          </p>
+          <p>
+            <label>设备地址：</label>{" "}
+            <span>{this.state.equipdat.location}</span>
+          </p>
+          {this.state.equipdat.atime ? (
+            <Fragment>
+              <p>
+                <label>现场情况：</label>{" "}
+                <span>{this.state.equipdat.atime}</span>
+              </p>
+              <div>
+                <img src={this.state.equipdat.pic_min} width="100%" />
+              </div>
+            </Fragment>
+          ) : null}
+        </div>
+      </Fragment>
+    );
   }
 }
 

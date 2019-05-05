@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Icon } from "antd";
 // import UserStatistics from "./UserStatistics";
 import { post } from "../../axios/tools.js";
 import Map from "./Map";
@@ -13,8 +14,14 @@ class HoneIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      statistic: {}
+      statistic: {},
+      notfinish: {
+        handling: 0,
+        unhandle: 0
+      },
+      alarmshow: false
     };
+    this.handalarmclick = this.handalarmclick.bind(this);
   }
 
   componentDidMount() {
@@ -22,50 +29,82 @@ class HoneIndex extends Component {
       this.setState(
         {
           statistic: res
-        });
+        },
+        () => {}
+      );
+    });
+    post({ url: "/api/alarmhandle_cop/getnum_notfinish" }, res => {
+      if (res.success) this.setState({ notfinish: res.data[0] });
     });
     this.dynamic = setInterval(() => {
       post({ url: "/api/camera_cop/getcount_e" }, res => {
-        this.setState(
-          {
-            statistic: res
-          });
+        this.setState({
+          statistic: res
+        });
+      });
+      post({ url: "/api/alarmhandle_cop/getnum_notfinish" }, res => {
+        this.setState({
+          notfinish: res.data[0]
+        });
       });
     }, 1000 * 5);
   }
   componentWillUnmount() {
     clearInterval(this.dynamic);
   }
-
+  handalarmclick = () => {
+    this.setState(preState => {
+      preState.alarmshow = !preState.alarmshow;
+    });
+  };
   render() {
     const statistic = this.state.statistic;
+    var alarmcount = parseInt(
+      this.state.notfinish.handling + this.state.notfinish.unhandle
+    );
+
     return (
       <div className="homeIndex">
         <div className="statistic">
-          <div className="statcol"  style={{width:'160px',height:"92px"}}>
+          <div className="statcol" style={{ width: "160px", height: "92px" }}>
             <div className="statit">
               <img src={device} alt="" />
             </div>
-            <p className="statval" style={{marginTop:'-8px'}}>
-              <span className="origdata1" style={{fontSize:'42px',fontWeight:'bold'}}>{statistic.ecount}</span>
+            <p className="statval" style={{ marginTop: "-8px" }}>
+              <span
+                className="origdata1"
+                style={{ fontSize: "42px", fontWeight: "bold" }}
+              >
+                {statistic.ecount}
+              </span>
               <span className="unit">个设备</span>
             </p>
           </div>
-          <div className="statcol"  style={{width:'210px',height:"92px"}}>
+          <div className="statcol" style={{ width: "210px", height: "92px" }}>
             <div className="statit">
               <img src={alarm} alt="" />
             </div>
-            <p className="statval" style={{marginTop:'-8px'}}>
-              <span className="origdata2" style={{fontSize:'42px',fontWeight:'bold'}}>{statistic.acount}</span>
+            <p className="statval" style={{ marginTop: "-8px" }}>
+              <span
+                className="origdata2"
+                style={{ fontSize: "42px", fontWeight: "bold" }}
+              >
+                {statistic.acount}
+              </span>
               <span className="unit">条未处理报警</span>
             </p>
           </div>
-          <div className="statcol"  style={{width:'200px',height:"92px"}}>
+          <div className="statcol" style={{ width: "200px", height: "92px" }}>
             <div className="statit">
               <img src={statis} alt="" />
             </div>
-            <p className="statval" style={{marginTop:'-8px'}}>
-              <span className="origdata3" style={{fontSize:'42px',fontWeight:'bold'}}>{statistic.onehour}</span>
+            <p className="statval" style={{ marginTop: "-8px" }}>
+              <span
+                className="origdata3"
+                style={{ fontSize: "42px", fontWeight: "bold" }}
+              >
+                {statistic.onehour}
+              </span>
               <span className="unit">起一小时内报警</span>
             </p>
           </div>
@@ -73,10 +112,19 @@ class HoneIndex extends Component {
         <div className="topMap">
           <Map />
         </div>
-        <div className="newAlarm">
+        <div
+          className="newAlarm"
+          style={{ display: this.state.alarmshow ? "block" : "none" }}
+        >
           <div className="newAlarmTit">
-            <img src={newalarm} alt="" />
-            最新警情
+            <Icon
+              type="shrink"
+              onClick={this.handalarmclick}
+              style={{ padding: "0 5px", fontSize: "16px" }}
+            />
+            最新警情&nbsp; 未处理：<span>{this.state.notfinish.unhandle}</span>
+            &nbsp;条 &nbsp;&nbsp;未结束：
+            <span>{this.state.notfinish.handling}</span> 条
           </div>
           <div
             style={{
@@ -88,6 +136,18 @@ class HoneIndex extends Component {
           >
             <AlarmSwiper />
           </div>
+        </div>
+        <div
+          className="alarmBtn"
+          style={{ display: this.state.alarmshow ? "none" : "block" }}
+        >
+          <Icon
+            type="arrows-alt"
+            onClick={this.handalarmclick}
+            style={{ padding: "0 5px" }}
+          />
+          最新警情(
+          <span className="alarmcount">{alarmcount}</span>)
         </div>
       </div>
     );

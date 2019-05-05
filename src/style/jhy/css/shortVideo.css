@@ -1,0 +1,11 @@
+.shortVideo {
+  padding: 20px;
+  background: #2b3355;
+  height: 100%;
+}
+
+.shortVideo img {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
