@@ -19,15 +19,17 @@ class HoneIndex extends Component {
 
   componentDidMount() {
     post({ url: "/api/camera_cop/getcount_e" }, res => {
-      this.setState({
-        statistic: res
-      });
+      this.setState(
+        {
+          statistic: res
+        });
     });
     this.dynamic = setInterval(() => {
       post({ url: "/api/camera_cop/getcount_e" }, res => {
-        this.setState({
-          statistic: res
-        });
+        this.setState(
+          {
+            statistic: res
+          });
       });
     }, 1000 * 5);
   }
@@ -40,34 +42,31 @@ class HoneIndex extends Component {
     return (
       <div className="homeIndex">
         <div className="statistic">
-          <div className="statcol">
+          <div className="statcol"  style={{width:'160px',height:"92px"}}>
             <div className="statit">
               <img src={device} alt="" />
-              设备数
             </div>
-            <p className="statval">
-              <span className="origdata1">{statistic.ecount}</span>
-              <span className="unit">个</span>
+            <p className="statval" style={{marginTop:'-8px'}}>
+              <span className="origdata1" style={{fontSize:'42px',fontWeight:'bold'}}>{statistic.ecount}</span>
+              <span className="unit">个设备</span>
             </p>
           </div>
-          <div className="statcol">
+          <div className="statcol"  style={{width:'210px',height:"92px"}}>
             <div className="statit">
               <img src={alarm} alt="" />
-              当前报警
             </div>
-            <p className="statval">
-              <span className="origdata2">{statistic.acount}</span>
-              <span className="unit">次</span>
+            <p className="statval" style={{marginTop:'-8px'}}>
+              <span className="origdata2" style={{fontSize:'42px',fontWeight:'bold'}}>{statistic.acount}</span>
+              <span className="unit">条未处理报警</span>
             </p>
           </div>
-          <div className="statcol">
+          <div className="statcol"  style={{width:'200px',height:"92px"}}>
             <div className="statit">
               <img src={statis} alt="" />
-              一小时警情统计
             </div>
-            <p className="statval">
-              <span className="origdata3">{statistic.onehour}</span>
-              <span className="unit">次</span>
+            <p className="statval" style={{marginTop:'-8px'}}>
+              <span className="origdata3" style={{fontSize:'42px',fontWeight:'bold'}}>{statistic.onehour}</span>
+              <span className="unit">起一小时内报警</span>
             </p>
           </div>
         </div>

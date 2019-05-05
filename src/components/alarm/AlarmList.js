@@ -224,10 +224,10 @@ class AlarmList extends Component {
                 </Form>
               </LocaleProvider>
             </Col>
-              <Button type="primary" onClick={()=>this.untreatedHandle("")} style={{marginLeft:"1%"}}>全部</Button>
-              <Button type="primary" onClick={()=>this.untreatedHandle(1)}>未处理</Button>
-              <Button type="primary" onClick={()=>this.untreatedHandle(2)}>处理中</Button>
-              <Button type="primary" onClick={()=>this.untreatedHandle(3)}>已结束</Button>
+              <Button type="primary" onClick={()=>this.untreatedHandle("")} style={{marginLeft:"1%",border:'none',background:!this.state.handlestatus?'#001529':'#1890ff'}}>全部</Button>
+              <Button type="primary" onClick={()=>this.untreatedHandle(1)} style={{border:'none',background:this.state.handlestatus==1?'#001529':'#1890ff'}}>未处理</Button>
+              <Button type="primary" onClick={()=>this.untreatedHandle(2)} style={{border:'none',background:this.state.handlestatus==2?'#001529':'#1890ff'}}>处理中</Button>
+              <Button type="primary" onClick={()=>this.untreatedHandle(3)} style={{border:'none',background:this.state.handlestatus==3?'#001529':'#1890ff'}}>已结束</Button>
           </Row>
         </div>
         <div style={{ width: "100%", height: "auto", textAlign: "center" }}>

@@ -45,7 +45,7 @@ class AlarmSwiper extends Component {
     return (
       <div className="swiper-container" style={{ height: "100%" }}>
         <div className="swiper-wrapper">
-          {alarmList ? (
+          {alarmList.length ? (
             alarmList.map((v, i) => (
               <div
                 className="swiper-slide"
