@@ -13,7 +13,7 @@ export default {
       icon: "team",
       subs: [
         { key: "/app/alarm/AlarmList", title: "警报", component: "AlarmList" }
-        // { key: '/app/alarm/AlarmSta', title: '警报统计', component: 'AlarmSta'},
+        { key: '/app/alarm/shortvideo', title: '短视频展示', component: 'ShortVideo'},
       ]
     },
     {

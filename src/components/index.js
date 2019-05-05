@@ -8,6 +8,8 @@ import HoneIndex from './home/HoneIndex';
 import AlarmList from './alarm/AlarmList';
 import AlarmSta from './alarm/AlarmSta';
 import AlarmDetail from './alarm/AlarmDetail';
+import ShortVideo from './alarm/ShortVideo';
+
 
 //账号管理
 import Employeelist from './settings/Employeelist';
@@ -22,7 +24,7 @@ import CascaderModule from './common/CascaderModule'; //省市区三级联动
 
 export default {
     HoneIndex
-    ,AlarmList ,AlarmSta ,AlarmDetail
+    ,AlarmList ,AlarmSta ,AlarmDetail ,ShortVideo
     ,Employeelist
     ,CascaderModule
 }
