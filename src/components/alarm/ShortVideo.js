@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Row, Col, Modal } from "antd";
 import { post } from "../../axios/tools";
 import "../../style/jhy/css/shortVideo.css";
@@ -41,11 +41,11 @@ class ShortVideo extends Component {
             ? this.state.videolist.map((item, index) => {
                 const titdetail = `视频详情 设备名称: ${item.name}`;
                 return (
-                  <Col span={6} key={index}>
+                  <Col span={6} key={index} style={{ padding: "5px" }}>
                     <video
                       src={item.videopath}
                       controls="controls"
-                      width="auto"
+                      width="100%"
                       onClick={this.handleModal}
                     />
                     <Modal
