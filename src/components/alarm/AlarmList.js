@@ -12,6 +12,7 @@ import {
   Spin,
    Tabs
 } from "antd";
+import moment from "moment";
 import { post } from "../../axios/tools";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import "moment/locale/zh-cn";
@@ -28,11 +29,16 @@ class AlarmList extends Component {
       alarmImgType: false,
       callPoliceList: [],
       page: 1,
-      spinStyle: true
+      spinStyle: true,
+      bdate:moment().format('YYYY-MM-DD'),//检索的开始时间
+      edate:moment().format('YYYY-MM-DD'),//检索的结束时间
     };
   }
   componentDidMount() {
     this.callPolice();
+      this.props.form.setFieldsValue({
+          range_picker1:[moment(moment().subtract('days', 6)),moment(moment().format('YYYY-MM-DD'))]
+      });
   }
   callPolice = () => {
      let data={
@@ -201,7 +207,17 @@ class AlarmList extends Component {
         },()=>{
             this.callPolice();
         })
-  }
+  };
+    onChange = (date, dateString)=> {
+        this.setState({
+            bdate:dateString[0],
+            edate:dateString[1]
+        });
+    };
+    disabledDate = (current) => {
+        // return current > moment().startOf('day') || current > moment().subtract(-1, 'day') ;
+        return current > moment().endOf('day');
+    };
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -213,7 +229,10 @@ class AlarmList extends Component {
                 <Form layout="inline" onSubmit={this.selectopt}>
                   <Form.Item label="日期">
                     {getFieldDecorator("range_picker1")(
-                      <RangePicker placeholder={["开始时间", "结束时间"]} />
+                      <RangePicker placeholder={["开始时间", "结束时间"]}
+                                   showTime={{ format: 'HH:00:00' }}
+                                   format="YYYY-MM-DD"
+                      />
                     )}
                   </Form.Item>
                   <FormItem>
