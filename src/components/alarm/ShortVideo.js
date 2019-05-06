@@ -49,7 +49,6 @@ class ShortVideo extends Component {
                   >
                     <video
                       src={item.videopath ? item.videopath : null}
-                      // onClick={this.handleModal}
                       style={{ width: "100%", height: "100%" }}
                     />
                     <div className="videotit">
@@ -79,6 +78,8 @@ class ShortVideo extends Component {
                         src={item.videopath ? item.videopath : ""}
                         autoPlay="autoplay"
                         controls="controls"
+                        loop
+                        error={{ src: "404" }}
                         width="90%"
                         style={{ display: "inline-block" }}
                       />

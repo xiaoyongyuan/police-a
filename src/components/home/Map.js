@@ -105,7 +105,7 @@ class Map extends Component {
       this.state.markerList.map((v, i) => {
         var pt = new BMap.Point(v.lng, v.lat);
         var myIcon = new BMap.Icon(
-          `${!v.count ? greenpoint : redpoint}`,
+          `${v.count === "" ? greenpoint : redpoint}`,
           new BMap.Size(40, 40)
         );
         var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
