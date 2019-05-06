@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Row, Col, Modal } from "antd";
+import { Row, Col, Modal, Icon } from "antd";
 import { post } from "../../axios/tools";
 import "../../style/jhy/css/shortVideo.css";
 
@@ -11,10 +11,11 @@ class ShortVideo extends Component {
       visible: false
     };
     this.handleModal = this.handleModal.bind(this);
+    this.cancelModal = this.cancelModal.bind(this);
   }
   componentDidMount() {
     post({ url: "/api/alarm_cop/getlist_video" }, res => {
-      console.log(res);
+      console.log(res, "video");
       this.setState(
         {
           videolist: res.data
@@ -41,13 +42,29 @@ class ShortVideo extends Component {
             ? this.state.videolist.map((item, index) => {
                 const titdetail = `视频详情 设备名称: ${item.name}`;
                 return (
-                  <Col span={6} key={index} style={{ padding: "5px" }}>
+                  <Col
+                    span={6}
+                    key={item.code.toString()}
+                    style={{ padding: "5px", height: "280px" }}
+                  >
                     <video
-                      src={item.videopath}
-                      controls="controls"
-                      width="100%"
-                      onClick={this.handleModal}
+                      src={item.videopath ? item.videopath : null}
+                      // onClick={this.handleModal}
+                      style={{ width: "100%", height: "100%" }}
                     />
+                    <div className="videotit">
+                      <p className="elli">{item.location}</p>
+                      <p>{item.atime}</p>
+                      <Icon
+                        type="arrows-alt"
+                        className="arrowbtn"
+                        style={{
+                          padding: "10px",
+                          fontSize: "16px"
+                        }}
+                        onClick={this.handleModal}
+                      />
+                    </div>
                     <Modal
                       title={titdetail}
                       visible={this.state.visible}
@@ -59,7 +76,7 @@ class ShortVideo extends Component {
                       bodyStyle={{ textAlign: "center" }}
                     >
                       <video
-                        src={item.videopath}
+                        src={item.videopath ? item.videopath : ""}
                         autoPlay="autoplay"
                         controls="controls"
                         width="90%"

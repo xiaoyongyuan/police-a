@@ -110,7 +110,7 @@ class Map extends Component {
         );
         var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
         var marker;
-        if (!this.momenttime(v.lasttime)) {
+        if (!this.momenttime(v.lasttime) && !this.momenttime(v.hearttime)) {
           marker = new BMap.Marker(pt, { icon: offlineIcon });
         } else {
           marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注

@@ -1,11 +1,34 @@
+.elli {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .shortVideo {
   padding: 20px;
   background: #2b3355;
   height: 100%;
+  overflow-y: auto;
 }
 
 .shortVideo img {
   display: inline-block;
   width: 100%;
   height: auto;
+}
+
+.videotit {
+  position: absolute;
+  bottom: 5px;
+  right: 6px;
+  background: rgba(0, 0, 0, .5);
+  width: calc(96% + 4px);
+  padding: 5px;
+  color: #fff;
+}
+
+.arrowbtn {
+  position: absolute;
+  right: 10px;
+  top: 8px;
 }

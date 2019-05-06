@@ -120,8 +120,9 @@ class HoneIndex extends Component {
             <Icon
               type="shrink"
               onClick={this.handalarmclick}
-              style={{ padding: "0 5px", fontSize: "16px" }}
+              style={{ padding: "4px 10px", fontSize: "16px" }}
             />
+            <img src={newalarm} alt="" />
             最新警情&nbsp; 未处理：<span>{this.state.notfinish.unhandle}</span>
             &nbsp;条 &nbsp;&nbsp;未结束：
             <span>{this.state.notfinish.handling}</span> 条
@@ -139,13 +140,14 @@ class HoneIndex extends Component {
         </div>
         <div
           className="alarmBtn"
-          style={{ display: this.state.alarmshow ? "none" : "block" }}
+          style={{
+            display: this.state.alarmshow ? "none" : "block",
+            cursor: "point",
+            userSelect: "none"
+          }}
+          onClick={this.handalarmclick}
         >
-          <Icon
-            type="arrows-alt"
-            onClick={this.handalarmclick}
-            style={{ padding: "0 5px" }}
-          />
+          <Icon type="arrows-alt" style={{ padding: "0 5px" }} />
           最新警情(
           <span className="alarmcount">{alarmcount}</span>)
         </div>
