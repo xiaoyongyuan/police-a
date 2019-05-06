@@ -45,17 +45,30 @@ class ShortVideo extends Component {
                   <Col
                     span={6}
                     key={item.code.toString()}
-                    style={{ padding: "5px", height: "280px" }}
+                    style={{
+                      padding: "5px",
+                      height: "280px",
+                      border: "1px solid #ccc"
+                    }}
                   >
                     <video
                       src={item.videopath ? item.videopath : null}
                       style={{ width: "100%", height: "100%" }}
+                      loop
+                      autoPlay
                     />
                     <div className="videotit">
-                      <p className="elli">{item.location}</p>
+                      {`${item.location}`.indexOf(",") !== 0 ? (
+                        <p className="elli ">
+                          {`${item.location}`.split(",")[1]}
+                        </p>
+                      ) : (
+                        <p className="elli ">{item.location}</p>
+                      )}
+
                       <p>{item.atime}</p>
                       <Icon
-                        type="arrows-alt"
+                        type="fullscreen"
                         className="arrowbtn"
                         style={{
                           padding: "10px",
@@ -68,7 +81,7 @@ class ShortVideo extends Component {
                       title={titdetail}
                       visible={this.state.visible}
                       footer={null}
-                      mask
+                      destroyOnClose={true}
                       onCancel={this.cancelModal}
                       style={{ height: "40%" }}
                       width="50%"
@@ -78,8 +91,6 @@ class ShortVideo extends Component {
                         src={item.videopath ? item.videopath : ""}
                         autoPlay="autoplay"
                         controls="controls"
-                        loop
-                        error={{ src: "404" }}
                         width="90%"
                         style={{ display: "inline-block" }}
                       />

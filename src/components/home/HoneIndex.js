@@ -118,9 +118,9 @@ class HoneIndex extends Component {
         >
           <div className="newAlarmTit">
             <Icon
-              type="shrink"
+              type="fullscreen-exit"
               onClick={this.handalarmclick}
-              style={{ padding: "4px 10px", fontSize: "16px" }}
+              style={{ padding: "4px 10px", fontSize: "16px", float: "right" }}
             />
             <img src={newalarm} alt="" />
             最新警情&nbsp; 未处理：<span>{this.state.notfinish.unhandle}</span>
@@ -147,7 +147,7 @@ class HoneIndex extends Component {
           }}
           onClick={this.handalarmclick}
         >
-          <Icon type="arrows-alt" style={{ padding: "0 5px" }} />
+          <Icon type="fullscreen" style={{ padding: "0 5px" }} />
           最新警情(
           <span className="alarmcount">{alarmcount}</span>)
         </div>

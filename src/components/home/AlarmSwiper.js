@@ -59,11 +59,14 @@ class AlarmSwiper extends Component {
                 ) : (
                   <img src={nopic} alt="" className="newAlarmImg" />
                 )}
-
-                {/* <div className="newAlarmTit"> */}
-                <p className="elli alarmloc">{v.location}</p>
+                {`${v.location}`.indexOf(",") !== 0 ? (
+                  <p className="elli alarmloc">
+                    {`${v.location}`.split(",")[1]}
+                  </p>
+                ) : (
+                  <p className="elli alarmloc">{v.location}</p>
+                )}
                 <p className="elli alarmtime">{v.handletime}</p>
-                {/* </div> */}
                 <Link
                   style={{
                     display: "block",
