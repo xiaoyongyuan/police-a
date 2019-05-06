@@ -42,6 +42,17 @@ class AlarmSwiper extends Component {
   componentWillUnmount() {
     clearInterval(this.dynamicc);
   }
+  locationtype = loc => {
+    if (typeof loc === "string") {
+      if (loc.indexOf(",") > 0) {
+        return <p className="elli alarmloc ">{loc.split(",")[1]}</p>;
+      } else {
+        return <p className="elli alarmloc ">{loc}</p>;
+      }
+    } else {
+      return <p className="elli alarmloc ">{loc}</p>;
+    }
+  };
   render() {
     const alarmList = this.state.alarmList;
     return (
@@ -59,13 +70,7 @@ class AlarmSwiper extends Component {
                 ) : (
                   <img src={nopic} alt="" className="newAlarmImg" />
                 )}
-                {`${v.location}`.indexOf(",") !== 0 ? (
-                  <p className="elli alarmloc">
-                    {`${v.location}`.split(",")[1]}
-                  </p>
-                ) : (
-                  <p className="elli alarmloc">{v.location}</p>
-                )}
+                {this.locationtype(v.location)}
                 <p className="elli alarmtime">{v.handletime}</p>
                 <Link
                   style={{

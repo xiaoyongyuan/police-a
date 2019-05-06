@@ -254,7 +254,7 @@ class AlarmDetail extends Component {
                     label="警情处理："
                     labelCol={{
                       xl: { span: 3 },
-                      xxl: { span: 2 }
+                      xxl: { span: 3 }
                     }}
                     wrapperCol={{
                       xl: { span: 12 },
@@ -294,7 +294,7 @@ class AlarmDetail extends Component {
                     label="案件描述："
                     labelCol={{
                       xl: { span: 3 },
-                      xxl: { span: 2 }
+                      xxl: { span: 3 }
                     }}
                     wrapperCol={{
                       xl: { span: 12 },

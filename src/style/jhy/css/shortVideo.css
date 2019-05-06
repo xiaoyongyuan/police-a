@@ -20,10 +20,10 @@
 .videotit {
   position: absolute;
   bottom: 5px;
-  right: 6px;
+  right: 7px;
   background: rgba(0, 0, 0, .5);
-  width: calc(96% + 4px);
-  padding: 5px;
+  width: calc(96% + 3px);
+  padding: 4px;
   color: #fff;
 }
 

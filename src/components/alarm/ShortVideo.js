@@ -23,16 +23,33 @@ class ShortVideo extends Component {
         () => {}
       );
     });
+    localStorage.setItem("vidtit", "");
+    localStorage.setItem("vidpath", "");
   }
-  handleModal = () => {
+  handleModal = (name, path) => {
     this.setState({
       visible: true
     });
+    localStorage.setItem("vidtit", name);
+    localStorage.setItem("vidpath", path);
   };
   cancelModal = () => {
     this.setState({
       visible: false
     });
+    localStorage.setItem("vidtit", "");
+    localStorage.setItem("vidpath", "");
+  };
+  locationtype = loc => {
+    if (typeof loc === "string") {
+      if (loc.indexOf(",") > 0) {
+        return <p className="elli ">{loc.split(",")[1]}</p>;
+      } else {
+        return <p className="elli ">{loc}</p>;
+      }
+    } else {
+      return <p className="elli ">{loc}</p>;
+    }
   };
   render() {
     return (
@@ -40,7 +57,6 @@ class ShortVideo extends Component {
         <Row>
           {this.state.videolist.length > 0
             ? this.state.videolist.map((item, index) => {
-                const titdetail = `视频详情 设备名称: ${item.name}`;
                 return (
                   <Col
                     span={6}
@@ -58,14 +74,7 @@ class ShortVideo extends Component {
                       autoPlay
                     />
                     <div className="videotit">
-                      {`${item.location}`.indexOf(",") !== 0 ? (
-                        <p className="elli ">
-                          {`${item.location}`.split(",")[1]}
-                        </p>
-                      ) : (
-                        <p className="elli ">{item.location}</p>
-                      )}
-
+                      {this.locationtype(item.location)}
                       <p>{item.atime}</p>
                       <Icon
                         type="fullscreen"
@@ -74,31 +83,33 @@ class ShortVideo extends Component {
                           padding: "10px",
                           fontSize: "16px"
                         }}
-                        onClick={this.handleModal}
+                        onClick={() =>
+                          this.handleModal(item.name, item.videopath)
+                        }
                       />
                     </div>
-                    <Modal
-                      title={titdetail}
-                      visible={this.state.visible}
-                      footer={null}
-                      destroyOnClose={true}
-                      onCancel={this.cancelModal}
-                      style={{ height: "40%" }}
-                      width="50%"
-                      bodyStyle={{ textAlign: "center" }}
-                    >
-                      <video
-                        src={item.videopath ? item.videopath : ""}
-                        autoPlay="autoplay"
-                        controls="controls"
-                        width="90%"
-                        style={{ display: "inline-block" }}
-                      />
-                    </Modal>
                   </Col>
                 );
               })
             : null}
+          <Modal
+            title={`视频详情 设备名称: ${localStorage.getItem("vidtit")}`}
+            visible={this.state.visible}
+            footer={null}
+            destroyOnClose={true}
+            onCancel={this.cancelModal}
+            style={{ height: "40%" }}
+            width="50%"
+            bodyStyle={{ textAlign: "center" }}
+          >
+            <video
+              src={localStorage.getItem("vidpath")}
+              autoPlay="autoplay"
+              controls="controls"
+              width="90%"
+              style={{ display: "inline-block" }}
+            />
+          </Modal>
         </Row>
       </div>
     );
