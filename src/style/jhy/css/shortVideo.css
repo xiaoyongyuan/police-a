@@ -19,18 +19,17 @@
 
 .vidwrap {
   padding: 5px;
-  height: 280px;
+  height: 192px;
   border: 1px solid #ccc;
 }
 
 .videotit {
   position: absolute;
   bottom: 5px;
-  right: 7px;
   background: rgba(0, 0, 0, .5);
-  width: calc(96% + 3px);
   padding: 4px;
   color: #fff;
+  width: calc(96% + 1px);
 }
 
 .arrowbtn {
@@ -39,14 +38,8 @@
   top: 8px;
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (max-width: 1600px) {
   .videotit {
-    right: auto;
-    width: calc(96% + 1px);
+    width: calc(96% + 2px);
   }
-
-  .vidwrap {
-    height: 192px;
-  }
-
 }
