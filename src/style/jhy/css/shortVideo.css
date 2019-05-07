@@ -28,15 +28,16 @@
   position: absolute;
   bottom: 5px;
   background: rgba(0, 0, 0, .5);
-  padding: 4px;
+  padding: 0 4px;
   color: #fff;
   width: calc(96% + 1px);
+  font-size: 14px;
 }
 
 .arrowbtn {
   position: absolute;
   right: 10px;
-  top: 8px;
+  top: 3px;
 }
 
 @media screen and (max-width: 1600px) {

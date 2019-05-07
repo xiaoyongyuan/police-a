@@ -76,8 +76,8 @@ class ShortVideo extends Component {
                         type="fullscreen"
                         className="arrowbtn"
                         style={{
-                          padding: "10px",
-                          fontSize: "16px"
+                          padding: "8px",
+                          fontSize: "20px"
                         }}
                         onClick={() =>
                           this.handleModal(item.name, item.videopath)
