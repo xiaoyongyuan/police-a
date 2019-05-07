@@ -66,8 +66,8 @@ class ShortVideo extends Component {
                     <video
                       src={item.videopath ? item.videopath : null}
                       style={{ width: "100%", height: "100%" }}
-                      loop
-                      autoPlay
+                      loop="loop"
+                      autoPlay="autoplay"
                     />
                     <div className="videotit">
                       {this.locationtype(item.location)}
