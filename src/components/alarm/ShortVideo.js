@@ -15,7 +15,6 @@ class ShortVideo extends Component {
   }
   componentDidMount() {
     post({ url: "/api/alarm_cop/getlist_video" }, res => {
-      console.log(res, "video");
       this.setState(
         {
           videolist: res.data

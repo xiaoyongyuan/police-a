@@ -101,7 +101,6 @@ class Map extends Component {
     };
     getBoundary();
     if (this.state.markerList && this.state.markerList.length > 0) {
-      console.log(this.state.markerList, "list");
       this.state.markerList.map((v, i) => {
         var pt = new BMap.Point(v.lng, v.lat);
         var myIcon = new BMap.Icon(
