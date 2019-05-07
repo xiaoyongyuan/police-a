@@ -17,6 +17,12 @@
   height: auto;
 }
 
+.vidwrap {
+  padding: 5px;
+  height: 280px;
+  border: 1px solid #ccc;
+}
+
 .videotit {
   position: absolute;
   bottom: 5px;
@@ -31,4 +37,16 @@
   position: absolute;
   right: 10px;
   top: 8px;
+}
+
+@media screen and (min-width: 1600px) {
+  .videotit {
+    right: auto;
+    width: calc(96% + 1px);
+  }
+
+  .vidwrap {
+    height: 192px;
+  }
+
 }

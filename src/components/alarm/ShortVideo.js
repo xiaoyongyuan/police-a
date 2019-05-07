@@ -59,13 +59,10 @@ class ShortVideo extends Component {
             ? this.state.videolist.map((item, index) => {
                 return (
                   <Col
-                    span={6}
+                    xl={6}
+                    xxl={4}
                     key={item.code.toString()}
-                    style={{
-                      padding: "5px",
-                      height: "280px",
-                      border: "1px solid #ccc"
-                    }}
+                    className="vidwrap"
                   >
                     <video
                       src={item.videopath ? item.videopath : null}
@@ -93,20 +90,20 @@ class ShortVideo extends Component {
               })
             : null}
           <Modal
-            title={`视频详情 设备名称: ${localStorage.getItem("vidtit")}`}
+            title={`设备名称: ${localStorage.getItem("vidtit")}`}
             visible={this.state.visible}
             footer={null}
             destroyOnClose={true}
             onCancel={this.cancelModal}
-            style={{ height: "40%" }}
             width="50%"
+            centered={true}
             bodyStyle={{ textAlign: "center" }}
           >
             <video
               src={localStorage.getItem("vidpath")}
               autoPlay="autoplay"
               controls="controls"
-              width="90%"
+              width="100%"
               style={{ display: "inline-block" }}
             />
           </Modal>
