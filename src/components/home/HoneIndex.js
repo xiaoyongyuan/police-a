@@ -60,7 +60,6 @@ class HoneIndex extends Component {
     });
     this.newala.style.bottom = 0;
     this.alarmBtn.style.right = "-150px";
-    console.log(this.alarmBtn);
   };
   cancelAra = () => {
     this.newala.style.bottom = "-30%";
