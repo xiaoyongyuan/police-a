@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Row, Col, Modal } from "antd";
+import { Row, Col, Modal, Icon } from "antd";
 import { post } from "../../axios/tools";
 import "../../style/jhy/css/shortVideo.css";
 
@@ -11,10 +11,10 @@ class ShortVideo extends Component {
       visible: false
     };
     this.handleModal = this.handleModal.bind(this);
+    this.cancelModal = this.cancelModal.bind(this);
   }
   componentDidMount() {
     post({ url: "/api/alarm_cop/getlist_video" }, res => {
-      console.log(res);
       this.setState(
         {
           videolist: res.data
@@ -22,16 +22,33 @@ class ShortVideo extends Component {
         () => {}
       );
     });
+    localStorage.setItem("vidtit", "");
+    localStorage.setItem("vidpath", "");
   }
-  handleModal = () => {
+  handleModal = (name, path) => {
     this.setState({
       visible: true
     });
+    localStorage.setItem("vidtit", name);
+    localStorage.setItem("vidpath", path);
   };
   cancelModal = () => {
     this.setState({
       visible: false
     });
+    localStorage.setItem("vidtit", "");
+    localStorage.setItem("vidpath", "");
+  };
+  locationtype = loc => {
+    if (typeof loc === "string") {
+      if (loc.indexOf(",") > 0) {
+        return <p className="elli ">{loc.split(",")[1]}</p>;
+      } else {
+        return <p className="elli ">{loc}</p>;
+      }
+    } else {
+      return <p className="elli ">{loc}</p>;
+    }
   };
   render() {
     return (
@@ -39,37 +56,56 @@ class ShortVideo extends Component {
         <Row>
           {this.state.videolist.length > 0
             ? this.state.videolist.map((item, index) => {
-                const titdetail = `视频详情 设备名称: ${item.name}`;
                 return (
-                  <Col span={6} key={index} style={{ padding: "5px" }}>
+                  <Col
+                    xl={6}
+                    xxl={4}
+                    key={item.code.toString()}
+                    className="vidwrap"
+                  >
                     <video
-                      src={item.videopath}
-                      controls="controls"
-                      width="100%"
-                      onClick={this.handleModal}
+                      src={item.videopath ? item.videopath : null}
+                      style={{ width: "100%", height: "100%" }}
+                      loop="loop"
+                      autoPlay="autoplay"
                     />
-                    <Modal
-                      title={titdetail}
-                      visible={this.state.visible}
-                      footer={null}
-                      mask
-                      onCancel={this.cancelModal}
-                      style={{ height: "40%" }}
-                      width="50%"
-                      bodyStyle={{ textAlign: "center" }}
-                    >
-                      <video
-                        src={item.videopath}
-                        autoPlay="autoplay"
-                        controls="controls"
-                        width="90%"
-                        style={{ display: "inline-block" }}
+                    <div className="videotit">
+                      {this.locationtype(item.location)}
+                      <p>{item.atime}</p>
+                      <Icon
+                        type="fullscreen"
+                        className="arrowbtn"
+                        style={{
+                          padding: "8px",
+                          fontSize: "20px"
+                        }}
+                        onClick={() =>
+                          this.handleModal(item.name, item.videopath)
+                        }
                       />
-                    </Modal>
+                    </div>
                   </Col>
                 );
               })
             : null}
+          <Modal
+            title={`设备名称: ${localStorage.getItem("vidtit")}`}
+            visible={this.state.visible}
+            footer={null}
+            destroyOnClose={true}
+            onCancel={this.cancelModal}
+            width="50%"
+            centered={true}
+            bodyStyle={{ textAlign: "center" }}
+          >
+            <video
+              src={localStorage.getItem("vidpath")}
+              autoPlay="autoplay"
+              controls="controls"
+              width="100%"
+              style={{ display: "inline-block" }}
+            />
+          </Modal>
         </Row>
       </div>
     );

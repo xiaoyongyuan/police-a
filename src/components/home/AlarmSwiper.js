@@ -3,6 +3,8 @@ import { post } from "../../axios/tools.js";
 import { Link } from "react-router-dom";
 import nodata from "../../style/imgs/nodata.png";
 import nopic from "../../style/jhy/imgs/nopic.png";
+import "../../style/jhy/css/homeIndex.css";
+
 class AlarmSwiper extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +17,10 @@ class AlarmSwiper extends Component {
     var Swiper = window.Swiper;
     new Swiper(".swiper-container", {
       loop: false, //循环
-       autoplay: {
-         //滑动后继续播放（不写官方默认暂停）
-         disableOnInteraction: false
-       }, //可选选项，自动滑动
+      autoplay: {
+        //滑动后继续播放（不写官方默认暂停）
+        disableOnInteraction: false
+      }, //可选选项，自动滑动
       slidesPerView: 5,
       spaceBetween: 10,
       observer: true,
@@ -40,6 +42,17 @@ class AlarmSwiper extends Component {
   componentWillUnmount() {
     clearInterval(this.dynamicc);
   }
+  locationtype = loc => {
+    if (typeof loc === "string") {
+      if (loc.indexOf(",") > 0) {
+        return <p className="elli alarmloc ">{loc.split(",")[1]}</p>;
+      } else {
+        return <p className="elli alarmloc ">{loc}</p>;
+      }
+    } else {
+      return <p className="elli alarmloc ">{loc}</p>;
+    }
+  };
   render() {
     const alarmList = this.state.alarmList;
     return (
@@ -57,11 +70,8 @@ class AlarmSwiper extends Component {
                 ) : (
                   <img src={nopic} alt="" className="newAlarmImg" />
                 )}
-
-                {/* <div className="newAlarmTit"> */}
-                <p className="elli alarmloc">{v.location}</p>
+                {this.locationtype(v.location)}
                 <p className="elli alarmtime">{v.handletime}</p>
-                {/* </div> */}
                 <Link
                   style={{
                     display: "block",

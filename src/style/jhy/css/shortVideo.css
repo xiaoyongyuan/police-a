@@ -1,11 +1,47 @@
+.elli {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .shortVideo {
   padding: 20px;
   background: #2b3355;
   height: 100%;
+  overflow-y: auto;
 }
 
 .shortVideo img {
   display: inline-block;
   width: 100%;
   height: auto;
+}
+
+.vidwrap {
+  padding: 5px;
+  height: 192px;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+.videotit {
+  position: absolute;
+  bottom: 5px;
+  background: rgba(0, 0, 0, .5);
+  padding: 0 4px;
+  color: #fff;
+  width: calc(96% + 1px);
+  font-size: 14px;
+}
+
+.arrowbtn {
+  position: absolute;
+  right: 10px;
+  top: 3px;
+}
+
+@media screen and (max-width: 1600px) {
+  .videotit {
+    width: calc(96% + 2px);
+  }
 }

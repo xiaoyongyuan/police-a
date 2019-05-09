@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import { Icon } from "antd";
 // import UserStatistics from "./UserStatistics";
 import { post } from "../../axios/tools.js";
@@ -22,6 +23,7 @@ class HoneIndex extends Component {
       alarmshow: false
     };
     this.handalarmclick = this.handalarmclick.bind(this);
+    this.cancelAra = this.cancelAra.bind(this);
   }
 
   componentDidMount() {
@@ -56,6 +58,12 @@ class HoneIndex extends Component {
     this.setState(preState => {
       preState.alarmshow = !preState.alarmshow;
     });
+    this.newala.style.bottom = 0;
+    this.alarmBtn.style.right = "-150px";
+  };
+  cancelAra = () => {
+    this.newala.style.bottom = "-30%";
+    this.alarmBtn.style.right = 0;
   };
   render() {
     const statistic = this.state.statistic;
@@ -114,14 +122,17 @@ class HoneIndex extends Component {
         </div>
         <div
           className="newAlarm"
-          style={{ display: this.state.alarmshow ? "block" : "none" }}
+          ref={alarm => {
+            this.newala = alarm;
+          }}
         >
           <div className="newAlarmTit">
             <Icon
-              type="shrink"
-              onClick={this.handalarmclick}
-              style={{ padding: "0 5px", fontSize: "16px" }}
+              type="fullscreen-exit"
+              onClick={this.cancelAra}
+              style={{ padding: "4px 10px", fontSize: "16px", float: "right" }}
             />
+            <img src={newalarm} alt="" />
             最新警情&nbsp; 未处理：<span>{this.state.notfinish.unhandle}</span>
             &nbsp;条 &nbsp;&nbsp;未结束：
             <span>{this.state.notfinish.handling}</span> 条
@@ -139,13 +150,16 @@ class HoneIndex extends Component {
         </div>
         <div
           className="alarmBtn"
-          style={{ display: this.state.alarmshow ? "none" : "block" }}
+          style={{
+            cursor: "point",
+            userSelect: "none"
+          }}
+          ref={alarmBtn => {
+            this.alarmBtn = alarmBtn;
+          }}
+          onClick={this.handalarmclick}
         >
-          <Icon
-            type="arrows-alt"
-            onClick={this.handalarmclick}
-            style={{ padding: "0 5px" }}
-          />
+          <Icon type="fullscreen" style={{ padding: "0 5px" }} />
           最新警情(
           <span className="alarmcount">{alarmcount}</span>)
         </div>
