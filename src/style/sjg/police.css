@@ -280,11 +280,9 @@
 }
 
 
-
-
-
-
+/* 放大镜效果 */
 .main{
+    margin: 10px auto;
     position: relative;
     margin-left: 15px;
   }
@@ -300,12 +298,12 @@
   .main .small .mask{
     position: absolute;
     display: none;
-    width:80px;
-    height: 80px !important;
+    width:80px !important;
+    height:80px !important;
     background: rgba(0,0,0,.5);
   }
   .main .big{
-    display: block;
+    display: none;
     width: 370px;
     height: 100%;
     left: 42%;
