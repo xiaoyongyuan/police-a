@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { post } from "../../axios/tools.js";
-import { notification, Modal, Icon } from "antd";
+import { Modal, Icon } from "antd";
 import PropTypes from "prop-types";
 import redpoint from "../../style/jhy/imgs/redpoint.png";
 import greenpoint from "../../style/jhy/imgs/greenpoint.png";
@@ -18,32 +18,13 @@ class Map extends Component {
       zonename: "",
       deviceInfo: {},
       modalVisible: false, //详情弹层
-      equipdat: {} //设备详情
+      equipdat: {}, //设备详情,
+      VidMo: false
     };
   }
   componentDidMount() {
     this.getMarkerList();
   }
-  setstates = (sta, vla = true) => {
-    this.setState([sta], vla);
-  };
-  isonline = i => {
-    //是否在线
-    if (this.state.camera[i] && this.state.camera[i].heart.time) {
-      let time = this.state.camera[i].heart.time.toString(); // 取到时间
-      let yijingtime = new Date(time); //取到时间转换
-      let timq = yijingtime.getTime(yijingtime); // 取到时间戳
-      let myDate = new Date(); // 当前时间
-      let timc = myDate.getTime(myDate); // 当前时间戳
-      if (timc - timq > 60000) {
-        return <div className="onLine offLineBack">离线</div>;
-      } else {
-        return <div className="onLine onLineBack">在线</div>;
-      }
-    } else {
-      return <div className="onLine onLineBack">离线</div>;
-    }
-  };
   momenttime = bdate => {
     if (!bdate) return false;
     if (new Date().getTime() - new Date(bdate).getTime() > 60000) {
@@ -54,6 +35,7 @@ class Map extends Component {
   };
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
+      console.log(res, "maplist");
       this.setState(
         {
           markerList: res.data,
@@ -67,7 +49,6 @@ class Map extends Component {
     });
   };
   initializeMap = _this => {
-    const routerhistory = this.context.router.history;
     var BMap = window.BMap;
     var map = new BMap.Map("mapContainer"); // 创建Map实例
     var mapStyle = { style: "midnight" };
@@ -99,46 +80,117 @@ class Map extends Component {
         }
       });
     };
+
     getBoundary();
+
     if (this.state.markerList && this.state.markerList.length > 0) {
-      this.state.markerList.map((v, i) => {
-        var pt = new BMap.Point(v.lng, v.lat);
-        var myIcon = new BMap.Icon(
-          `${v.count === "" ? greenpoint : redpoint}`,
-          new BMap.Size(40, 40)
-        );
-        var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
-        var marker;
-        if (!this.momenttime(v.lasttime) && !this.momenttime(v.hearttime)) {
-          marker = new BMap.Marker(pt, { icon: offlineIcon });
-        } else {
-          marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
-        }
-        map.addOverlay(marker);
-        marker.addEventListener("click", function() {
-          post(
-            { url: "/api/camera_cop/getone", data: { code: v.code } },
-            res => {
-              if (res.success) {
-                console.log(res, "huoquyige");
-                _this.setState({
-                  equipdat: Object.assign({}, res.data, res.alarm, {
-                    prestatus:
-                      _this.momenttime(res.data.hearttime) ||
-                      _this.momenttime(res.alarm.atime)
-                  }),
-                  modalVisible: true
-                });
+      map.addEventListener(
+        "zoomend",
+        () => {
+          if (map.getZoom() < 15) {
+            this.state.markerList.slice(0, 2).map((v, i) => {
+              var pt = new BMap.Point(v.lng, v.lat);
+              var myIcon = new BMap.Icon(
+                `${v.count === "" ? greenpoint : redpoint}`,
+                new BMap.Size(40, 40)
+              );
+              var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
+              var marker;
+              if (
+                !this.momenttime(v.lasttime) &&
+                !this.momenttime(v.hearttime)
+              ) {
+                marker = new BMap.Marker(pt, { icon: offlineIcon });
+              } else {
+                marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
               }
-            }
-          );
-        });
-      });
+              map.addOverlay(marker);
+              marker.addEventListener("click", function() {
+                post(
+                  { url: "/api/camera_cop/getone", data: { code: v.code } },
+                  res => {
+                    if (res.success) {
+                      console.log(res, "huoquyige");
+                      _this.setState({
+                        equipdat: Object.assign({}, res.data, res.alarm, {
+                          prestatus:
+                            _this.momenttime(res.data.hearttime) ||
+                            _this.momenttime(res.alarm.atime)
+                        }),
+                        modalVisible: true
+                      });
+                    }
+                  }
+                );
+              });
+            });
+          } else if (map.getZoom() >= 15) {
+            console.log("dayu");
+            this.state.markerList.map((v, i) => {
+              var pt = new BMap.Point(v.lng, v.lat);
+              var myIcon = new BMap.Icon(
+                `${v.count === "" ? greenpoint : redpoint}`,
+                new BMap.Size(40, 40)
+              );
+              var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
+              var marker;
+              if (
+                !this.momenttime(v.lasttime) &&
+                !this.momenttime(v.hearttime)
+              ) {
+                marker = new BMap.Marker(pt, { icon: offlineIcon });
+              } else {
+                marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
+              }
+              map.addOverlay(marker);
+              marker.addEventListener("click", function() {
+                post(
+                  { url: "/api/camera_cop/getone", data: { code: v.code } },
+                  res => {
+                    if (res.success) {
+                      console.log(res, "huoquyige");
+                      _this.setState({
+                        equipdat: Object.assign({}, res.data, res.alarm, {
+                          prestatus:
+                            _this.momenttime(res.data.hearttime) ||
+                            _this.momenttime(res.alarm.atime)
+                        }),
+                        modalVisible: true
+                      });
+                    }
+                  }
+                );
+              });
+            });
+          }
+        },
+        true
+      );
     }
   };
   modalVis = () => {
     this.setState({ modalVisible: false });
   };
+  showVidMo = (name, path) => {
+    localStorage.setItem("vidpath", path);
+    localStorage.setItem("vidtit", name);
+    this.setState(
+      {
+        VidMo: true
+      },
+      () => {
+        this.props.hideNewAla();
+      }
+    );
+  };
+  cancVidMo = () => {
+    localStorage.setItem("vidpath", "");
+    localStorage.setItem("vidtit", "");
+    this.setState({
+      VidMo: false
+    });
+  };
+
   render() {
     return (
       <Fragment>
@@ -178,7 +230,37 @@ class Map extends Component {
           </p>
           <p>
             <label>设备状态：</label>{" "}
-            <span>{this.state.equipdat.prestatus ? "在线" : "离线"}</span>
+            <span>
+              {this.state.equipdat.prestatus ? (
+                <span
+                  style={{
+                    color: "green",
+                    borderRadius: "2px",
+                    border: "1px solid rgb(120,255,120)",
+                    padding: "0 2px",
+                    display: "inline-block",
+                    lineHeight: "16px",
+                    background: "rgb(180,255,180)"
+                  }}
+                >
+                  在线
+                </span>
+              ) : (
+                <span
+                  style={{
+                    color: "red",
+                    borderRadius: "2px",
+                    border: "1px solid rgb(255,80,80)",
+                    padding: "0 2px",
+                    lineHeight: "16px",
+                    display: "inline-block",
+                    background: "rgb(255,170,170)"
+                  }}
+                >
+                  离线
+                </span>
+              )}
+            </span>
           </p>
           <p>
             <label>设备地址：</label>{" "}
@@ -191,10 +273,55 @@ class Map extends Component {
                 <span>{this.state.equipdat.atime}</span>
               </p>
               <div>
-                <img src={this.state.equipdat.pic_min} width="100%" />
+                {this.state.equipdat.pic_min ? (
+                  <img src={this.state.equipdat.pic_min} width="100%" />
+                ) : null}
+              </div>
+              <div style={{ marginTop: "5px", textAlign: "center" }}>
+                <video
+                  src={this.state.equipdat.videopath}
+                  width="100%"
+                  autoPlay="autoplay"
+                  loop="loop"
+                />
+                <button
+                  // onClick={() => {
+                  //   this.showVidMo(
+                  //     this.state.equipdat.name,
+                  //     this.state.equipdat.videopath
+                  //   );
+                  // }}
+                  style={{
+                    margin: "20px auto",
+                    borderRadius: "2px",
+                    background: "#313653",
+                    border: "none",
+                    color: "#fff"
+                  }}
+                >
+                  实时视频
+                </button>
               </div>
             </Fragment>
           ) : null}
+          <Modal
+            title={localStorage.getItem("vidtit")}
+            visible={this.state.VidMo}
+            onCancel={this.cancVidMo}
+            footer={null}
+            destroyOnClose={true}
+            centered={true}
+            width="60%"
+          >
+            <div>
+              <video
+                src={localStorage.getItem("vidpath")}
+                autoPlay="autoplay"
+                controls
+                width="100%"
+              />
+            </div>
+          </Modal>
         </div>
       </Fragment>
     );
