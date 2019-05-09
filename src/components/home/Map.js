@@ -124,7 +124,7 @@ class Map extends Component {
                 );
               });
             });
-          } else if (map.getZoom() >= 15) {
+          } else if (map.getZoom() > 13) {
             console.log("dayu");
             this.state.markerList.map((v, i) => {
               var pt = new BMap.Point(v.lng, v.lat);
