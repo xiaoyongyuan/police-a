@@ -187,6 +187,13 @@
     font-weight: 600;
     color:#000;
 }
+.ant-table-tbody > tr:nth-child(odd) {
+    background: #FAFAFA
+}
+
+.ant-table-thead > tr > th {
+    background: #F1F1F1 !important;
+}
 .linetext{
     color:#555;
 }
