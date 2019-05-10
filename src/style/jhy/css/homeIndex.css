@@ -186,3 +186,11 @@
 .ant-layout-content {
     overflow-y: hidden !important;
 }
+
+.ant-layout p.alarmloc {
+    margin: 0;
+}
+
+.ant-layout p.alarmtime {
+    margin: 0;
+}
