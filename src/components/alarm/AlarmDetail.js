@@ -153,7 +153,8 @@ class AlarmDetail extends Component {
               ifCheck: false,
               acceptCheck: false
             });
-            this.fun();
+            // 放大镜效果
+            // this.fun();   
 
           } else {
             _this.setState({
