@@ -281,7 +281,7 @@
 
 
 /* 放大镜效果 */
-.main{
+/* .main{
     margin: 10px auto;
     position: relative;
     margin-left: 15px;
@@ -314,4 +314,4 @@
   .main .big img{
     transform: translate(0px,0px);
     height: auto !important;
-  }
+  } */
