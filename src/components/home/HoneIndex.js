@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Icon } from "antd";
+import { Icon, Button } from "antd";
 // import UserStatistics from "./UserStatistics";
 import { post } from "../../axios/tools.js";
 import Map from "./Map";
@@ -19,8 +19,7 @@ class HoneIndex extends Component {
       notfinish: {
         handling: 0,
         unhandle: 0
-      },
-      alarmshow: false
+      }
     };
     this.handalarmclick = this.handalarmclick.bind(this);
     this.cancelAra = this.cancelAra.bind(this);
@@ -55,9 +54,6 @@ class HoneIndex extends Component {
     clearInterval(this.dynamic);
   }
   handalarmclick = () => {
-    this.setState(preState => {
-      preState.alarmshow = !preState.alarmshow;
-    });
     this.newala.style.bottom = 0;
     this.alarmBtn.style.right = "-150px";
   };
@@ -118,12 +114,18 @@ class HoneIndex extends Component {
           </div>
         </div>
         <div className="topMap">
-          <Map />
+          <Map hideNewAla={this.cancelAra} />
         </div>
         <div
           className="newAlarm"
           ref={alarm => {
             this.newala = alarm;
+          }}
+          style={{
+            bottom:
+              this.state.notfinish.handling + this.state.notfinish.unhandle > 0
+                ? 0
+                : "-30%"
           }}
         >
           <div className="newAlarmTit">
@@ -163,6 +165,26 @@ class HoneIndex extends Component {
           最新警情(
           <span className="alarmcount">{alarmcount}</span>)
         </div>
+        <button
+          onClick={() => {
+            window.location.href = "/#/app/alarm/shortvideo";
+          }}
+          style={{
+            position: "absolute",
+            right: "20px",
+            top: "20px",
+            background: "rgba(255,255,255,.9)",
+            color: "#001529",
+            display: "inline-block",
+            border: "1px solid #001529",
+            fontWeight: "bold",
+
+            padding: "10px 30px",
+            borderRadius: "2px"
+          }}
+        >
+          报警短视频
+        </button>
       </div>
     );
   }

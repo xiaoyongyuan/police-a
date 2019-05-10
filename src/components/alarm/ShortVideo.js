@@ -53,6 +53,28 @@ class ShortVideo extends Component {
   render() {
     return (
       <div className="shortVideo">
+        <Row style={{ margin: "0 0 20px 0" }}>
+          <button
+            onClick={() => {
+              window.location.href = "/#/app/home/HoneIndex";
+            }}
+            style={{
+              // position: "absolute",
+              right: "20px",
+              top: "20px",
+              background: "rgba(255,255,255,.9)",
+              color: "#001529",
+              display: "inline-block",
+              border: "1px solid #001529",
+              fontWeight: "bold",
+              float: "right",
+              padding: "10px 30px",
+              borderRadius: "2px"
+            }}
+          >
+            查看总览
+          </button>
+        </Row>
         <Row>
           {this.state.videolist.length > 0
             ? this.state.videolist.map((item, index) => {
