@@ -146,15 +146,6 @@
     box-sizing: border-box;
 }
 
-.ant-layout p {
-    margin: 0 !important;
-}
-
-.homeIndex p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
 .alarmloc {
     position: absolute;
     padding: 0 5px;
