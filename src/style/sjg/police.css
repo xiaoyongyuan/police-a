@@ -1,5 +1,9 @@
 
-
+.overflow{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
 .policeboy{
     display: flex;
     width: 96%;

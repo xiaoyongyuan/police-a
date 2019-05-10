@@ -279,7 +279,7 @@ class AlarmList extends Component {
                         <div className="poltop">
                           <Row className="pol polone">
                             <Col span={4}>{v.atime}</Col>
-                            <Col span={7}>{v.location}</Col>
+                            <Col span={7} className="overflow" title={v.location}>{v.location}</Col>
                             <Col span={6}>
                               <span>
                                 <Icon
