@@ -84,88 +84,39 @@ class Map extends Component {
     getBoundary();
 
     if (this.state.markerList && this.state.markerList.length > 0) {
-      map.addEventListener(
-        "zoomend",
-        () => {
-          if (map.getZoom() < 15) {
-            this.state.markerList.slice(0, 2).map((v, i) => {
-              var pt = new BMap.Point(v.lng, v.lat);
-              var myIcon = new BMap.Icon(
-                `${v.count === "" ? greenpoint : redpoint}`,
-                new BMap.Size(40, 40)
-              );
-              var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
-              var marker;
-              if (
-                !this.momenttime(v.lasttime) &&
-                !this.momenttime(v.hearttime)
-              ) {
-                marker = new BMap.Marker(pt, { icon: offlineIcon });
-              } else {
-                marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
+      this.state.markerList.map((v, i) => {
+        var pt = new BMap.Point(v.lng, v.lat);
+        var myIcon = new BMap.Icon(
+          `${v.count === "" ? greenpoint : redpoint}`,
+          new BMap.Size(40, 40)
+        );
+        var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
+        var marker;
+        if (!this.momenttime(v.lasttime) && !this.momenttime(v.hearttime)) {
+          marker = new BMap.Marker(pt, { icon: offlineIcon });
+        } else {
+          marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
+        }
+        map.addOverlay(marker);
+        marker.addEventListener("click", function() {
+          post(
+            { url: "/api/camera_cop/getone", data: { code: v.code } },
+            res => {
+              if (res.success) {
+                console.log(res, "huoquyige");
+                _this.setState({
+                  equipdat: Object.assign({}, res.data, res.alarm, {
+                    prestatus:
+                      _this.momenttime(res.data.hearttime) ||
+                      _this.momenttime(res.alarm.atime)
+                  }),
+                  modalVisible: true
+                });
               }
-              map.addOverlay(marker);
-              marker.addEventListener("click", function() {
-                post(
-                  { url: "/api/camera_cop/getone", data: { code: v.code } },
-                  res => {
-                    if (res.success) {
-                      console.log(res, "huoquyige");
-                      _this.setState({
-                        equipdat: Object.assign({}, res.data, res.alarm, {
-                          prestatus:
-                            _this.momenttime(res.data.hearttime) ||
-                            _this.momenttime(res.alarm.atime)
-                        }),
-                        modalVisible: true
-                      });
-                    }
-                  }
-                );
-              });
-            });
-          } else if (map.getZoom() > 13) {
-            console.log("dayu");
-            this.state.markerList.map((v, i) => {
-              var pt = new BMap.Point(v.lng, v.lat);
-              var myIcon = new BMap.Icon(
-                `${v.count === "" ? greenpoint : redpoint}`,
-                new BMap.Size(40, 40)
-              );
-              var offlineIcon = new BMap.Icon(graypoint, new BMap.Size(40, 40));
-              var marker;
-              if (
-                !this.momenttime(v.lasttime) &&
-                !this.momenttime(v.hearttime)
-              ) {
-                marker = new BMap.Marker(pt, { icon: offlineIcon });
-              } else {
-                marker = new BMap.Marker(pt, { icon: myIcon }); // 创建标注
-              }
-              map.addOverlay(marker);
-              marker.addEventListener("click", function() {
-                post(
-                  { url: "/api/camera_cop/getone", data: { code: v.code } },
-                  res => {
-                    if (res.success) {
-                      console.log(res, "huoquyige");
-                      _this.setState({
-                        equipdat: Object.assign({}, res.data, res.alarm, {
-                          prestatus:
-                            _this.momenttime(res.data.hearttime) ||
-                            _this.momenttime(res.alarm.atime)
-                        }),
-                        modalVisible: true
-                      });
-                    }
-                  }
-                );
-              });
-            });
-          }
-        },
-        true
-      );
+            }
+          );
+        });
+      });
     }
   };
   modalVis = () => {
