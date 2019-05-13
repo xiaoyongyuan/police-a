@@ -45,12 +45,45 @@ class AlarmSwiper extends Component {
   locationtype = loc => {
     if (typeof loc === "string") {
       if (loc.indexOf(",") > 0) {
-        return <p className="elli alarmloc ">{loc.split(",")[1]}</p>;
+        return (
+          <p
+            className="elli alarmloc "
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap"
+            }}
+          >
+            {loc.split(",")[1]}
+          </p>
+        );
       } else {
-        return <p className="elli alarmloc ">{loc}</p>;
+        return (
+          <p
+            className="elli alarmloc "
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap"
+            }}
+          >
+            {loc}
+          </p>
+        );
       }
     } else {
-      return <p className="elli alarmloc ">{loc}</p>;
+      return (
+        <p
+          className="elli alarmloc "
+          style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap"
+          }}
+        >
+          {loc}
+        </p>
+      );
     }
   };
   render() {

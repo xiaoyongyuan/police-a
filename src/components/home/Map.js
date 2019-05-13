@@ -1,16 +1,17 @@
 import React, { Component, Fragment } from "react";
 import { post } from "../../axios/tools.js";
 import { Modal, Icon } from "antd";
-import PropTypes from "prop-types";
+import axiosPro from "axios-jsonp-pro";
+import axios from "axios";
+import Bmaplib from "bmaplib";
+
+import BmapGeo from "bmaplib.geoutils";
 import redpoint from "../../style/jhy/imgs/redpoint.png";
 import greenpoint from "../../style/jhy/imgs/greenpoint.png";
 import graypoint from "../../style/jhy/imgs/graypoint.png";
 import "../../style/jhy/css/mapslayer.css";
 
 class Map extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -60,8 +61,9 @@ class Map extends Component {
       : map.centerAndZoom(defpoint, 10);
 
     map.setCurrentCity(defpoint);
-    map.setDefaultCursor("hand");
+    map.setDefaultCursor("point");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+
     const getBoundary = () => {
       var bdary = new BMap.Boundary();
       bdary.get(defpoint, function(rs) {
@@ -77,6 +79,39 @@ class Map extends Component {
             fillOpacity: 0.2
           }); //建立多边形覆盖物
           map.addOverlay(ply); //添加覆盖物
+          map.addEventListener(
+            "click",
+            function(e) {
+              _this.pointLoc.value = `点击坐标：${JSON.stringify(
+                e.point
+              ).replace(/(\")*/gi, "")}`;
+              var lnglat = JSON.stringify(e.point)
+                .replace(/(\")*/gi, "")
+                .split(",");
+
+              console.log(lnglat, "lnglat");
+              const lng = lnglat[0].slice(lnglat[0].indexOf(":") + 1);
+
+              const lat = lnglat[1].slice(
+                lnglat[1].indexOf(":") + 1,
+                lnglat[1].length - 1
+              );
+              // window.location.href = `http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=${lat},${lng}&output=json&pois=1&latest_admin=1&ak=QQQSNzjWxjygoRthTYQ9Gn4pbMkXEa9X`;
+              // map.centerAndZoom(new BMap.Point(lng, lat), 12);
+              // if (
+              //   Bmaplib.Geoutils.isPointInPolygon(new BMap.Point(lng, lat), ply)
+              // ) {
+              //如果点在区域内，返回true
+              // mp.addOverlay(new BMap.Marker(pt));
+              // msg = "在" + lname + "区域内";
+              //     alert(1);
+              //   } else {
+              //     // mp.addOverlay(new BMap.Marker(pt));
+              //     // msg = "在" + lname + "区域外";
+              //   }
+            },
+            true
+          );
         }
       });
     };
@@ -146,6 +181,26 @@ class Map extends Component {
     return (
       <Fragment>
         <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
+        <input
+          className="pointLoc"
+          style={{
+            width: "300px",
+            height: "40px",
+            display: "inlineBlock",
+            position: "absolute",
+            top: "22px",
+            right: "170px",
+            background: "#e7ebed",
+            padding: "5px",
+            outline: "none",
+            border: "none"
+          }}
+          readOnly={true}
+          ref={pointLoc => {
+            this.pointLoc = pointLoc;
+          }}
+        />
+
         <div
           className="layerdatail"
           style={{
