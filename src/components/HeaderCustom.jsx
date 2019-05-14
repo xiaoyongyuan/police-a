@@ -28,7 +28,7 @@ class HeaderCustom extends Component {
       this.setState({
         user: _user
       });
-      this.notify(_user.account);
+      // this.notify(_user.account);
     }
   }
   screenFull = () => {
