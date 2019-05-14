@@ -81,7 +81,7 @@ class Map extends Component {
             "click",
             function(e) {
               var lnglat = JSON.stringify(e.point)
-                .replace(/(\")*/gi, "")
+                .replace(/(")*/gi, "")
                 .split(",");
 
               var lng = lnglat[0].slice(lnglat[0].indexOf(":") + 1);
@@ -102,8 +102,7 @@ class Map extends Component {
                 var addComp = rs.addressComponents;
                 _this.pointLoc.value = `点击坐标：${JSON.stringify(
                   e.point
-                ).replace(/(\")*/gi, "")}`;
-                _this.pointAdre.value = `详细地址：${addComp.province}
+                ).replace(/(")*/gi, "")}  详细地址：${addComp.province}
                     ${addComp.city}${addComp.district}${addComp.street}${
                   addComp.streetNumber
                 }`;
@@ -149,6 +148,7 @@ class Map extends Component {
             }
           );
         });
+        return;
       });
     }
   };
@@ -179,44 +179,25 @@ class Map extends Component {
     return (
       <Fragment>
         <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
-        <div
+        <input
           className="pointLoc"
           style={{
-            width: "300px",
-            height: "54px",
+            width: "570px",
+            height: "40px",
             position: "absolute",
             top: "22px",
             right: "170px",
-            background: "#e7ebed"
+            background: "#e7ebed",
+            display: "block",
+            padding: "5px",
+            outline: "none",
+            border: "none"
           }}
-        >
-          <input
-            style={{
-              display: "block",
-              width: "100%",
-              padding: "5px 5px 0 5px",
-              outline: "none",
-              border: "none"
-            }}
-            readOnly={true}
-            ref={pointLoc => {
-              this.pointLoc = pointLoc;
-            }}
-          />
-          <input
-            style={{
-              display: "block",
-              width: "100%",
-              padding: "5px 5px 0 5px",
-              outline: "none",
-              border: "none"
-            }}
-            readOnly={true}
-            ref={pointAdre => {
-              this.pointAdre = pointAdre;
-            }}
-          />
-        </div>
+          readOnly={true}
+          ref={pointLoc => {
+            this.pointLoc = pointLoc;
+          }}
+        />
         <div
           className="layerdatail"
           style={{
@@ -296,7 +277,7 @@ class Map extends Component {
               </p>
               <div>
                 {this.state.equipdat.pic_min ? (
-                  <img src={this.state.equipdat.pic_min} width="100%" />
+                  <img src={this.state.equipdat.pic_min} width="100%" alt="" />
                 ) : null}
               </div>
               <div style={{ marginTop: "5px", textAlign: "center" }}>

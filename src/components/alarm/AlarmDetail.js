@@ -25,110 +25,109 @@ class AlarmDetail extends Component {
   componentDidMount() {
     this.getone();
   }
-  fun=(e) => {
-    var box=document.getElementById('fdj');
+  fun = e => {
+    var box = document.getElementById("fdj");
 
-			//第一个参数是最外层容器，第二个参数是放大倍数;
-			changeBigImg(box,3);
+    //第一个参数是最外层容器，第二个参数是放大倍数;
+    changeBigImg(box, 3);
 
-			function changeBigImg(box,num){
-					
-			var main;//最外层的容器
-			var scale;//放大倍数
-			var small;//小盒子
-			var mask;//跟随鼠标移动的盒子
-			var big;//大盒子
-			
-			scale=parseInt(num);
-			if(scale==undefined){
-				console.log(scale);
-				scale=3;
-			}
-			
-			main=box;
-			if(!main){
-				return false;
-			}
-			small=main.getElementsByClassName('small')[0];
-			if(!small){
-				return false;
-			}
-			mask=small.getElementsByClassName('mask')[0];
-			if(!mask){
-				return false;
-			}
-			//设置mask的大小
-			mask.style.width=small.clientWidth/scale+"px";
-			mask.style.height=small.clientHeight/scale+"px";		
-			var smallImg=small.getElementsByTagName('img')[0].getAttribute('src');
-			big=document.createElement('div');
-			big.setAttribute('class','big');
-			var bigImg=document.createElement('img');
-			bigImg.style.width=small.clientWidth*scale+"px";
-			bigImg.style.height=small.clientHeight*scale+"px";
-			bigImg.setAttribute('src',smallImg);
-			big.appendChild(bigImg);
-			main.appendChild(big);
-			//以上创建了大盒子和里面的图片									
-			small.onmousemove=function(e){
-				var x=e.pageX-small.offsetLeft-main.offsetLeft;
-				var y=e.pageY-small.offsetTop-main.offsetTop;				
-				//mask跟随移动,大盒子里面的图跟随移动,并且到达边缘一定距离时保持不动
-				mask.style.display="block";
-				big.style.display="block";//大盒子出现
-				// bigImg;//大图,前面创建的元素				
-				//mask一半的宽度，判断是否移动到边缘
-				var maskw=mask.clientWidth/2;
-				//mask的一半的高度
-			 	var maskh=mask.clientHeight/2;
-			 	//最值
-			 	var maxW=small.clientWidth*(scale-1);//要减去一个显示了部分
-			 	var maxH=small.clientHeight*(scale-1);
-			 	//大图的偏移值
-			 	var bigX;
-			 	var bigY;
-			 	//mask的left和top值
-			 	var maskTop;
-			 	var maskLeft;			 	
-			 	//left
-			 	//是否在左边缘
-				if(x<maskw){
-					maskLeft=0;
-					bigX=0;
-				}
-				//是否在右边缘
-				else if(x>main.clientWidth-maskw){
-					maskLeft=small.clientWidth-mask.clientWidth;
-					bigX=0-maxW;
-				}else{
-					maskLeft=x-maskw;
-					bigX=-(x-maskw)*scale;
-				}
-				//top
-				//是否在上边缘
-				if(y<maskh){
-					maskTop=0;
-					bigY=0;
-				}
-				//是否在下边缘
-				else if(y>main.clientHeight-maskh){
-					maskTop=small.clientHeight-mask.clientHeight;
-					bigY=0-maxH;
-				}else{
-					maskTop=y-maskh;
-					bigY=-(y-maskh)*scale;
-				}
-				bigImg.style.transform="translate("+bigX+"px,"+bigY+"px)";//大图位置
-				mask.style.top=maskTop+"px";//mask的位置
-				mask.style.left=maskLeft+"px";				
-			}
-			//移出容器之后隐藏
-			small.onmouseleave=function(){
-				mask.style.display="none";
-				big.style.display="none";
-			}			
-			}		
-}
+    function changeBigImg(box, num) {
+      var main; //最外层的容器
+      var scale; //放大倍数
+      var small; //小盒子
+      var mask; //跟随鼠标移动的盒子
+      var big; //大盒子
+
+      scale = parseInt(num);
+      if (scale === undefined) {
+        console.log(scale);
+        scale = 3;
+      }
+
+      main = box;
+      if (!main) {
+        return false;
+      }
+      small = main.getElementsByClassName("small")[0];
+      if (!small) {
+        return false;
+      }
+      mask = small.getElementsByClassName("mask")[0];
+      if (!mask) {
+        return false;
+      }
+      //设置mask的大小
+      mask.style.width = small.clientWidth / scale + "px";
+      mask.style.height = small.clientHeight / scale + "px";
+      var smallImg = small.getElementsByTagName("img")[0].getAttribute("src");
+      big = document.createElement("div");
+      big.setAttribute("class", "big");
+      var bigImg = document.createElement("img");
+      bigImg.style.width = small.clientWidth * scale + "px";
+      bigImg.style.height = small.clientHeight * scale + "px";
+      bigImg.setAttribute("src", smallImg);
+      big.appendChild(bigImg);
+      main.appendChild(big);
+      //以上创建了大盒子和里面的图片
+      small.onmousemove = function(e) {
+        var x = e.pageX - small.offsetLeft - main.offsetLeft;
+        var y = e.pageY - small.offsetTop - main.offsetTop;
+        //mask跟随移动,大盒子里面的图跟随移动,并且到达边缘一定距离时保持不动
+        mask.style.display = "block";
+        big.style.display = "block"; //大盒子出现
+        // bigImg;//大图,前面创建的元素
+        //mask一半的宽度，判断是否移动到边缘
+        var maskw = mask.clientWidth / 2;
+        //mask的一半的高度
+        var maskh = mask.clientHeight / 2;
+        //最值
+        var maxW = small.clientWidth * (scale - 1); //要减去一个显示了部分
+        var maxH = small.clientHeight * (scale - 1);
+        //大图的偏移值
+        var bigX;
+        var bigY;
+        //mask的left和top值
+        var maskTop;
+        var maskLeft;
+        //left
+        //是否在左边缘
+        if (x < maskw) {
+          maskLeft = 0;
+          bigX = 0;
+        }
+        //是否在右边缘
+        else if (x > main.clientWidth - maskw) {
+          maskLeft = small.clientWidth - mask.clientWidth;
+          bigX = 0 - maxW;
+        } else {
+          maskLeft = x - maskw;
+          bigX = -(x - maskw) * scale;
+        }
+        //top
+        //是否在上边缘
+        if (y < maskh) {
+          maskTop = 0;
+          bigY = 0;
+        }
+        //是否在下边缘
+        else if (y > main.clientHeight - maskh) {
+          maskTop = small.clientHeight - mask.clientHeight;
+          bigY = 0 - maxH;
+        } else {
+          maskTop = y - maskh;
+          bigY = -(y - maskh) * scale;
+        }
+        bigImg.style.transform = "translate(" + bigX + "px," + bigY + "px)"; //大图位置
+        mask.style.top = maskTop + "px"; //mask的位置
+        mask.style.left = maskLeft + "px";
+      };
+      //移出容器之后隐藏
+      small.onmouseleave = function() {
+        mask.style.display = "none";
+        big.style.display = "none";
+      };
+    }
+  };
 
   getone = () => {
     const _this = this;
@@ -154,8 +153,7 @@ class AlarmDetail extends Component {
               acceptCheck: false
             });
             // 放大镜效果
-            // this.fun();   
-
+            // this.fun();
           } else {
             _this.setState({
               nodataImg: false
@@ -333,7 +331,7 @@ class AlarmDetail extends Component {
               </p>
               <div className="reportImg main" id="fdj">
                 <div className="reportImgLeft small">
-                   <div className="mask"></div>
+                  <div className="mask" />
                   <img
                     src={this.state.pic_min}
                     alt=""

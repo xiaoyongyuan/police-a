@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Row, Col, Modal, Icon } from "antd";
 import { post } from "../../axios/tools";
 import "../../style/jhy/css/shortVideo.css";

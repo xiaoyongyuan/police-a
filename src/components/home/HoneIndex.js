@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import { Icon, Button } from "antd";
-// import UserStatistics from "./UserStatistics";
+import { Icon } from "antd";
 import { post } from "../../axios/tools.js";
 import Map from "./Map";
 import AlarmSwiper from "./AlarmSwiper";

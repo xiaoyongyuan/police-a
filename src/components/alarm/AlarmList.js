@@ -10,7 +10,7 @@ import {
   Icon,
   Pagination,
   Spin,
-   Tabs
+  Tabs
 } from "antd";
 import moment from "moment";
 import { post } from "../../axios/tools";
@@ -21,7 +21,6 @@ import nodata from "../../style/imgs/nodata.png";
 import AlarmDetail from "./AlarmDetail";
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
-const TabPane = Tabs.TabPane;
 class AlarmList extends Component {
   constructor(props) {
     super(props);
@@ -30,25 +29,28 @@ class AlarmList extends Component {
       callPoliceList: [],
       page: 1,
       spinStyle: true,
-      bdate:moment().format('YYYY-MM-DD'),//检索的开始时间
-      edate:moment().format('YYYY-MM-DD'),//检索的结束时间
+      bdate: moment().format("YYYY-MM-DD"), //检索的开始时间
+      edate: moment().format("YYYY-MM-DD") //检索的结束时间
     };
   }
   componentDidMount() {
     this.callPolice();
-      this.props.form.setFieldsValue({
-          range_picker1:[moment(moment().subtract('days', 6)),moment(moment().format('YYYY-MM-DD'))]
-      });
+    this.props.form.setFieldsValue({
+      range_picker1: [
+        moment(moment().subtract("days", 6)),
+        moment(moment().format("YYYY-MM-DD"))
+      ]
+    });
   }
   callPolice = () => {
-     let data={
-          pagesize: 10,
-          pageindex: this.state.page,
-          bdate: this.state.bdate,
-          edate: this.state.edate,
-          handlestatus:this.state.handlestatus
-      };
-    post({ url: "/api/alarmhandle_cop/getlist", data:data}, res => {
+    let data = {
+      pagesize: 10,
+      pageindex: this.state.page,
+      bdate: this.state.bdate,
+      edate: this.state.edate,
+      handlestatus: this.state.handlestatus
+    };
+    post({ url: "/api/alarmhandle_cop/getlist", data: data }, res => {
       if (res.success) {
         this.setState({
           callPoliceList: res.data,
@@ -200,24 +202,27 @@ class AlarmList extends Component {
     }
   };
   //未处理
-  untreatedHandle=(status)=>{
-        this.setState({
-            handlestatus:status,
-            page:1,
-        },()=>{
-            this.callPolice();
-        })
+  untreatedHandle = status => {
+    this.setState(
+      {
+        handlestatus: status,
+        page: 1
+      },
+      () => {
+        this.callPolice();
+      }
+    );
   };
-    onChange = (date, dateString)=> {
-        this.setState({
-            bdate:dateString[0],
-            edate:dateString[1]
-        });
-    };
-    disabledDate = (current) => {
-        // return current > moment().startOf('day') || current > moment().subtract(-1, 'day') ;
-        return current > moment().endOf('day');
-    };
+  onChange = (date, dateString) => {
+    this.setState({
+      bdate: dateString[0],
+      edate: dateString[1]
+    });
+  };
+  disabledDate = current => {
+    // return current > moment().startOf('day') || current > moment().subtract(-1, 'day') ;
+    return current > moment().endOf("day");
+  };
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -229,9 +234,10 @@ class AlarmList extends Component {
                 <Form layout="inline" onSubmit={this.selectopt}>
                   <Form.Item label="日期">
                     {getFieldDecorator("range_picker1")(
-                      <RangePicker placeholder={["开始时间", "结束时间"]}
-                                   showTime={{ format: 'HH:00:00' }}
-                                   format="YYYY-MM-DD"
+                      <RangePicker
+                        placeholder={["开始时间", "结束时间"]}
+                        showTime={{ format: "HH:00:00" }}
+                        format="YYYY-MM-DD"
                       />
                     )}
                   </Form.Item>
@@ -243,10 +249,50 @@ class AlarmList extends Component {
                 </Form>
               </LocaleProvider>
             </Col>
-              <Button type="primary" onClick={()=>this.untreatedHandle("")} style={{marginLeft:"1%",border:'none',background:!this.state.handlestatus?'#001529':'#1890ff'}}>全部</Button>
-              <Button type="primary" onClick={()=>this.untreatedHandle(1)} style={{border:'none',background:this.state.handlestatus==1?'#001529':'#1890ff'}}>未处理</Button>
-              <Button type="primary" onClick={()=>this.untreatedHandle(2)} style={{border:'none',background:this.state.handlestatus==2?'#001529':'#1890ff'}}>处理中</Button>
-              <Button type="primary" onClick={()=>this.untreatedHandle(3)} style={{border:'none',background:this.state.handlestatus==3?'#001529':'#1890ff'}}>已结束</Button>
+            <Button
+              type="primary"
+              onClick={() => this.untreatedHandle("")}
+              style={{
+                marginLeft: "1%",
+                border: "none",
+                background: !this.state.handlestatus ? "#001529" : "#1890ff"
+              }}
+            >
+              全部
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => this.untreatedHandle(1)}
+              style={{
+                border: "none",
+                background:
+                  this.state.handlestatus === 1 ? "#001529" : "#1890ff"
+              }}
+            >
+              未处理
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => this.untreatedHandle(2)}
+              style={{
+                border: "none",
+                background:
+                  this.state.handlestatus === 2 ? "#001529" : "#1890ff"
+              }}
+            >
+              处理中
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => this.untreatedHandle(3)}
+              style={{
+                border: "none",
+                background:
+                  this.state.handlestatus === 3 ? "#001529" : "#1890ff"
+              }}
+            >
+              已结束
+            </Button>
           </Row>
         </div>
         <div style={{ width: "100%", height: "auto", textAlign: "center" }}>
@@ -279,7 +325,13 @@ class AlarmList extends Component {
                         <div className="poltop">
                           <Row className="pol polone">
                             <Col span={4}>{v.atime}</Col>
-                            <Col span={7} className="overflow" title={v.location}>{v.location}</Col>
+                            <Col
+                              span={7}
+                              className="overflow"
+                              title={v.location}
+                            >
+                              {v.location}
+                            </Col>
                             <Col span={6}>
                               <span>
                                 <Icon
