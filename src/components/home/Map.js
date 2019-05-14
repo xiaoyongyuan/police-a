@@ -3,9 +3,6 @@ import { post } from "../../axios/tools.js";
 import { Modal, Icon } from "antd";
 import axiosPro from "axios-jsonp-pro";
 import axios from "axios";
-import Bmaplib from "bmaplib";
-
-import BmapGeo from "bmaplib.geoutils";
 import redpoint from "../../style/jhy/imgs/redpoint.png";
 import greenpoint from "../../style/jhy/imgs/greenpoint.png";
 import graypoint from "../../style/jhy/imgs/graypoint.png";
@@ -36,7 +33,6 @@ class Map extends Component {
   };
   getMarkerList = () => {
     post({ url: "/api/camera_cop/getlist" }, res => {
-      console.log(res, "maplist");
       this.setState(
         {
           markerList: res.data,
@@ -79,39 +75,45 @@ class Map extends Component {
             fillOpacity: 0.2
           }); //建立多边形覆盖物
           map.addOverlay(ply); //添加覆盖物
-          map.addEventListener(
-            "click",
-            function(e) {
-              _this.pointLoc.value = `点击坐标：${JSON.stringify(
-                e.point
-              ).replace(/(\")*/gi, "")}`;
-              var lnglat = JSON.stringify(e.point)
-                .replace(/(\")*/gi, "")
-                .split(",");
+          // const blib = BMap.BMapLib.Geoutils();
+          // console.log(
+          //   blib,
+          //   "--------------------------------------------------"
+          // );
+          // var geoc = new BMap.Geocoder();
 
-              console.log(lnglat, "lnglat");
-              const lng = lnglat[0].slice(lnglat[0].indexOf(":") + 1);
-
-              const lat = lnglat[1].slice(
-                lnglat[1].indexOf(":") + 1,
-                lnglat[1].length - 1
-              );
-              // window.location.href = `http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=${lat},${lng}&output=json&pois=1&latest_admin=1&ak=QQQSNzjWxjygoRthTYQ9Gn4pbMkXEa9X`;
-              // map.centerAndZoom(new BMap.Point(lng, lat), 12);
-              // if (
-              //   Bmaplib.Geoutils.isPointInPolygon(new BMap.Point(lng, lat), ply)
-              // ) {
-              //如果点在区域内，返回true
-              // mp.addOverlay(new BMap.Marker(pt));
-              // msg = "在" + lname + "区域内";
-              //     alert(1);
-              //   } else {
-              //     // mp.addOverlay(new BMap.Marker(pt));
-              //     // msg = "在" + lname + "区域外";
-              //   }
-            },
-            true
-          );
+          // map.addEventListener(
+          //   "click",
+          //   function(e) {
+          //
+          // if (
+          //   Bmaplib.Geoutils.isPointInPolygon(new BMap.Point(lng, lat), ply)
+          // ) {
+          //如果点在区域内，返回true
+          // mp.addOverlay(new BMap.Marker(pt));
+          // msg = "在" + lname + "区域内";
+          //     alert(1);
+          //   } else {
+          //     // mp.addOverlay(new BMap.Marker(pt));
+          //     // msg = "在" + lname + "区域外";
+          //   }
+          //     var pt = e.point;
+          //     geoc.getLocation(pt, function(rs) {
+          //       var addComp = rs.addressComponents;
+          //       _this.pointLoc.value = `点击坐标：${JSON.stringify(
+          //         e.point
+          //       ).replace(/(\")*/gi, "")}  详细地址：${addComp.province},
+          //           ${addComp.city},${addComp.district},${addComp.street},${
+          //         addComp.streetNumber
+          //       }`;
+          //       map.centerAndZoom(
+          //         new BMap.Point(rs.point.lng, rs.point.lat),
+          //         12
+          //       );
+          //     });
+          //   },
+          //   true
+          // );
         }
       });
     };
@@ -138,7 +140,6 @@ class Map extends Component {
             { url: "/api/camera_cop/getone", data: { code: v.code } },
             res => {
               if (res.success) {
-                console.log(res, "huoquyige");
                 _this.setState({
                   equipdat: Object.assign({}, res.data, res.alarm, {
                     prestatus:
@@ -181,7 +182,7 @@ class Map extends Component {
     return (
       <Fragment>
         <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
-        <input
+        {/* <input
           className="pointLoc"
           style={{
             width: "300px",
@@ -199,7 +200,7 @@ class Map extends Component {
           ref={pointLoc => {
             this.pointLoc = pointLoc;
           }}
-        />
+        /> */}
 
         <div
           className="layerdatail"

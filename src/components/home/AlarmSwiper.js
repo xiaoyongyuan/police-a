@@ -125,7 +125,7 @@ class AlarmSwiper extends Component {
           ) : (
             <div className="nodata">
               <img src={nodata} alt="" />
-              <p style={{ textAlign: "center" }}>暂无数据</p>
+              <p style={{ textAlign: "center", color: "#fff" }}>暂无数据</p>
             </div>
           )}
         </div>
