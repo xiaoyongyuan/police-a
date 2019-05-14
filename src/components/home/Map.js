@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { post } from "../../axios/tools.js";
 import { Modal, Icon } from "antd";
-import axiosPro from "axios-jsonp-pro";
-import axios from "axios";
 import redpoint from "../../style/jhy/imgs/redpoint.png";
 import greenpoint from "../../style/jhy/imgs/greenpoint.png";
 import graypoint from "../../style/jhy/imgs/graypoint.png";
@@ -47,6 +45,7 @@ class Map extends Component {
   };
   initializeMap = _this => {
     var BMap = window.BMap;
+
     var map = new BMap.Map("mapContainer"); // 创建Map实例
     var mapStyle = { style: "midnight" };
     map.setMapStyle(mapStyle);
@@ -59,7 +58,7 @@ class Map extends Component {
     map.setCurrentCity(defpoint);
     map.setDefaultCursor("point");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-
+    map.enableContinuousZoom(); //开启缩放平滑
     const getBoundary = () => {
       var bdary = new BMap.Boundary();
       bdary.get(defpoint, function(rs) {
@@ -75,45 +74,43 @@ class Map extends Component {
             fillOpacity: 0.2
           }); //建立多边形覆盖物
           map.addOverlay(ply); //添加覆盖物
-          // const blib = BMap.BMapLib.Geoutils();
-          // console.log(
-          //   blib,
-          //   "--------------------------------------------------"
-          // );
-          // var geoc = new BMap.Geocoder();
+          const BMapLib = window.BMapLib;
+          var geoc = new BMap.Geocoder();
 
-          // map.addEventListener(
-          //   "click",
-          //   function(e) {
-          //
-          // if (
-          //   Bmaplib.Geoutils.isPointInPolygon(new BMap.Point(lng, lat), ply)
-          // ) {
-          //如果点在区域内，返回true
-          // mp.addOverlay(new BMap.Marker(pt));
-          // msg = "在" + lname + "区域内";
-          //     alert(1);
-          //   } else {
-          //     // mp.addOverlay(new BMap.Marker(pt));
-          //     // msg = "在" + lname + "区域外";
-          //   }
-          //     var pt = e.point;
-          //     geoc.getLocation(pt, function(rs) {
-          //       var addComp = rs.addressComponents;
-          //       _this.pointLoc.value = `点击坐标：${JSON.stringify(
-          //         e.point
-          //       ).replace(/(\")*/gi, "")}  详细地址：${addComp.province},
-          //           ${addComp.city},${addComp.district},${addComp.street},${
-          //         addComp.streetNumber
-          //       }`;
-          //       map.centerAndZoom(
-          //         new BMap.Point(rs.point.lng, rs.point.lat),
-          //         12
-          //       );
-          //     });
-          //   },
-          //   true
-          // );
+          map.addEventListener(
+            "click",
+            function(e) {
+              var lnglat = JSON.stringify(e.point)
+                .replace(/(\")*/gi, "")
+                .split(",");
+
+              var lng = lnglat[0].slice(lnglat[0].indexOf(":") + 1);
+
+              var lat = lnglat[1].slice(
+                lnglat[1].indexOf(":") + 1,
+                lnglat[1].length - 1
+              );
+              if (
+                BMapLib.GeoUtils.isPointInPolygon(new BMap.Point(lng, lat), ply)
+              ) {
+                map.centerAndZoom(new BMap.Point(lng, lat), 12);
+              } else {
+                return;
+              }
+              var pt = e.point;
+              geoc.getLocation(pt, function(rs) {
+                var addComp = rs.addressComponents;
+                _this.pointLoc.value = `点击坐标：${JSON.stringify(
+                  e.point
+                ).replace(/(\")*/gi, "")}`;
+                _this.pointAdre.value = `详细地址：${addComp.province}
+                    ${addComp.city}${addComp.district}${addComp.street}${
+                  addComp.streetNumber
+                }`;
+              });
+            },
+            true
+          );
         }
       });
     };
@@ -182,26 +179,44 @@ class Map extends Component {
     return (
       <Fragment>
         <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
-        {/* <input
+        <div
           className="pointLoc"
           style={{
             width: "300px",
-            height: "40px",
-            display: "inlineBlock",
+            height: "54px",
             position: "absolute",
             top: "22px",
             right: "170px",
-            background: "#e7ebed",
-            padding: "5px",
-            outline: "none",
-            border: "none"
+            background: "#e7ebed"
           }}
-          readOnly={true}
-          ref={pointLoc => {
-            this.pointLoc = pointLoc;
-          }}
-        /> */}
-
+        >
+          <input
+            style={{
+              display: "block",
+              width: "100%",
+              padding: "5px 5px 0 5px",
+              outline: "none",
+              border: "none"
+            }}
+            readOnly={true}
+            ref={pointLoc => {
+              this.pointLoc = pointLoc;
+            }}
+          />
+          <input
+            style={{
+              display: "block",
+              width: "100%",
+              padding: "5px 5px 0 5px",
+              outline: "none",
+              border: "none"
+            }}
+            readOnly={true}
+            ref={pointAdre => {
+              this.pointAdre = pointAdre;
+            }}
+          />
+        </div>
         <div
           className="layerdatail"
           style={{
