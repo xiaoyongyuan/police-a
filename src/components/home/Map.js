@@ -101,7 +101,7 @@ class Map extends Component {
       var pt = e.point;
       geoc.getLocation(pt, function(rs) {
         var addComp = rs.addressComponents;
-        console.log(addComp, "-------------------");
+        _this.pointLoc.style.display = "inline-block";
         _this.pointLoc.value = `点击坐标：${JSON.stringify(e.point).replace(
           /(")*/gi,
           ""
@@ -182,10 +182,10 @@ class Map extends Component {
             top: "22px",
             right: "170px",
             background: "#e7ebed",
-            display: "block",
             padding: "5px",
             outline: "none",
-            border: "none"
+            border: "none",
+            display: "none"
           }}
           readOnly={true}
           ref={pointLoc => {

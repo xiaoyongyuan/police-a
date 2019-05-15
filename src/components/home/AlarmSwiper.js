@@ -51,7 +51,8 @@ class AlarmSwiper extends Component {
             style={{
               overflow: "hidden",
               textOverflow: "ellipsis",
-              whiteSpace: "nowrap"
+              whiteSpace: "nowrap",
+              maxWidth: "100%"
             }}
           >
             {loc.split(",")[1]}
@@ -64,7 +65,8 @@ class AlarmSwiper extends Component {
             style={{
               overflow: "hidden",
               textOverflow: "ellipsis",
-              whiteSpace: "nowrap"
+              whiteSpace: "nowrap",
+              maxWidth: "100%"
             }}
           >
             {loc}
@@ -78,7 +80,8 @@ class AlarmSwiper extends Component {
           style={{
             overflow: "hidden",
             textOverflow: "ellipsis",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
+            maxWidth: "100%"
           }}
         >
           {loc}
