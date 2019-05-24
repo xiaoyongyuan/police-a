@@ -44,10 +44,6 @@
   display: inherit;
 }
 
-.shortVideo .spin .ant-spin-dot i {
-  background-color: #1890ff;
-}
-
 .shortVideo .shortVNdata {
   margin: 0 auto;
   display: block;
