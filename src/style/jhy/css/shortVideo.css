@@ -40,6 +40,10 @@
   margin: 0;
 }
 
+.shortVideo .ant-spin-dot-item {
+  background: #fff;
+}
+
 .shortVideo .spin {
   display: inherit;
 }
