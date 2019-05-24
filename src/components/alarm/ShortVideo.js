@@ -81,7 +81,6 @@ class ShortVideo extends Component {
             spinning={this.state.spinning}
             size="large"
             className="spin"
-            tip="加载中..."
             delay={500}
           />
           {this.state.videolist.length > 0 ? (
