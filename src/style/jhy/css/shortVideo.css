@@ -40,6 +40,10 @@
   margin: 0;
 }
 
+.videotit p {
+  width: 90%;
+}
+
 .shortVideo .ant-spin-dot-item {
   background: #fff;
 }

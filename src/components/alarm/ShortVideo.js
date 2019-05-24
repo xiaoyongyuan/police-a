@@ -100,7 +100,7 @@ class ShortVideo extends Component {
                   />
                   <div className="videotit">
                     {this.locationtype(item.location)}
-                    <p>{item.atime}</p>
+                    <p className="elli">{item.atime}</p>
                     <Icon
                       type="fullscreen"
                       className="arrowbtn"
