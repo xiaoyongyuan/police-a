@@ -1,26 +1,28 @@
 import React, { Component } from "react";
-import { Row, Col, Modal, Icon } from "antd";
+import { Row, Col, Modal, Icon, Spin } from "antd";
 import { post } from "../../axios/tools";
 import "../../style/jhy/css/shortVideo.css";
+import nodata from "../../style/imgs/nodata.png";
 
 class ShortVideo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       videolist: [],
-      visible: false
+      visible: false,
+      spinning: true
     };
     this.handleModal = this.handleModal.bind(this);
     this.cancelModal = this.cancelModal.bind(this);
   }
   componentDidMount() {
     post({ url: "/api/alarm_cop/getlist_video" }, res => {
-      this.setState(
-        {
-          videolist: res.data
-        },
-        () => {}
-      );
+      if (res.success) {
+        this.setState({
+          videolist: res.data,
+          spinning: false
+        });
+      }
     });
     localStorage.setItem("vidtit", "");
     localStorage.setItem("vidpath", "");
@@ -59,7 +61,6 @@ class ShortVideo extends Component {
               window.location.href = "/#/app/home/HoneIndex";
             }}
             style={{
-              // position: "absolute",
               right: "20px",
               top: "20px",
               background: "rgba(255,255,255,.9)",
@@ -76,40 +77,49 @@ class ShortVideo extends Component {
           </button>
         </Row>
         <Row>
-          {this.state.videolist.length > 0
-            ? this.state.videolist.map((item, index) => {
-                return (
-                  <Col
-                    xl={6}
-                    xxl={4}
-                    key={item.code.toString()}
-                    className="vidwrap"
-                  >
-                    <video
-                      src={item.videopath ? item.videopath : null}
-                      style={{ width: "100%", height: "100%" }}
-                      loop="loop"
-                      autoPlay="autoplay"
+          <Spin
+            spinning={this.state.spinning}
+            size="large"
+            className="spin"
+            tip="加载中..."
+            delay={500}
+          />
+          {this.state.videolist.length > 0 ? (
+            this.state.videolist.map((item, index) => {
+              return (
+                <Col
+                  xl={6}
+                  xxl={4}
+                  key={item.code.toString()}
+                  className="vidwrap"
+                >
+                  <video
+                    src={item.videopath ? item.videopath : null}
+                    style={{ width: "100%", height: "100%" }}
+                    loop="loop"
+                    autoPlay="autoplay"
+                  />
+                  <div className="videotit">
+                    {this.locationtype(item.location)}
+                    <p>{item.atime}</p>
+                    <Icon
+                      type="fullscreen"
+                      className="arrowbtn"
+                      style={{
+                        padding: "8px",
+                        fontSize: "20px"
+                      }}
+                      onClick={() =>
+                        this.handleModal(item.name, item.videopath)
+                      }
                     />
-                    <div className="videotit">
-                      {this.locationtype(item.location)}
-                      <p>{item.atime}</p>
-                      <Icon
-                        type="fullscreen"
-                        className="arrowbtn"
-                        style={{
-                          padding: "8px",
-                          fontSize: "20px"
-                        }}
-                        onClick={() =>
-                          this.handleModal(item.name, item.videopath)
-                        }
-                      />
-                    </div>
-                  </Col>
-                );
-              })
-            : null}
+                  </div>
+                </Col>
+              );
+            })
+          ) : (
+            <img src={nodata} alt="" className="shortVNdata" />
+          )}
           <Modal
             title={`设备名称: ${localStorage.getItem("vidtit")}`}
             visible={this.state.visible}

@@ -20,7 +20,6 @@ class Map extends Component {
   }
   componentDidMount() {
     this.getMarkerList();
-    
   }
   momenttime = bdate => {
     if (!bdate) return false;
@@ -65,8 +64,7 @@ class Map extends Component {
       var bdary = new BMap.Boundary();
       bdary.get(defpoint, function(rs) {
         //获取行政区域
-        console.log("dian", rs.boundaries);
-        
+
         var count = rs.boundaries.length; //行政区域的点有多少个
 
         for (var i = 0; i < count; i++) {
@@ -84,38 +82,34 @@ class Map extends Component {
     };
 
     getBoundary();
-    const BMapLib = window.BMapLib;
-    var geoc = new BMap.Geocoder();
+    // const BMapLib = window.BMapLib;
+    // var geoc = new BMap.Geocoder();
 
-    map.addEventListener("click", function(e) {
-      var lnglat = JSON.stringify(e.point)
-        .replace(/(")*/gi, "")
-        .split(",");
+    // map.addEventListener("click", function(e) {
+    //   var lnglat = JSON.stringify(e.point)
+    //     .replace(/(")*/gi, "")
+    //     .split(",");
 
-      var lng = lnglat[0].slice(lnglat[0].indexOf(":") + 1);
+    //   var lng = lnglat[0].slice(lnglat[0].indexOf(":") + 1);
 
-      var lat = lnglat[1].slice(
-        lnglat[1].indexOf(":") + 1,
-        lnglat[1].length - 1
-      );
-      map.centerAndZoom(new BMap.Point(lng, lat), 12);
-      // if (BMapLib.GeoUtils.isPointInPolygon(new BMap.Point(lng, lat), ply)) {
-      // } else {
-      //   return;
-      // }
-      var pt = e.point;
-      geoc.getLocation(pt, function(rs) {
-        var addComp = rs.addressComponents;
-        _this.pointLoc.style.display = "inline-block";
-        _this.pointLoc.value = `点击坐标：${JSON.stringify(e.point).replace(
-          /(")*/gi,
-          ""
-        )}  详细地址：${addComp.province}${addComp.city}${addComp.district}${
-          addComp.street
-        }${addComp.streetNumber}`;
-      });
-    });
-
+    //   var lat = lnglat[1].slice(
+    //     lnglat[1].indexOf(":") + 1,
+    //     lnglat[1].length - 1
+    //   );
+    //   map.centerAndZoom(new BMap.Point(lng, lat), 12);
+    //   var pt = e.point;
+    //   //回填解析坐标
+    //   geoc.getLocation(pt, function(rs) {
+    //     var addComp = rs.addressComponents;
+    //     _this.pointLoc.style.display = "inline-block";
+    //     _this.pointLoc.value = `点击坐标：${JSON.stringify(e.point).replace(
+    //       /(")*/gi,
+    //       ""
+    //     )}  详细地址：${addComp.province}${addComp.city}${addComp.district}${
+    //       addComp.street
+    //     }${addComp.streetNumber}`;
+    //   });
+    // });
 
     if (this.state.markerList && this.state.markerList.length > 0) {
       this.state.markerList.map((v, i) => {
@@ -180,7 +174,7 @@ class Map extends Component {
     return (
       <Fragment>
         <div id="mapContainer" style={{ width: "100%", height: "100%" }} />
-        <input
+        {/* <input
           className="pointLoc"
           style={{
             width: "570px",
@@ -198,7 +192,7 @@ class Map extends Component {
           ref={pointLoc => {
             this.pointLoc = pointLoc;
           }}
-        />
+        /> */}
         <div
           className="layerdatail"
           style={{

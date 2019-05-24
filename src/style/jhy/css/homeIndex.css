@@ -168,12 +168,12 @@
     height: 100%;
 }
 
-.nodata {
+.a_nodata {
     margin: 0 auto;
     margin-top: 3%;
 }
 
-.nodata img {
+.a_nodata img {
     display: inline-block;
     max-width: 100%;
     height: auto;

@@ -29,14 +29,12 @@ class AlarmSwiper extends Component {
     });
     post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
       if (res.success) this.setState({ alarmList: res.data });
-
-      this.dynamicc = setInterval(() => {
-        post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
-          if (res.success) this.setState({ alarmList: res.data });
-          this.setState({ alarmList: res.data });
-        });
-      }, 1000 * 5);
     });
+    this.dynamicc = setInterval(() => {
+      post({ url: "/api/alarmhandle_cop/gets_ten" }, res => {
+        if (res.success) this.setState({ alarmList: res.data });
+      });
+    }, 1000 * 5);
   }
 
   componentWillUnmount() {
@@ -47,7 +45,7 @@ class AlarmSwiper extends Component {
       if (loc.indexOf(",") > 0) {
         return (
           <p
-            className="elli alarmloc "
+            className=" alarmloc "
             style={{
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -61,7 +59,7 @@ class AlarmSwiper extends Component {
       } else {
         return (
           <p
-            className="elli alarmloc "
+            className=" alarmloc "
             style={{
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -76,7 +74,7 @@ class AlarmSwiper extends Component {
     } else {
       return (
         <p
-          className="elli alarmloc "
+          className=" alarmloc "
           style={{
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -126,7 +124,7 @@ class AlarmSwiper extends Component {
               </div>
             ))
           ) : (
-            <div className="nodata">
+            <div className="a_nodata">
               <img src={nodata} alt="" />
               <p style={{ textAlign: "center", color: "#fff" }}>暂无数据</p>
             </div>

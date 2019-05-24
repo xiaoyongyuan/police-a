@@ -11,11 +11,7 @@
   overflow-y: auto;
 }
 
-.shortVideo img {
-  display: inline-block;
-  width: 100%;
-  height: auto;
-}
+
 
 .vidwrap {
   padding: 5px;
@@ -42,6 +38,19 @@
 
 .ant-layout .videotit p {
   margin: 0;
+}
+
+.shortVideo .spin {
+  display: inherit;
+}
+
+.shortVideo .spin .ant-spin-dot i {
+  background-color: #1890ff;
+}
+
+.shortVideo .shortVNdata {
+  margin: 0 auto;
+  display: block;
 }
 
 @media screen and (max-width: 1600px) {
