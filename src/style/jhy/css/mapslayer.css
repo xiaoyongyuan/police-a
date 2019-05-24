@@ -4,7 +4,7 @@
   right: 0;
   width: 300px;
   padding: 10px 20px;
-  height: 78%;
+  height: auto;
   background-color: #fff;
   z-index: 10;
 }
